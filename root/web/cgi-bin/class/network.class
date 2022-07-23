@@ -1,0 +1,1657 @@
+<?php
+
+class CIPv4AddressConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'       =>array('value' =>0,  'type'=>'c1'),
+								'Type'          =>array('value' =>0,  'type'=>'c1'),
+								'StaticIpAddr'  =>array('value' =>'', 'type'=>'a32'),
+								'DynamicIpAddr' =>array('value' =>'', 'type'=>'a32'),
+								'SubnetMask'    =>array('value' =>'', 'type'=>'a32'),
+								'Gateway'       =>array('value' =>'', 'type'=>'a32'));
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			case 'Type':	
+			case 'StaticIpAddr':
+			case 'DynamicIpAddr':
+			case 'SubnetMask':
+			case 'Gateway':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			case 'Type':	
+			case 'StaticIpAddr':
+			case 'DynamicIpAddr':
+			case 'SubnetMask':
+			case 'Gateway':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+class CIPv6AddressConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('reserved'=> array('value'=>'', 'type'=>'a64'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'reserved':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'reserved':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CDnsInfomation
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('SearchDomain'    =>array('value'=>'', 'type'=>'a64'),
+								'Type'            =>array('value'=>0,  'type'=>'c1'),
+								'DNSManualAddr0'  =>array('value'=>'', 'type'=>'a32'),
+								'DNSManualAddr1'  =>array('value'=>'', 'type'=>'a32'),
+								'DNSDynamicAddr0' =>array('value'=>'', 'type'=>'a32'),
+								'DNSDynamicAddr1' =>array('value'=>'', 'type'=>'a32'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'SearchDomain':	
+			case 'Type':
+			case 'DNSManualAddr0':
+			case 'DNSManualAddr1':
+			case 'DNSDynamicAddr0':
+			case 'DNSDynamicAddr1':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'SearchDomain':	
+			case 'Type':
+			case 'DNSManualAddr0':
+			case 'DNSManualAddr1':
+			case 'DNSDynamicAddr0':
+			case 'DNSDynamicAddr1':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CZeroConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('InterfaceToken' => array('value' => '', 'type' => 'a64'),
+								'Enabled'        => array('value' => 0, 'type'  => 'c1'),
+								'Addr'           => array('value' => '', 'type' => 'a32'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'InterfaceToken':	
+			case 'Enabled':
+			case 'Addr':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'InterfaceToken':	
+			case 'Enabled':
+			case 'Addr':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CNetworkProtocol
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled' => array('value' => 0, 'type' => 'c1'),
+								'Port'    => array('value' => 0, 'type' => 'i1'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Port':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Port':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CNetworkProtocols
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	public      $Protocol;
+	
+	function __construct() 
+	{
+		$this->packFormat = '';
+		for ($index=0; $index<MAX_NETWORK_PROTOCOL; ++$index)
+		{
+			$this->Protocol[$index] = new CNetworkProtocol();
+			$this->payloadLength += $this->Protocol[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Protocol',
+				$this->Protocol[0]->payloadLength, MAX_NETWORK_PROTOCOL);
+	}
+
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_NETWORK_PROTOCOL; ++$index)
+		{
+			$this->Protocol[$index]->SetPayload();
+			$this->payload .= $this->Protocol[$index]->payload;
+		}	
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_NETWORK_PROTOCOL; ++$index)
+		{		
+			$this->Protocol[$index]->UnpackDataInfo($_dataArray['Protocol'.$index]);
+		}
+		$this->SetPayload();
+	}	
+}
+
+
+class CNTPInformation
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Index'   => array('value' => 0, 'type'  => 'i1'),
+		                        'Address' => array('value' => '', 'type' => 'a60'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'Index':
+			case 'Address':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'Index':
+			case 'Address':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CDDNSInformation
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'     => array('value' => 0, 'type'  => 'c1'),
+								'Type'        => array('value' => 0, 'type'  => 'c1'),
+								'HostName'    => array('value' => '', 'type' => 'a64'),
+								'UserId'      => array('value' => '', 'type' => 'a32'),
+								'Password'    => array('value' => '', 'type' => 'a32'),
+								'ServiceAddr' => array('value' => '', 'type' => 'a32'));
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Type':
+			case 'HostName':
+			case 'UserId':
+			case 'Password':
+			case 'ServiceAddr':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Type':
+			case 'HostName':
+			case 'UserId':
+			case 'Password':
+			case 'ServiceAddr':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CSmtpSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'      =>  array('value'=>0,   'type'=>'c1'),
+		                        'SSL_Enabled'  =>  array('value'=>0,   'type'=>'c1'),
+		                        'Server'       =>  array('value'=>'',  'type'=>'a64'),
+								'Port'         =>  array('value'=>0,   'type'=>'i1'),
+								'SSL_Port'     =>  array('value'=>0,   'type'=>'i1'),
+								'AuthNeeded'   =>  array('value'=>0,   'type'=>'c1'),
+								'Username'     =>  array('value'=>'',  'type'=>'a32'),
+								'Password'     =>  array('value'=>'',  'type'=>'a32'),
+								'Sender'       =>  array('value'=>'',  'type'=>'a64'),
+								'Receiver'     =>  array('value'=>'',  'type'=>'a128'),
+								'Subject'      =>  array('value'=>'',  'type'=>'a128'),
+								'Body'         =>  array('value'=>'',  'type'=>'a256'),
+								'Status'       =>  array('value'=>0,   'type'=>'i1'),
+								'DetailedInfo' =>  array('value'=>0,   'type'=>'c1'),
+								'CameraName'   =>  array('value'=>0,   'type'=>'c1'),
+								'EventRuleName'   =>  array('value'=>0,   'type'=>'c1')
+								);
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'SSL_Enabled':
+			case 'Server':
+			case 'Port':
+			case 'SSL_Port':
+			case 'AuthNeeded':
+			case 'Username':
+			case 'Password':
+			case 'Sender':
+			case 'Receiver':
+			case 'Subject':
+			case 'Body':
+			case 'Status':
+			case 'DetailedInfo':
+			case 'CameraName':
+			case 'EventRuleName':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'SSL_Enabled':
+			case 'Server':
+			case 'Port':
+			case 'SSL_Port':
+			case 'AuthNeeded':
+			case 'Username':
+			case 'Password':
+			case 'Sender':
+			case 'Receiver':
+			case 'Subject':
+			case 'Body':
+			case 'Status':
+			case 'DetailedInfo':
+			case 'CameraName':
+			case 'EventRuleName':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+if(!class_exists("CFtpSetting"))
+{
+	class CFtpSetting
+	{
+		public 	$command;
+		public 	$payload;
+		public  $payloadLength;
+		public	$dataInfo;
+		public  $packFormat;
+
+		function __construct() 
+		{
+			$this->dataInfo = array('Enabled'             =>  array('value'=>0,   'type'=>'c1'),
+					                'Server'              =>  array('value'=>'',  'type'=>'a64'),
+					                'Directory'           =>  array('value'=>'',  'type'=>'a256'),
+					                'Port'                =>  array('value'=>0,   'type'=>'i1'),
+					                'Username'            =>  array('value'=>'',  'type'=>'a32'),
+					                'Password'            =>  array('value'=>'',  'type'=>'a32'),
+					                'PassiveModeEnabled'  =>  array('value'=>0,   'type'=>'c1'),
+													'Status'              =>  array('value'=>0,   'type'=>'i1'),
+													'AutoUpdate'          =>  array('value'=>0,   'type'=>'c1'),
+													'Interval'            =>  array('value'=>0,   'type'=>'i1')
+												);
+
+			$this->payloadLength = GetDataInfoLength($this->dataInfo);
+			$this->packFormat 	= MakeDataFormat($this->dataInfo);
+		}
+
+		function __get($name)
+		{
+			switch($name)
+			{
+				case 'Enabled':
+				case 'Server':
+				case 'Directory':
+				case 'Port':
+				case 'Username':
+				case 'Password':
+				case 'PassiveModeEnabled':
+				case 'Status':
+				case 'AutoUpdate':
+				case 'Interval':
+					{
+						return $this->dataInfo[$name]['value'];
+					}
+					break;
+			}	
+		}
+
+		function __set($name,  $val) 
+		{
+			switch($name)
+			{
+				case 'Enabled':
+				case 'Server':
+				case 'Directory':
+				case 'Port':
+				case 'Username':
+				case 'Password':
+				case 'PassiveModeEnabled':	
+				case 'Status':
+				case 'AutoUpdate':
+				case 'Interval':
+					{
+						$this->dataInfo[$name]['value'] = $val;
+					}
+					break;
+			}		
+		}
+
+		function __destruct() 
+		{
+		}
+
+		// arrayed data info binary string
+		function SetPayload()
+		{
+			$this->command = 0;
+			$this->payload = '';
+			$this->payload .= MakePayload($this->dataInfo);		
+		}		
+		// Binary string into arrayed data
+		function UnpackDataInfo($_dataArray)
+		{
+			if (is_string($_dataArray)) 
+			{
+				$_dataArray = unpack($this->packFormat, $_dataArray);
+			}
+			SetDataInfo($this, $_dataArray);
+			$this->SetPayload();
+		}	
+	}
+}
+class CSnmpv1
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled_V1' => array('value' => 0,'type' => 'c1')
+		);	
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled_V1':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled_V1':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+class CSnmpv2
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled_V2' => array('value' => 0,   'type' => 'c1'),
+								'RoComName'  => array('value' => '',  'type' => 'a32'),
+							    'RwComName'  => array('value' => '',  'type' => 'a32'),
+							    'Enabled_Trap'  => array('value' => 0,  'type' => 'c1'),
+							    'TrapServer'  => array('value' => '',  'type' => 'a64'),
+							    'TrapComName'  => array('value' => '',  'type' => 'a32'),	
+							    'TrapPort'  => array('value' => 0,  'type' => 'i1')				    
+							);	
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled_V2':	
+			case 'RoComName':
+			case 'RwComName':
+			case 'Enabled_Trap':	
+			case 'TrapServer':
+			case 'TrapComName':		
+			case 'TrapPort':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled_V2':	
+			case 'RoComName':
+			case 'RwComName':	
+			case 'Enabled_Trap':	
+			case 'TrapServer':
+			case 'TrapComName':		
+			case 'TrapPort':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+class CSnmpv3
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('RoEnabled_V3' => array('value' => 0,   'type' => 'c1'),
+								'RoUserName'   => array('value' => '',  'type' => 'a32'),
+								'RoSecuLevel'  => array('value' => 0,   'type' => 'c1'),
+							    'RoAuthAlg'    => array('value' => 0,   'type' => 'c1'),
+								'RoAuthName'   => array('value' => '',  'type' => 'a32'),
+								'RoPriAlg'     => array('value' => 0,   'type' => 'c1'),
+								'RoPriName'    => array('value' => '',  'type' => 'a32'),
+								'RwEnabled_V3' => array('value' => 0,   'type' => 'c1'),
+								'RwUserName'   => array('value' => '',  'type' => 'a32'),
+								'RwSecuLevel'  => array('value' => 0,   'type' => 'c1'),
+							    'RwAuthAlg'    => array('value' => 0,   'type' => 'c1'),
+								'RwAuthName'   => array('value' => '',  'type' => 'a32'),
+								'RwPriAlg'     => array('value' => 0,   'type' => 'c1'),
+								'RwPriName'    => array('value' => '',  'type' => 'a32')
+							);	
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'RoEnabled_V3':	
+			case 'RoUserName':
+			case 'RoSecuLevel':
+			case 'RoAuthAlg':
+			case 'RoAuthName':
+			case 'RoPriAlg':
+			case 'RoPriName':
+			case 'RwEnabled_V3':	
+			case 'RwUserName':
+			case 'RwSecuLevel':
+			case 'RwAuthAlg':
+			case 'RwAuthName':
+			case 'RwPriAlg':
+			case 'RwPriName':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'RoEnabled_V3':	
+			case 'RoUserName':
+			case 'RoSecuLevel':
+			case 'RoAuthAlg':
+			case 'RoAuthName':
+			case 'RoPriAlg':
+			case 'RoPriName':
+			case 'RwEnabled_V3':	
+			case 'RwUserName':
+			case 'RwSecuLevel':
+			case 'RwAuthAlg':
+			case 'RwAuthName':
+			case 'RwPriAlg':
+			case 'RwPriName':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+class CSnmpSetting
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public	$Snmpv1;
+	public	$Snmpv2;
+	public	$Snmpv3;
+	
+	function __construct() 
+	{
+
+		$this->Snmpv1 = new CSnmpv1();
+		$this->Snmpv2 = new CSnmpv2();
+		$this->Snmpv3 = new CSnmpv3();		
+
+		$this->dataInfo = array('reserved'=> array('value'=>'', 'type'=>'a32') );	
+		
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += $this->Snmpv1->payloadLength;	
+		$this->payloadLength += $this->Snmpv2->payloadLength;	
+		$this->payloadLength += $this->Snmpv3->payloadLength;	
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo).
+			'a'.$this->Snmpv1->payloadLength.'Snmpv1'.'/'.
+			'a'.$this->Snmpv2->payloadLength.'Snmpv2'.'/'.
+			'a'.$this->Snmpv3->payloadLength.'Snmpv3';
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'reserved':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'reserved':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->Snmpv1->SetPayload();
+		$this->Snmpv2->SetPayload();
+		$this->Snmpv3->SetPayload();
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		$this->payload .= $this->Snmpv1->payload.$this->Snmpv2->payload.$this->Snmpv3->payload;		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Snmpv1->UnpackDataInfo($_dataArray['Snmpv1']);
+		$this->Snmpv2->UnpackDataInfo($_dataArray['Snmpv2']);
+   		$this->Snmpv3->UnpackDataInfo($_dataArray['Snmpv3']);
+		$this->SetPayload();
+
+		
+	}	
+}
+class CiNodeSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Type'      => array('value' => '', 'type' => 'i1')
+		);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Type':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+class CMTUSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Value'      => array('value' => '', 'type' => 'i1')
+		);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Value':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+class CHTTPAction
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'      =>  array('value'=>0,   'type'=>'c1'),
+		                        //'Name'       =>  array('value'=>'',  'type'=>'a64'),
+		                        'Description'       =>  array('value'=>'',  'type'=>'a64'),                                        
+		                        'Server'       =>  array('value'=>'',  'type'=>'a64'),
+								'Port'         =>  array('value'=>0,   'type'=>'i1'),
+								'Username'     =>  array('value'=>'',  'type'=>'a32'),
+								'Password'     =>  array('value'=>'',  'type'=>'a32'),
+								'Body'         =>  array('value'=>'',  'type'=>'a1024'),
+								'Status'       =>  array('value'=>0,   'type'=>'i1')
+								);
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			//case 'Name':
+            case 'Description':
+			case 'Server':
+			case 'Port':
+			case 'Username':
+			case 'Password':
+			case 'Body':
+			case 'Status':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			//case 'Name':
+            case 'Description':
+			case 'Server':
+			case 'Port':
+			case 'Username':
+			case 'Password':
+			case 'Body':
+			case 'Status':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+
+class CSRTPSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'      =>  array('value'=>0,   'type'=>'c1'),
+								'Protection_profile'         =>  array('value'=>0,   'type'=>'i1'),
+		                        'Master_key'       =>  array('value'=>'',  'type'=>'a64'),                                        
+		                        'Salt_key'       =>  array('value'=>'',  'type'=>'a64')
+								);
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+            case 'Protection_profile':
+			case 'Master_key':
+			case 'Salt_key':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+            case 'Protection_profile':
+			case 'Master_key':
+			case 'Salt_key':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+class CUpnpSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('reserved'     => array('value' => '', 'type' => 'a31'),
+								'Enabled'      => array('value' => '', 'type' => 'c1'),
+								'FriendlyName' => array('value' => '', 'type' => 'a32'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'reserved':
+			case 'Enabled':
+			case 'FriendlyName':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'reserved':	
+			case 'Enabled':
+			case 'FriendlyName':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+class CNetworkConfiguration
+{
+	private $shm_id;
+	
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public	$IPv4;
+	public	$IPv6;
+	public	$DNS;
+	public 	$ZeroConfig;
+	public 	$Protocols;
+	public 	$NTP;
+	public  $DDNS;
+	public  $SmtpSetting;
+	public  $FtpSetting;
+	public  $SnmpSetting;
+	public  $UpnpSetting;
+	public  $MTUSetting;
+	public  $iNodeSetting;
+    public  $HTTPAction;
+    public  $SRTPSetting;
+
+	function __construct($shmid = 0) 
+	{
+		$this->IPv4        = new CIPv4AddressConfiguration();
+		$this->IPv6        = new CIPv6AddressConfiguration();
+		$this->DNS         = new CDnsInfomation();
+		$this->ZeroConfig  = new CZeroConfiguration();
+		$this->Protocols   = new CNetworkProtocols();
+		$this->NTP         = new CNTPInformation();
+		$this->DDNS        = new CDDNSInformation();
+		$this->SmtpSetting = new CSmtpSetting();
+		$this->FtpSetting  = new CFtpSetting();
+		$this->SnmpSetting = new CSnmpSetting();
+		$this->UpnpSetting = new CUpnpSetting();
+    	$this->MTUSetting = new CMTUSetting();
+		$this->iNodeSetting = new CiNodeSetting();
+        $this->HTTPAction = new CHTTPAction();
+        $this->SRTPSetting = new CSRTPSetting();
+
+		$this->dataInfo = array('Token'     => array('value' => '', 'type' => 'a64'),
+		                        'HwAddress' => array('value' => '', 'type' => 'a32'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += $this->IPv4->payloadLength;	
+		$this->payloadLength += $this->IPv6->payloadLength;	
+		$this->payloadLength += $this->DNS->payloadLength;	
+		$this->payloadLength += $this->ZeroConfig->payloadLength;	
+		$this->payloadLength += $this->Protocols->payloadLength;	
+		$this->payloadLength += $this->NTP->payloadLength;
+		$this->payloadLength += $this->DDNS->payloadLength;
+		$this->payloadLength += $this->SmtpSetting->payloadLength;
+		$this->payloadLength += $this->FtpSetting->payloadLength;
+		$this->payloadLength += $this->SnmpSetting->payloadLength;
+		$this->payloadLength += $this->UpnpSetting->payloadLength;
+    	$this->payloadLength += $this->MTUSetting->payloadLength;
+		$this->payloadLength += $this->iNodeSetting->payloadLength;
+        $this->payloadLength += $this->HTTPAction->payloadLength;
+        $this->payloadLength += $this->SRTPSetting->payloadLength;
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo).
+			'a'.$this->IPv4->payloadLength.'IPv4'.'/'.
+			'a'.$this->IPv6->payloadLength.'IPv6'.'/'.
+			'a'.$this->DNS->payloadLength.'DNS'.'/'.
+			'a'.$this->ZeroConfig->payloadLength.'ZeroConfig'.'/'.
+			'a'.$this->Protocols->payloadLength.'Protocols'.'/'.
+			'a'.$this->NTP->payloadLength.'NTP'.'/'.
+			'a'.$this->DDNS->payloadLength.'DDNS'.'/'.
+			'a'.$this->SmtpSetting->payloadLength.'SmtpSetting'.'/'.
+			'a'.$this->FtpSetting->payloadLength.'FtpSetting'.'/'.
+			'a'.$this->SnmpSetting->payloadLength.'SnmpSetting'.'/'.
+			'a'.$this->UpnpSetting->payloadLength.'UpnpSetting'.'/'.
+      		'a'.$this->MTUSetting->payloadLength.'MTUSetting'.'/'.
+			'a'.$this->iNodeSetting->payloadLength.'iNodeSetting'.'/'.
+            'a'.$this->HTTPAction->payloadLength.'HTTPAction'.'/'.
+            'a'.$this->SRTPSetting->payloadLength.'SRTPSetting';            
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+			  exit;	
+
+			$shmid = $this->shm_id;  
+		}			
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_NETWORK*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'];	
+		$total_size      = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'CNetworkConfiguration failed: reason: data size is different'. $this->payloadLength. $total_size."\r\n";
+			exit;
+		}
+
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);		
+
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'HwAddress':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'HwAddress':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->IPv4->SetPayload();
+		$this->IPv6->SetPayload();
+		$this->DNS->SetPayload();
+		$this->ZeroConfig ->SetPayload();
+		$this->Protocols->SetPayload();
+		$this->NTP->SetPayload();
+		$this->DDNS->SetPayload();
+		$this->SmtpSetting->SetPayload();
+		$this->FtpSetting->SetPayload();
+		$this->SnmpSetting->SetPayload();
+		$this->UpnpSetting->SetPayload();
+		$this->MTUSetting->SetPayload();
+		$this->iNodeSetting->SetPayload();
+        $this->HTTPAction->SetPayload();
+        $this->SRTPSetting->SetPayload();
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		$this->payload .= $this->IPv4->payload.$this->IPv6->payload.$this->DNS->payload.$this->ZeroConfig->payload.$this->Protocols->payload;	
+		$this->payload .= $this->NTP->payload.$this->DDNS->payload.$this->SmtpSetting->payload.$this->FtpSetting->payload.$this->SnmpSetting->payload.$this->UpnpSetting->payload.$this->MTUSetting->payload.$this->iNodeSetting->payload.$this->HTTPAction->payload.$this->SRTPSetting->payload;
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->IPv4->UnpackDataInfo($_dataArray['IPv4']);
+		$this->IPv6->UnpackDataInfo($_dataArray['IPv6']);
+		$this->DNS->UnpackDataInfo($_dataArray['DNS']);
+		$this->ZeroConfig->UnpackDataInfo($_dataArray['ZeroConfig']);
+		$this->Protocols->UnpackDataInfo($_dataArray['Protocols']);
+		$this->NTP->UnpackDataInfo($_dataArray['NTP']);
+		$this->DDNS->UnpackDataInfo($_dataArray['DDNS']);
+		$this->SmtpSetting->UnpackDataInfo($_dataArray['SmtpSetting']);
+		$this->FtpSetting->UnpackDataInfo($_dataArray['FtpSetting']);
+		$this->SnmpSetting->UnpackDataInfo($_dataArray['SnmpSetting']);
+		$this->UpnpSetting->UnpackDataInfo($_dataArray['UpnpSetting']);
+		$this->MTUSetting->UnpackDataInfo($_dataArray['MTUSetting']);
+		$this->iNodeSetting->UnpackDataInfo($_dataArray['iNodeSetting']);
+        $this->HTTPAction->UnpackDataInfo($_dataArray['HTTPAction']);
+        $this->SRTPSetting->UnpackDataInfo($_dataArray['SRTPSetting']);
+
+		$this->SetPayload();
+	}		
+	function getRTSPPort()
+	{
+		echo $this->Protocols->Protocol[1]->Port;
+	}
+}
+
+?>

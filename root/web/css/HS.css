@@ -1,0 +1,34 @@
+html {
+	background: #718394; /* Old browsers */
+	background: -moz-linear-gradient(top,  #718394 0%, #9d7568 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#718394), color-stop(100%,#9d7568)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #718394 0%,#9d7568 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #718394 0%,#9d7568 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #718394 0%,#9d7568 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #718394 0%,#9d7568 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718394', endColorstr='#9d7568',GradientType=0 ); /* IE6-9 */
+
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+}
+
+#div_left #logo{
+    display: block;
+    height: 65px;
+    background-position-x: 10px !important;
+    background-position-y: 15px !important;
+    background: url("../images/HS_logo.png");
+    background-repeat: no-repeat;
+}
+
+#left_frame #logo{
+    display: block;
+    height: 78px;
+    background-position-x: 10px !important;
+    background-position-y: 15px !important;
+	background: url("../images/HS_logo.png");
+    background-repeat: no-repeat;
+    border-bottom : 1px solid #a0a0a0;
+}
+

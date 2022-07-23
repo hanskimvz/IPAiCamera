@@ -1,0 +1,132 @@
+/*.file{
+	display: inline-block;
+	position: relative;
+	z-index: 50;
+	width: 70px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	background-color: #4f4f4f;   
+	color:#fff;
+}*/
+
+.filebox {display:inline-block; margin-right: 10px;}
+
+.filebox label {
+	display: inline-block;
+	padding: .3em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
+.filebox input[type="file"] {  /* hide file field */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip:rect(0,0,0,0);
+	border: 0;
+}
+input[type="file"]:disabled +label {
+	border-color: #e8e8e8 !important;
+	background-color: #e8e8e8 !important;
+	opacity: 0.5;
+}
+input[type="file"]:hover +label {
+    background-color:	#ff1f2f;
+    border-color: #ff1f2f;
+}
+.filebox.disign_sel label {
+    color: #fff;
+  background-color: #b90000;
+  border-color: #b90000;
+}
+
+label#fw_status { margin-left: 140px; }
+label#fwfileInfo { margin-left: 140px; color:#000066;}
+input[type=file]{
+	display: inline-block;
+	right: 72px;
+	width:70px;
+	z-index: 51;
+	position: relative;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	-ms-filter: "alpha(opacity=0)";
+}
+#output{
+	padding: 5px;
+	font-size: 12px;
+}
+#output img {
+	border: 1px solid #DDD;
+	padding: 5px;
+}
+
+/* progress bar style */
+#progressbox {
+	display: none;
+	line-height: 20px;
+	text-align: center;
+	margin: 10px;
+	background-color: #fff;
+	height: 20px;
+	width: 400px;
+	border: 1px solid #b4b4b4;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 4px;
+}
+#progressbar {
+	height:inherit;
+	border-radius: 3px;
+	background-color: #740000;
+	width:1%;
+	-webkit-background-size: 30px 30px;
+	-moz-background-size: 30px 30px;
+	background-size: 30px 30px;			
+	background-image: -webkit-gradient(linear, left top, right bottom,
+		color-stop(.25, rgba(255, 255, 255, .35)), color-stop(.25, transparent),
+		color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .35)),
+		color-stop(.75, rgba(255, 255, 255, .35)), color-stop(.75, transparent),
+		to(transparent));
+	background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .35) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .35) 75%,
+		transparent 75%, transparent);
+	background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .35) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .35) 75%,
+		transparent 75%, transparent);
+	background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .35) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .35) 75%,
+		transparent 75%, transparent);
+	background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, .35) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .35) 75%,
+		transparent 75%, transparent);
+	background-image: linear-gradient(135deg, rgba(255, 255, 255, .35) 25%, transparent 25%,
+		transparent 50%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .35) 75%,
+		transparent 75%, transparent);      
+	-ms-animation: animate-stripes 3s linear infinite;
+	-webkit-animation: animate-stripes 3s linear infinite;
+	-moz-animation: animate-stripes 3s linear infinite; 
+}
+#progress_text{
+	display: inline-block;
+}
+#statustxt {
+	top:3px;
+	left:50%;
+	display:inline-block;
+	color: #000000;
+}
+@keyframes animate-stripes { 0% {background-position: 0 0;} 100% {background-position: 60px 0;} }
+@-ms-keyframes animate-stripes { 0% {background-position: 0 0;} 100% {background-position: 60px 0;}}
+@-webkit-keyframes animate-stripes { 0% {background-position: 0 0;} 100% {background-position: 60px 0;}}
+@-moz-keyframes animate-stripes {0% {background-position: 0 0;} 100% {background-position: 60px 0;}}

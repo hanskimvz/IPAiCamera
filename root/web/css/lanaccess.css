@@ -1,0 +1,103 @@
+html {
+    background: #718394; /* Old browsers */
+    background: -moz-linear-gradient(top,  #718394 0%, #9d7568 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#718394), color-stop(100%,#9d7568)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #718394 0%,#9d7568 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #718394 0%,#9d7568 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #718394 0%,#9d7568 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #718394 0%,#9d7568 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718394', endColorstr='#9d7568',GradientType=0 ); /* IE6-9 */
+
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+}
+
+#logo{
+    height:50px;
+    background: url("../images/LANACCESS_logo.png");
+    background-repeat:no-repeat;
+    background-size : 200px 50px;
+    margin-top : 10px;
+}
+#sub_menu li{
+    font-size: 10.5px;
+    padding-left: 0px;
+}
+#Factory_Reset {
+    font-size: 9.5px !important;
+}
+#contents .subtitle{
+    width: 160px;
+}
+#sub_contents .subtitle{
+    width: 160px;
+}
+#list_item1 .th1 {
+    width: 20% !important;
+}
+
+#result_table .th2 {
+    width: 10%;
+}
+
+#result_table .th3 {
+    width: 20% !important;
+}
+
+#result_table .th4 {
+    width: 30% !important;
+}
+
+#result_table .th5 {
+    width: 20% !important;
+}
+
+.headline #th1 {
+    width: 20% !important;
+}
+
+.headline #th2 {
+    width: 10% !important;
+}
+
+.headline #th3 {
+    width: 20% !important;
+}
+
+.headline #th4 {
+    width: 30% !important;
+}
+
+.headline #th5 {
+    width: 20% !important;
+}
+
+#re_login_btn {
+    width: 200px;
+}
+#left_frame {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: 215px;
+    height: 740px;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: -2px 15px 0px 15px;
+}
+#tabs {
+    height: 700px;
+    width: 495px;
+    float: left;
+    background-color: rgba(255,255,255, 0.6);
+    border: 0px;
+    padding: 20px;
+    margin: -2px 15px 0px 0px;
+}
+#change_pass {
+	width: 165px !important;
+}
+
+.secontent .subtitle {
+	width : 200px;
+}

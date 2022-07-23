@@ -1,0 +1,101 @@
+<?php
+class CiNodeConfiguration
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'                   => array('value'=>0,   'type'=>'c1'),
+								'Server'              		=> array('value'=>'',  'type'=>'a64'),
+								'Directory'           		=> array('value'=>'',  'type'=>'a256'),
+								'Port'              		=> array('value'=>0,   'type'=>'i1'),
+								'Username'          		=> array('value'=>'',  'type'=>'a32'),
+								'Password'          		=> array('value'=>'',  'type'=>'a32'),
+								'Type'      				=> array('value' => '', 'type' => 'i1'),
+								'numofimg'     				=> array('value' => 0, 'type' => 'c1'),
+								'preduration' 				=> array('value' => 0, 'type' => 'c1'),
+								'postduration' 				=> array('value' => 0, 'type' => 'c1'),
+								'duration'					=> array('value' =>0, 'type'=>'I1'),
+								'AutoDelete' 				=> array('value' =>'', 'type'=>'c1'),
+								'targetStream'				=> array('value' =>0, 'type'=>'c1'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Server': 
+			case 'Directory':
+			case 'Port': 
+			case 'Username': 
+			case 'Password':
+			case 'Type':
+			case 'numofimg':
+			case 'preduration':
+			case 'postduration':	
+			case 'duration':	
+			case 'AutoDelete':
+			case 'targetStream':		
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'Server': 
+			case 'Directory':
+			case 'Port': 
+			case 'Username': 
+			case 'Password':
+			case 'Type':
+			case 'numofimg':
+			case 'preduration':
+			case 'postduration':	
+			case 'duration':	
+			case 'AutoDelete':
+			case 'targetStream':	
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+
+?>

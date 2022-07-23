@@ -1,0 +1,31 @@
+<?php
+
+function getReferer()
+{
+    //echo "chkReferer = ", chkReferer, "<br>\n";
+    if (chkReferer) {
+        echo "Notice : Check referer <br>\n";
+        if (isset($_SERVER['HTTP_REFERER'])) 
+        {
+            $retRef = $_SERVER['HTTP_REFERER'];
+            $referURL = $_SERVER['SERVER_ADDR'];
+            // echo "retRef : ", $retRef, "<br>\n";
+            // echo "referURL : ", $referURL, "<br>\n";
+
+            $parsRef = parse_url($retRef, PHP_URL_HOST);
+            // echo "parsing referer host : ", $parsRef, "<br>\n";
+
+            if($parsRef  == $referURL || $referURL === '127.0.0.1')
+            {
+                return;    
+            }
+            else{
+                show_post_ng();
+                exit();
+            }
+        }
+    }
+}
+
+getReferer();
+?>

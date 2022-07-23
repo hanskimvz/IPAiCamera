@@ -1,0 +1,1341 @@
+<?
+
+class CParam
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+	  $this->packFormat = '';
+	  $this->payloadLength = 0;
+	  
+		$this->dataInfo = array('Data'=>array('value'=>0, 'type'=>'i1'));	
+							
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Data':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Data':				
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CVideoResol
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Width'  => array('value' => 0, 'type' => 'i1'),
+								'Height' => array('value' => 0, 'type' => 'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Width':	
+			case 'Height':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Width':	
+			case 'Height':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CVideoResolutions
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Resolution;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		for ($index=0; $index<13; ++$index)
+		{
+			$this->Resolution[$index] = new CVideoResol();
+			$this->payloadLength += $this->Resolution[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Resolution', $this->Resolution[0]->payloadLength, 13);
+	}
+
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<13; ++$index)
+		{
+			$this->Resolution[$index]->SetPayload();
+			$this->payload .= $this->Resolution[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<13; ++$index)
+		{		
+			$this->Resolution[$index]->UnpackDataInfo($_dataArray['Resolution'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+class CJpegOptions
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Resolutions;
+	
+	function __construct() 
+	{
+	  $this->packFormat = '';
+	  $this->payloadLength = 0;
+	  
+		$this->Resolutions 	= new CVideoResolutions();	
+		$this->dataInfo = array(	
+				'numValidRes' => array('value' => 0, 'type'  => 'i1'),
+				'Resolutions' => array('value' => '', 'type' => 'a'.$this->Resolutions->payloadLength),
+				'frMin'       => array('value' => 0, 'type'  => 'i1'),
+				'frMax'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMin'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMax'       => array('value' => 0, 'type'  => 'i1'),
+				'brMin'       => array('value' => 0, 'type'  => 'i1'),
+				'brMax'       => array('value' => 0, 'type'  => 'i1')
+							);	
+							
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'numValidRes':	
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'numValidRes':				
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['Resolutions']['value'] = $this->Resolutions->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Resolutions->UnpackDataInfo($_dataArray['Resolutions']);
+		//$this->SetPayload();
+	}	
+}
+
+class CMpeg4ProfileSupport
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Param;
+
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<2; ++$index)
+		{
+			$this->Param[$index] = new CParam();
+			$this->payloadLength += $this->Param[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Param', $this->Param[0]->payloadLength, 2);
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<2; ++$index)
+		{
+			$this->Param[$index]->SetPayload();
+			$this->payload .= $this->Param[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<2; ++$index)
+		{		
+			$this->Param[$index]->UnpackDataInfo($_dataArray['Param'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+
+class CMpeg4Options
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Resolutions;
+	public  $pfSupport;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->Resolutions 	= new CVideoResolutions();	
+		$this->pfSupport 	= new CMpeg4ProfileSupport();	
+		$this->dataInfo = array(	
+				'numValidRes' => array('value' => 0, 'type'  => 'i1'),
+				'Resolutions' => array('value' => '', 'type' => 'a'.$this->Resolutions->payloadLength),
+				'govMin'      => array('value' => 0, 'type'  => 'i1'),
+				'govMax'      => array('value' => 0, 'type'  => 'i1'),
+				'frMin'       => array('value' => 0, 'type'  => 'i1'),
+				'frMax'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMin'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMax'       => array('value' => 0, 'type'  => 'i1'),
+				'brMin'       => array('value' => 0, 'type'  => 'i1'),
+				'brMax'       => array('value' => 0, 'type'  => 'i1'),
+				'pfSupport'   => array('value' => '', 'type' => 'a'.$this->pfSupport->payloadLength)
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'numValidRes':	
+			case 'govMin':
+			case 'govMax':
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'numValidRes':		
+			case 'govMin':
+			case 'govMax':					
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['Resolutions']['value'] = $this->Resolutions->payload;
+		$this->dataInfo['pfSupport']['value'] = $this->pfSupport->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Resolutions->UnpackDataInfo($_dataArray['Resolutions']);
+		$this->pfSupport->UnpackDataInfo($_dataArray['pfSupport']);
+		//$this->SetPayload();
+	}	
+}
+
+class CH264ProfileSupport
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Param;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<4; ++$index)
+		{
+			$this->Param[$index] = new CParam();
+			$this->payloadLength += $this->Param[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Param', $this->Param[0]->payloadLength, 4);
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<4; ++$index)
+		{
+			$this->Param[$index]->SetPayload();
+			$this->payload .= $this->Param[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<4; ++$index)
+		{		
+			$this->Param[$index]->UnpackDataInfo($_dataArray['Param'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+class CH264Options
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Resolutions;
+	public  $pfSupport;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->Resolutions 	= new CVideoResolutions();	
+		$this->pfSupport 	= new CH264ProfileSupport();	
+		$this->dataInfo = array(	
+				'numValidRes' => array('value' => 0, 'type'  => 'i1'),
+				'Resolutions' => array('value' => '', 'type' => 'a'.$this->Resolutions->payloadLength),
+				'govMin'      => array('value' => 0, 'type'  => 'i1'),
+				'govMax'      => array('value' => 0, 'type'  => 'i1'),
+				'frMin'       => array('value' => 0, 'type'  => 'i1'),
+				'frMax'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMin'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMax'       => array('value' => 0, 'type'  => 'i1'),
+				'brMin'       => array('value' => 0, 'type'  => 'i1'),
+				'brMax'       => array('value' => 0, 'type'  => 'i1'),
+				'pfSupport'   => array('value' => '', 'type' => 'a'.$this->pfSupport->payloadLength)
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'numValidRes':	
+			case 'govMin':
+			case 'govMax':
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'numValidRes':		
+			case 'govMin':
+			case 'govMax':					
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['Resolutions']['value'] = $this->Resolutions->payload;
+		$this->dataInfo['pfSupport']['value'] = $this->pfSupport->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Resolutions->UnpackDataInfo($_dataArray['Resolutions']);
+		$this->pfSupport->UnpackDataInfo($_dataArray['pfSupport']);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CHEVCOptions
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Resolutions;
+	public  $pfSupport;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->Resolutions 	= new CVideoResolutions();	
+		$this->pfSupport 	= new CH264ProfileSupport();	
+		$this->dataInfo = array(	
+				'numValidRes' => array('value' => 0, 'type'  => 'i1'),
+				'Resolutions' => array('value' => '', 'type' => 'a'.$this->Resolutions->payloadLength),
+				'govMin'      => array('value' => 0, 'type'  => 'i1'),
+				'govMax'      => array('value' => 0, 'type'  => 'i1'),
+				'frMin'       => array('value' => 0, 'type'  => 'i1'),
+				'frMax'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMin'       => array('value' => 0, 'type'  => 'i1'),
+				'eiMax'       => array('value' => 0, 'type'  => 'i1'),
+				'brMin'       => array('value' => 0, 'type'  => 'i1'),
+				'brMax'       => array('value' => 0, 'type'  => 'i1'),
+				'pfSupport'   => array('value' => '', 'type' => 'a'.$this->pfSupport->payloadLength)
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'numValidRes':	
+			case 'govMin':
+			case 'govMax':
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'numValidRes':		
+			case 'govMin':
+			case 'govMax':					
+			case 'frMin':
+			case 'frMax':
+			case 'eiMin':
+			case 'eiMax':
+			case 'brMin':
+			case 'brMax':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['Resolutions']['value'] = $this->Resolutions->payload;
+		$this->dataInfo['pfSupport']['value'] = $this->pfSupport->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Resolutions->UnpackDataInfo($_dataArray['Resolutions']);
+		$this->pfSupport->UnpackDataInfo($_dataArray['pfSupport']);
+		//$this->SetPayload();
+	}	
+}
+
+class CViewModeSupport
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Param;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<10; ++$index)
+		{
+			$this->Param[$index] = new CParam();
+			$this->payloadLength += $this->Param[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Param', $this->Param[0]->payloadLength, 10);
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<10; ++$index)
+		{
+			$this->Param[$index]->SetPayload();
+			$this->payload .= $this->Param[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<10; ++$index)
+		{		
+			$this->Param[$index]->UnpackDataInfo($_dataArray['Param'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+class CVideoEncoderExtensionOptions
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $ViewModeSupport;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->ViewModeSupport 	= new CViewModeSupport();	
+		$this->dataInfo = array(
+				'SVCTSupport'     => array('value' => 0, 'type'  => 'i1'),
+				'ViewModeSupport' => array('value' => '', 'type' => 'a'.$this->ViewModeSupport->payloadLength)
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'SVCTSupport':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'SVCTSupport':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['ViewModeSupport']['value'] = $this->ViewModeSupport->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->ViewModeSupport->UnpackDataInfo($_dataArray['ViewModeSupport']);
+		//$this->SetPayload();
+	}	
+}
+
+class CVideoEncoderOptions
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $jpeg;
+	public  $mpeg4;
+	public  $h264;
+	public  $hevc;
+	public  $Extension;
+	
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->jpeg 	= new CJpegOptions();	
+		$this->mpeg4 	= new CMpeg4Options();	
+		$this->h264 	= new CH264Options();	
+		$this->hevc 	= new CHEVCOptions();	
+		$this->Extension 	= new CVideoEncoderExtensionOptions();
+
+		$this->dataInfo = array(
+				'bJpegSupport'  => array('value' => 0, 'type'  => 'c1'),
+				'bMpeg4Support' => array('value' => 0, 'type'  => 'c1'),
+				'bH264Support'  => array('value' => 0, 'type'  => 'c1'),
+				'bHEVCSupport'  => array('value' => 0, 'type'  => 'c1'),
+				'qMin'          => array('value' => 0, 'type'  => 'i1'),
+				'qMax'          => array('value' => 0, 'type'  => 'i1'),
+				'jpeg'          => array('value' => '', 'type' => 'a'.$this->jpeg->payloadLength),
+				'mpeg4'         => array('value' => '', 'type' => 'a'.$this->mpeg4->payloadLength),
+				'h264'          => array('value' => '', 'type' => 'a'.$this->h264->payloadLength),
+				'hevc'          => array('value' => '', 'type' => 'a'.$this->hevc->payloadLength),
+				'Extension'     => array('value' => '', 'type' => 'a'.$this->Extension->payloadLength)
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'bJpegSupport':	
+			case 'bMpeg4Support':	
+			case 'bH264Support':	
+			case 'bHEVCSupport':	
+			case 'qMin':	
+			case 'qMax':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'bJpegSupport':	
+			case 'bMpeg4Support':	
+			case 'bH264Support':	
+			case 'bHEVCSupport':	
+			case 'qMin':	
+			case 'qMax':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['jpeg']['value'] = $this->jpeg->payload;
+		$this->dataInfo['mpeg4']['value'] = $this->mpeg4->payload;
+		$this->dataInfo['h264']['value'] = $this->h264->payload;
+		$this->dataInfo['hevc']['value'] = $this->hevc->payload;
+		$this->dataInfo['Extension']['value'] = $this->Extension->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->jpeg->UnpackDataInfo($_dataArray['jpeg']);
+		$this->mpeg4->UnpackDataInfo($_dataArray['mpeg4']);
+		$this->h264->UnpackDataInfo($_dataArray['h264']);
+		$this->hevc->UnpackDataInfo($_dataArray['hevc']);
+		$this->Extension->UnpackDataInfo($_dataArray['Extension']);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CAudioOptions
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+  public  $samplerateSupport;
+  public  $bitrateSupport;
+  
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		
+		$this->dataInfo = array(	
+				'numValidSamplerate' => array('value' => 0, 'type'  => 'i1'),
+				'samplerateSupport'  => array('value' => '', 'type' => 'a48'),
+				'numValidBitrate'   => array('value' => 0, 'type'  => 'i1'),
+				'bitrateSupport'    => array('value' => '', 'type' => 'a48'),
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'numValidSamplerate':	
+			case 'numValidBitrate':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'numValidSamplerate':	
+			case 'numValidBitrate':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CAudioEncoderOptions
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $G711;
+	public  $G726;
+	public  $AAC;
+	
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+
+		$this->G711 	= new CAudioOptions();	
+		$this->G726 	= new CAudioOptions();	
+		$this->AAC 	= new CAudioOptions();	
+
+		$this->dataInfo = array(
+				'bG711Support'  => array('value' => 0, 'type'  => 'c1'),
+				'bG726Support' => array('value' => 0, 'type'  => 'c1'),
+				'bAACSupport'  => array('value' => 0, 'type'  => 'c1'),
+				'G711'          => array('value' => '', 'type' => 'a'.$this->G711->payloadLength),
+				'G726'         => array('value' => '', 'type' => 'a'.$this->G726->payloadLength),
+				'AAC'          => array('value' => '', 'type' => 'a'.$this->AAC->payloadLength),
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'bG711Support':	
+			case 'bG726Support':	
+			case 'bAACSupport':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'bG711Support':	
+			case 'bG726Support':	
+			case 'bAACSupport':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->dataInfo['G711']['value'] = $this->G711->payload;
+		$this->dataInfo['G726']['value'] = $this->G726->payload;
+		$this->dataInfo['AAC']['value'] = $this->AAC->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->G711->UnpackDataInfo($_dataArray['G711']);
+		$this->G726->UnpackDataInfo($_dataArray['G726']);
+		$this->AAC->UnpackDataInfo($_dataArray['AAC']);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CEtcConfiguration
+{
+	private $shm_id;
+	
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public	$VideoEncoderOptions;
+	public	$AudioEncoderOptions;
+	public	$AudioDecoderOptions;
+	
+	function __construct($shmid = 0)
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->VideoEncoderOptions[$index] = new CVideoEncoderOptions();
+			$this->payloadLength += $this->VideoEncoderOptions[$index]->payloadLength;
+		}		
+		for ($index=0; $index<MAX_AUDIO_ENCODER; ++$index)
+		{
+			$this->AudioEncoderOptions[$index] = new CAudioEncoderOptions();
+			$this->payloadLength += $this->AudioEncoderOptions[$index]->payloadLength;
+		}		
+		for ($index=0; $index<MAX_AUDIO_DECODER; ++$index)
+		{
+			$this->AudioDecoderOptions[$index] = new CAudioEncoderOptions();
+			$this->payloadLength += $this->AudioDecoderOptions[$index]->payloadLength;
+		}						
+		$this->dataInfo = array(
+				'focus_mode' => array('value' => 0, 'type' => 'c1'),
+				'ptz_speed'  => array('value' => 0, 'type' => 'c1'),
+				'zoom_pos'  => array('value' => 0, 'type' => 'i1')
+				);	
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += 5634;
+
+		$this->packFormat = MakeDataFormat($this->dataInfo).MakeUnpackFormat('VideoEncoderOptions', $this->VideoEncoderOptions[0]->payloadLength, MAX_VIDEO_ENCODER).MakeUnpackFormat('AudioEncoderOptions', $this->AudioEncoderOptions[0]->payloadLength, MAX_AUDIO_ENCODER).MakeUnpackFormat('AudioDecoderOptions', $this->AudioDecoderOptions[0]->payloadLength, MAX_AUDIO_DECODER);
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+				exit;	
+
+			$shmid = $this->shm_id;  
+		}		
+
+		$data_head    = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_ETC*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+		$offset       = $positionInfo['offset'];
+		$total_size   = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo "CEtcConfiguration failed: reason: data size is different<br>";
+			echo "payloadLength:". $this->payloadLength . ", total_size:".$total_size ."<br>";
+			if( $this->shmid ) shmop_close($this->shm_id);
+			exit;
+		}
+		//$data   = shmop_read($shmid, $offset, $total_size);
+		$data   = shmop_read($shmid, $offset, $this->payloadLength);
+		$this->UnpackDataInfo($data);
+	}
+
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'focus_mode':	
+			case 'ptz_speed':
+			case 'zoom_pos':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'focus_mode':	
+			case 'ptz_speed':
+			case 'zoom_pos':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->VideoEncoderOptions[$index]->SetPayload();
+		}
+		for ($index=0; $index<MAX_AUDIO_ENCODER; ++$index)
+		{
+			$this->AudioEncoderOptions[$index]->SetPayload();
+		}
+		for ($index=0; $index<MAX_AUDIO_DECODER; ++$index)
+		{
+			$this->AudioDecoderOptions[$index]->SetPayload();
+		}				
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->payload .= $this->VideoEncoderOptions[$index]->payload;
+		}	
+		for ($index=0; $index<MAX_AUDIO_ENCODER; ++$index)
+		{
+			$this->payload .= $this->AudioEncoderOptions[$index]->payload;
+		}	
+		for ($index=0; $index<MAX_AUDIO_DECODER; ++$index)
+		{
+			$this->payload .= $this->AudioDecoderOptions[$index]->payload;
+		}					
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{		
+			$this->VideoEncoderOptions[$index]->UnpackDataInfo($_dataArray['VideoEncoderOptions'.$index]);
+		} 
+		for ($index=0; $index<MAX_AUDIO_ENCODER; ++$index)
+		{		
+			$this->AudioEncoderOptions[$index]->UnpackDataInfo($_dataArray['AudioEncoderOptions'.$index]);
+		}  
+		for ($index=0; $index<MAX_AUDIO_DECODER; ++$index)
+		{		
+			$this->AudioDecoderOptions[$index]->UnpackDataInfo($_dataArray['AudioDecoderOptions'.$index]);
+		}  				 
+		//$this->SetPayload();
+	}		
+}
+function get_video_option($data, $name)
+{
+	echo $name . " = new Array();\n"; 
+	for ( $ch = 0 ; $ch < MAX_VIDEO_ENCODER ; ++$ch )
+	{
+		$obj = $data->VideoEncoderOptions[$ch];
+
+		if( $obj->bJpegSupport == 0 && $obj->bMpeg4Support == 0 && $obj->bH264Support == 0 ) continue;
+
+		echo $name . "[" . $ch . "] = new Object();\n";
+	 	echo $name . "[" . $ch . "]['jpegSupport']="    . $obj->bJpegSupport  . ";\r\n";
+	 	echo $name . "[" . $ch . "]['mjpegSupport']="   . $obj->bMpeg4Support . ";\r\n";
+	 	echo $name . "[" . $ch . "]['h264Support']="    . $obj->bH264Support  . ";\r\n";
+	 	echo $name . "[" . $ch . "]['bHEVCSupport']="   . $obj->bHEVCSupport  . ";\r\n";
+		echo $name . "[" . $ch . "]['qMin']="           . $obj->qMin          . ";\r\n";
+	 	echo $name . "[" . $ch . "]['qMax']="           . $obj->qMax          . ";\r\n";
+
+		if( $obj->bJpegSupport ) {
+			echo $name . "[" . $ch . "]['jpeg']= new Object();\n";
+			echo $name . "[" . $ch . "]['jpeg']['numValidRes']="   . $obj->jpeg->numValidRes . ";\r\n";
+
+			echo $name . "[" . $ch . "]['jpeg']['Resolutions'] = new Array();\n";
+			for( $index = 0 ; $index < $obj->jpeg->numValidRes ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['jpeg']['Resolutions'][" . $index . "] = new Object();\r\n";
+				echo $name . "[" . $ch . "]['jpeg']['Resolutions'][" . $index . "]['Width'] = "     . $obj->jpeg->Resolutions->Resolution[$index]->Width . ";\r\n";
+				echo $name . "[" . $ch . "]['jpeg']['Resolutions'][" . $index . "]['Height'] = "    . $obj->jpeg->Resolutions->Resolution[$index]->Height . ";\r\n";
+			}
+
+			echo $name . "[" . $ch . "]['jpeg']['frMin']=" . $obj->jpeg->frMin . ";\r\n";
+			echo $name . "[" . $ch . "]['jpeg']['frMax']=" . $obj->jpeg->frMax . ";\r\n";
+			echo $name . "[" . $ch . "]['jpeg']['eiMin']=" . $obj->jpeg->eiMin . ";\r\n";
+			echo $name . "[" . $ch . "]['jpeg']['eiMax']=" . $obj->jpeg->eiMax . ";\r\n";
+			echo $name . "[" . $ch . "]['jpeg']['brMin']=" . $obj->jpeg->brMin . ";\r\n";
+			echo $name . "[" . $ch . "]['jpeg']['brMax']=" . $obj->jpeg->brMax . ";\r\n";
+		}
+		if( $obj->bMpeg4Support ) {
+			echo $name . "[" . $ch . "]['mpeg4']= new Object();\n";
+			echo $name . "[" . $ch . "]['mpeg4']['numValidRes']="           . $obj->mpeg4->numValidRes . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['Resolutions']= new Array();\n";
+
+			for( $index = 0 ; $index < $obj->mpeg4->numValidRes ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['mpeg4']['Resolutions'][" . $index . "] = new Object();\r\n";
+				echo $name . "[" . $ch . "]['mpeg4']['Resolutions'][" . $index . "]['Width'] = "     . $obj->mpeg4->Resolutions->Resolution[$index]->Width . ";\r\n";
+				echo $name . "[" . $ch . "]['mpeg4']['Resolutions'][" . $index . "]['Height'] = "    . $obj->mpeg4->Resolutions->Resolution[$index]->Height . ";\r\n";
+			}
+
+			echo $name . "[" . $ch . "]['mpeg4']['govMin'] = " . $obj->mpeg4->govMin . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['govMax'] = " . $obj->mpeg4->govMax . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['frMin']  = " . $obj->mpeg4->frMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['frMax']  = " . $obj->mpeg4->frMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['eiMin']  = " . $obj->mpeg4->eiMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['eiMax']  = " . $obj->mpeg4->eiMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['brMin']  = " . $obj->mpeg4->brMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['mpeg4']['brMax']  = " . $obj->mpeg4->brMax  . ";\r\n";
+
+			echo $name . "[" . $ch . "]['mpeg4']['pfSupport']  = new Array();\r\n";
+			for( $index = 0 ; $index < 2 ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['mpeg4']['pfSupport'][" . $index . "]=" . $obj->mpeg4->pfSupport->Param[$index]->Data . ";\r\n";
+			}	
+		}
+		if( $obj->bH264Support ) {
+			echo $name . "[" . $ch . "]['h264']= new Object();\n";
+			echo $name . "[" . $ch . "]['h264']['numValidRes']="           . $obj->h264->numValidRes . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['Resolutions']= new Array();\n";
+
+			for( $index = 0 ; $index < $obj->h264->numValidRes ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['h264']['Resolutions'][" . $index . "] = new Object();\r\n";
+				echo $name . "[" . $ch . "]['h264']['Resolutions'][" . $index . "]['Width'] = "     . $obj->h264->Resolutions->Resolution[$index]->Width . ";\r\n";
+				echo $name . "[" . $ch . "]['h264']['Resolutions'][" . $index . "]['Height'] = "    . $obj->h264->Resolutions->Resolution[$index]->Height . ";\r\n";
+			}
+
+			echo $name . "[" . $ch . "]['h264']['govMin'] = " . $obj->h264->govMin . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['govMax'] = " . $obj->h264->govMax . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['frMin']  = " . $obj->h264->frMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['frMax']  = " . $obj->h264->frMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['eiMin']  = " . $obj->h264->eiMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['eiMax']  = " . $obj->h264->eiMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['brMin']  = " . $obj->h264->brMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['h264']['brMax']  = " . $obj->h264->brMax  . ";\r\n";
+
+			echo $name . "[" . $ch . "]['h264']['pfSupport']  = new Array();\r\n";
+
+			for( $index = 0 ; $index < 4 ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['h264']['pfSupport'][" . $index . "]=" . $obj->h264->pfSupport->Param[$index]->Data . ";\r\n";
+			}	
+		}
+		if( $obj->bHEVCSupport ) {
+			echo $name . "[" . $ch . "]['hevc']= new Object();\n";
+			echo $name . "[" . $ch . "]['hevc']['numValidRes']="           . $obj->hevc->numValidRes . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['Resolutions']= new Array();\n";
+
+			for( $index = 0 ; $index < $obj->hevc->numValidRes ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['hevc']['Resolutions'][" . $index . "] = new Object();\r\n";
+				echo $name . "[" . $ch . "]['hevc']['Resolutions'][" . $index . "]['Width'] = "     . $obj->hevc->Resolutions->Resolution[$index]->Width . ";\r\n";
+				echo $name . "[" . $ch . "]['hevc']['Resolutions'][" . $index . "]['Height'] = "    . $obj->hevc->Resolutions->Resolution[$index]->Height . ";\r\n";
+			}
+
+			echo $name . "[" . $ch . "]['hevc']['govMin'] = " . $obj->hevc->govMin . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['govMax'] = " . $obj->hevc->govMax . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['frMin']  = " . $obj->hevc->frMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['frMax']  = " . $obj->hevc->frMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['eiMin']  = " . $obj->hevc->eiMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['eiMax']  = " . $obj->hevc->eiMax  . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['brMin']  = " . $obj->hevc->brMin  . ";\r\n";
+			echo $name . "[" . $ch . "]['hevc']['brMax']  = " . $obj->hevc->brMax  . ";\r\n";
+
+			echo $name . "[" . $ch . "]['hevc']['pfSupport']  = new Array();\r\n";
+
+			for( $index = 0 ; $index < 4 ; ++$index )
+			{
+				echo $name . "[" . $ch . "]['hevc']['pfSupport'][" . $index . "]=" . $obj->hevc->pfSupport->Param[$index]->Data . ";\r\n";
+			}	
+		}
+	}
+}
+function getBitrateInfo($data, $name)
+{
+	echo $name . " = new Array();\n"; 
+	for ( $ch = 0 ; $ch < 2 ; ++$ch )
+	{
+		$obj = $data->VideoEncoderOptions[$ch];
+		echo $name . "[" . $ch . "] = new Object();\n";
+		echo $name . "[" . $ch . "]['hevc']= new Object();\n";
+		echo $name . "[" . $ch . "]['hevc']['brMin']  = " . $obj->hevc->brMin  . ";\r\n";
+		echo $name . "[" . $ch . "]['hevc']['brMax']  = " . $obj->hevc->brMax  . ";\r\n";
+	}
+}
+?>

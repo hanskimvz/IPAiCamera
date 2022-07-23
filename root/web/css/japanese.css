@@ -1,0 +1,49 @@
+*{
+	font-family: Meiryo !important;
+}
+body{	
+	font-size: 15px;	
+}
+.contentNotice{
+	font-size: 12px;
+	padding-left : 0px;
+}
+.padding_left30{
+	padding-left : 20px ;	
+}
+.button{
+	vertical-align: middle;
+}
+.video .subtitle{
+	width : 140px ;
+}
+.snmp  .subtitle{
+	width : 150px ;
+}
+label#fw_status {
+	margin-left: 25px ;
+	font-size : 10px ;
+}
+.marginjpn1{
+	margin-top: -10px ;	
+}
+.update .margin_top_10{
+	margin-top: -20px !important;
+	font-size : 11px;		
+}
+.transfer{
+	margin-top: -20px !important;
+	font-size : 11px;
+}
+.dstmargin{
+	margin-left : 5px ;	
+}
+.ptz_small span{
+	font-size : 10px;	
+}
+.warning{
+	font-size : 24px;
+}
+#MyUploadForm .button{
+	font-size : 13px ;	
+} 	

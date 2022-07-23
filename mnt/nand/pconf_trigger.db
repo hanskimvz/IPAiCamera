@@ -1,0 +1,425 @@
+{
+   "ActionRules" : {
+      "Action" : [
+         {
+            "ActionJob" : [
+               {
+                  "Index" : 0,
+                  "Type" : 4
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Duration" : 0,
+            "Id" : 101308043,
+            "Name" : "NewAction"
+         },
+         {
+            "ActionJob" : [
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Duration" : 0,
+            "Id" : 0,
+            "Name" : ""
+         },
+         {
+            "ActionJob" : [
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Duration" : 0,
+            "Id" : 0,
+            "Name" : ""
+         },
+         {
+            "ActionJob" : [
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Duration" : 0,
+            "Id" : 0,
+            "Name" : ""
+         },
+         {
+            "ActionJob" : [
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Duration" : 0,
+            "Id" : 0,
+            "Name" : ""
+         }
+      ]
+   },
+   "EventRules" : {
+      "Event" : [
+         {
+            "ActionItemId" : 0,
+            "Enabled" : 0,
+            "EventType" : [
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Id" : 0,
+            "Name" : "",
+            "Schedule" : {
+               "always" : 0,
+               "time_range" : {
+                  "end_hour" : 0,
+                  "end_min" : 0,
+                  "start_hour" : 0,
+                  "start_min" : 0
+               },
+               "week" : {
+                  "fri" : 0,
+                  "mon" : 0,
+                  "sat" : 0,
+                  "sun" : 0,
+                  "thu" : 0,
+                  "tue" : 0,
+                  "wed" : 0
+               }
+            }
+         },
+         {
+            "ActionItemId" : 0,
+            "Enabled" : 0,
+            "EventType" : [
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Id" : 0,
+            "Name" : "",
+            "Schedule" : {
+               "always" : 0,
+               "time_range" : {
+                  "end_hour" : 0,
+                  "end_min" : 0,
+                  "start_hour" : 0,
+                  "start_min" : 0
+               },
+               "week" : {
+                  "fri" : 0,
+                  "mon" : 0,
+                  "sat" : 0,
+                  "sun" : 0,
+                  "thu" : 0,
+                  "tue" : 0,
+                  "wed" : 0
+               }
+            }
+         },
+         {
+            "ActionItemId" : 0,
+            "Enabled" : 0,
+            "EventType" : [
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Id" : 0,
+            "Name" : "",
+            "Schedule" : {
+               "always" : 0,
+               "time_range" : {
+                  "end_hour" : 0,
+                  "end_min" : 0,
+                  "start_hour" : 0,
+                  "start_min" : 0
+               },
+               "week" : {
+                  "fri" : 0,
+                  "mon" : 0,
+                  "sat" : 0,
+                  "sun" : 0,
+                  "thu" : 0,
+                  "tue" : 0,
+                  "wed" : 0
+               }
+            }
+         },
+         {
+            "ActionItemId" : 0,
+            "Enabled" : 0,
+            "EventType" : [
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Id" : 0,
+            "Name" : "",
+            "Schedule" : {
+               "always" : 0,
+               "time_range" : {
+                  "end_hour" : 0,
+                  "end_min" : 0,
+                  "start_hour" : 0,
+                  "start_min" : 0
+               },
+               "week" : {
+                  "fri" : 0,
+                  "mon" : 0,
+                  "sat" : 0,
+                  "sun" : 0,
+                  "thu" : 0,
+                  "tue" : 0,
+                  "wed" : 0
+               }
+            }
+         },
+         {
+            "ActionItemId" : 0,
+            "Enabled" : 0,
+            "EventType" : [
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               },
+               {
+                  "Code" : 0,
+                  "Enabled" : 0,
+                  "Index" : 0,
+                  "Type" : 0
+               }
+            ],
+            "Id" : 0,
+            "Name" : "",
+            "Schedule" : {
+               "always" : 0,
+               "time_range" : {
+                  "end_hour" : 0,
+                  "end_min" : 0,
+                  "start_hour" : 0,
+                  "start_min" : 0
+               },
+               "week" : {
+                  "fri" : 0,
+                  "mon" : 0,
+                  "sat" : 0,
+                  "sun" : 0,
+                  "thu" : 0,
+                  "tue" : 0,
+                  "wed" : 0
+               }
+            }
+         }
+      ]
+   }
+}

@@ -1,0 +1,7231 @@
+	[{
+			"model": ["NBB2-SLAH2", "NBFx-SLAH2", "NBFC-SLAH2", "NBF3-SLAH2", "NBF7-SLAH2", "NBF8-ILAH2", "NBF8-SLAH2", "NBBx-SLAH2", "NBF4-SLAH2", "NBF5-SLAH2", "NBF2-SLAH2", "NBR1-SLAH2", "NBA0-SLAH2", "NAF2-SLAH2", "NAB5-SLAH2"],
+			"capability": [{
+				"basic": [{
+						"name": "profile_no",
+						"presentation": "Channel number",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 14
+						}
+					},
+					{
+						"name": "codec",
+						"presentation": "Codec",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["1", "H.264"],
+								["2", "MJPEG"],
+								["3", "H.265"]
+							]
+						}
+					},
+					{
+						"name": "resolution",
+						"presentation": "Resolution(Stream 1)",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["1920x1080", "1920x1080"],
+								["1280x720", "1280x720"]
+							]
+						}
+					},
+					{
+						"name": "resolution",
+						"presentation": "Resolution(Stream 2)",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["640x360", "640x360"],
+								["352x288", "352x288"],
+								["352x240", "352x240"]
+							]
+						}
+					},
+					{
+						"name": "resolution",
+						"presentation": "Resolution(Stream 3)",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["1280x720", "1280x720"],
+								["640x480", "640x480"],
+								["768x432", "768x432"],
+								["704x576", "704x576"],
+								["704x480", "704x480"],
+								["352x288", "352x288"],
+								["352x240", "352x240"]
+							]
+						}
+					},
+					{
+						"name": "framerate",
+						"presentation": "Frame Rate(FPS)",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 1,
+							"max": 30
+						}
+					},
+					{
+						"name": "gopsize",
+						"presentation": "GOP",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 1,
+							"max": 120
+						}
+					},
+					{
+						"name": "h264_profile",
+						"presentation": "Profile",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "BaseLine"],
+								["1", "Main"],
+								["3", "High"]
+							]
+						}
+					},
+					{
+						"name": "bitrate_mode",
+						"presentation": "Bitrate Mode",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "VBR"],
+								["1", "CBR"]
+							]
+						}
+					},
+					{
+						"name": "bitrate",
+						"presentation": "Target Bitrate",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 100,
+							"max": 10240
+						}
+					},
+					{
+						"name": "quality",
+						"presentation": "Quality",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 1,
+							"max": 10
+						}
+					},
+					{
+						"name": "SmartCoreMode",
+						"presentation": "SMART STREAM",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "Off"],
+								["1", "SMART STREAM RC"],
+								["2", "SMART STREAM ETC"]
+							]
+						}
+					},
+					{
+						"name": "h264_extension_option",
+						"presentation": "Extension Option",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "Off"],
+								["1", "SVC-T On"]
+							]
+						}
+					}
+				],
+				"camera": [{
+						"name": "sharpness",
+						"presentation": "Shapness",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 100
+						}
+					},
+					{
+						"name": "brightness",
+						"presentation": "Brightness",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 100
+						}
+					},
+					{
+						"name": "contrast",
+						"presentation": "Contrast",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 100
+						}
+					},
+					{
+						"name": "saturation",
+						"presentation": "Saturation",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 100
+						}
+					},
+					{
+						"name": "hue",
+						"presentation": "Hue",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 0,
+							"max": 100
+						}
+					},
+					{
+						"name": "ae_en",
+						"presentation": "Auto Exposure",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "OFF"],
+								["1", "ON"]
+							]
+						}
+					},
+					{
+						"name": "exp_level",
+						"presentation": "Exposure Level",
+						"value": {
+							"type": "range",
+							"unit": "none",
+							"min": 25,
+							"max": 400
+						}
+					},
+					{
+						"name": "ae_meter",
+						"presentation": "AE Metering",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "spot"],
+								["1", "center"],
+								["2", "average"]
+							]
+						}
+					},
+					{
+						"name": "shutter",
+						"presentation": "Shutter Speed",
+						"value": {
+							"type": "select",
+							"unit": "none",
+							"option": [
+								["0", "1/15"],
+								["1", "1/25"],
+								["2", "1/30"],
+								["3", "1/50"],
+								["4", "1/60"],
+								["5", "1/100"],
+								["6", "1/120"],
+								["7", "1/240"],
+								["8", "1/480"],
+								["9", "1/600"],
+								["10", "1/1000"],
+								["11", "1/2000"],
+								["12", "1/4000"],
+								["13", "1/8000"],
+								["14", "1/16000"],
+								["15", "1/32000"]
+							]
+						}
+					},
+					{
+						"name": "fixed_shutter",
+						"presentation": "Fixed Shutter Speed",
+						"value": {
+							"type": "checkbox",
+							"unit": "none",
+							"option": [
+								["0", "Off"],
+								["1", "On"]
+							]
+						}
+					},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "69db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NAE0-SLAH5", "NAE0-ILAH5"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["2592x1944", "2592x1944"],
+							["2048x1536", "2048x1536"],
+							["1600x1200", "1600x1200"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["384x288", "384x288"],
+							["352x240", "352x240"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x1024", "1280x1024"],
+							["1280x960", "1280x960"],
+							["1152x864", "1152x864"],
+							["1024x768", "1024x768"],
+							["800x600", "800x600"],
+							["640x480", "640x480"],
+							["480x360", "480x360"],
+							["384x288", "384x288"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "blc",
+					"presentation": "BLC(Back Light Compensation)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+
+	},
+	{
+		"model": ["NBB2-ILAH2"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["640x480", "640x480"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54b"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NAFx-OLAH4", "NAFD-SLAH5", "NAF3-OLAH4", "NAF3-SLAH4", "NABx-OLAH4", "NAF4-OLAH4", "NAF2-SLAH4", "NAB2-OLAH4", "NAB5-OLAH4"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["2592x1944", "2592x1944"],
+							["2560x1440", "2560x1440"],
+							["2304x1296", "2304x1296"],
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["640x480", "640x480"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54b"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NBTM-MLAH1"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["640x480", "640x480"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54b"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "hdr_level",
+					"presentation": "WDR Level",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Normal"],
+							["1", "Low Range"],
+							["2", "High Range"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "thermal_color",
+					"presentation": "Thermal Color",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "gray"],
+							["1", "Iron"],
+							["2", "Purple"],
+							["3", "Purple Yellow"],
+							["5", "Rainbow"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NBB2-ELAH2", "NBF4-ELAH2"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["640x480", "640x480"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "ae_shutter",
+					"presentation": "Shtter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/30"],
+							["1", "1/60"],
+							["2", "1/120"],
+							["3", "1/250"],
+							["4", "1/700"],
+							["5", "1/1000"],
+							["6", "1/2000"],
+							["7", "1/4000"],
+							["8", "1/8000"],
+							["9", "1/16000"],
+							["10", "1/30000"],
+							["11", "1/60000"]
+						]
+					}
+				},
+				{
+					"name": "ae_gain_limit",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "2.1db"],
+							["2", "4.2db"],
+							["3", "6.3db"],
+							["4", "8.4db"],
+							["5", "10.5db"],
+							["6", "12.6db"],
+							["7", "14.7db"],
+							["8", "16.8db"],
+							["9", "18.9db"],
+							["10", "21db"],
+							["11", "23.1db"],
+							["12", "25.2b"],
+							["13", "27.3db"],
+							["14", "29.4db"],
+							["15", "31.5db"],
+							["16", "33.6db"],
+							["17", "35.7b"],
+							["18", "37.8db"],
+							["19", "39.9db"],
+							["20", "41db"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "off"],
+							["1", "2x"],
+							["2", "3x"],
+							["3", "4x"],
+							["4", "5x"],
+							["5", "6x"],
+							["6", "7x"],
+							["7", "8x"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["3", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "led_mode",
+					"presentation": "IR LED Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "led_satu",
+					"presentation": "LED Saturation",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "HLC"],
+							["2", "BLC"],
+							["3", "WDR"]
+						]
+					}
+				},
+				{
+					"name": "hdr_level",
+					"presentation": "WDR Level",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Low"],
+							["1", "Middle"],
+							["2", "High"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Outdoor"],
+							["2", "Indoor"],
+							["3", "Preset"],
+							["4", "Manual"],
+							["5", "Auto Ext"]
+						]
+					}
+				},
+				{
+					"name": "kelvin",
+					"presentation": "Kelvin",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Low"],
+							["1", "Middle"],
+							["2", "High"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "dnr",
+					"presentation": "DNR",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Low"],
+							["2", "Middle"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "defog",
+					"presentation": "Defog",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "Auto"],
+							["2", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "defog_level",
+					"presentation": "Defog Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"option": [
+							["0", "Low"],
+							["1", "Middle"],
+							["2", "High"]
+						]
+					}
+				},
+				{
+					"name": "deblur",
+					"presentation": "Deblur",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"option": [
+							["0", "On"],
+							["1", "Off"]
+						]
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "filter_operation",
+					"presentation": "Operation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "filter_mode",
+					"presentation": "Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "filter_enhance",
+					"presentation": "Enhancement",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Fog"],
+							["2", "Night"]
+						]
+					}
+				},
+				{
+					"name": "filter_area",
+					"presentation": "Area",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Full"],
+							["1", "Half"],
+							["2", "Center"]
+						]
+					}
+				},
+				{
+					"name": "enhance_level_a",
+					"presentation": "Enhancement Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "enhance_level_m",
+					"presentation": "Enhancement Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "night_detect",
+					"presentation": "Night Detect",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "color_enhance",
+					"presentation": "Color Enhance",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "3dnr",
+					"presentation": "3D-NR",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "cb_gain",
+					"presentation": "Cb Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 100
+					}
+				},
+				{
+					"name": "cr_gain",
+					"presentation": "Cr Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 100
+					}
+				},
+				{
+					"name": "filter_hw_dn_mode",
+					"presentation": "Filter Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day&Night"],
+							["1", "LV-HW Filter"]
+						]
+					}
+				},
+				{
+					"name": "filter_dn_mode",
+					"presentation": "HW Filter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"],
+							["2", "Auto"]
+						]
+					}
+				},
+				{
+					"name": "filter_enable_threshold",
+					"presentation": "OFF->ON Threshold level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 255
+					}
+				},
+				{
+					"name": "filter_diable_threshold",
+					"presentation": "ON->OFF Threshold level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 255
+					}
+				},
+				{
+					"name": "filter_non_time_setting_mode",
+					"presentation": "Non-Setting Time Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "filter_disable_str_setting_hour",
+					"presentation": "HW Filter Non-Setting Time",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "filter_disable_str_setting_min",
+					"presentation": "HW Filter Non-Setting Time",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "filter_disable_end_setting_hour",
+					"presentation": "HW Filter Non-Setting Time",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "filter_disable_end_setting_min",
+					"presentation": "HW Filter Non-Setting Time",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 59
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NEP1-W30H2"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["640x480", "640x480"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Manual"],
+							["2", "Shutter Priority"],
+							["3", "Iris Priority"],
+							["4", "Bright Mode"]
+						]
+					}
+				},
+				{
+					"name": "exp_mode",
+					"presentation": "Exposure compansation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "ae_shutter",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/8"],
+							["1", "1/15"],
+							["2", "1/30"],
+							["3", "1/60"],
+							["4", "1/120"],
+							["5", "1/125"],
+							["6", "1/700"],
+							["7", "1/1000"],
+							["8", "1/1600"],
+							["9", "1/2500"],
+							["10", "1/5000"],
+							["11", "1/7000"],
+							["12", "1/10000"],
+							["13", "1/30000"]
+						]
+					}
+				},
+				{
+					"name": "ae_iris",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0 (close)"],
+							["1", "1"],
+							["2", "2"],
+							["3", "3"],
+							["4", "4"],
+							["5", "5"],
+							["6", "6"],
+							["7", "7"],
+							["8", "8"],
+							["9", "9"],
+							["10", "10"],
+							["11", "11"],
+							["12", "12"],
+							["13", "13"],
+							["14", "14"],
+							["15", "15"],
+							["16", "16"],
+							["17", "17"],
+							["18", "18"],
+							["19", "19"],
+							["20", "20 (Open)"]
+						]
+					}
+				},
+				{
+					"name": "ae_gain",
+					"presentation": "Gain",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0 step"],
+							["1", "1 step"],
+							["2", "2 step"],
+							["3", "3 step"],
+							["4", "4 step"],
+							["5", "5 step"],
+							["6", "6 step"],
+							["7", "7 step"],
+							["8", "8 step"],
+							["9", "9 step"],
+							["10", "10 step"]
+						]
+					}
+				},
+				{
+					"name": "ae_bright",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0 (dark)"],
+							["1", "1"],
+							["2", "2"],
+							["3", "3"],
+							["4", "4"],
+							["5", "5"],
+							["6", "6"],
+							["7", "7"],
+							["8", "8"],
+							["9", "9"],
+							["10", "10"],
+							["11", "11"],
+							["12", "12"],
+							["13", "13"],
+							["14", "14"],
+							["15", "15"],
+							["16", "16"],
+							["17", "17"],
+							["18", "18"],
+							["19", "19"],
+							["20", "20 (bright)"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "sshutter_limit",
+					"presentation": "Slow Shutter Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "X2"],
+							["1", "X4"]
+						]
+					}
+				},
+				{
+					"name": "agc",
+					"presentation": "AGC",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Day"],
+							["2", "Night"],
+							["3", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 120
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "hdr_level",
+					"presentation": "WDR Level",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 4
+					}
+				},
+				{
+					"name": "blc",
+					"presentation": "BLC(Back Light Compensation)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "Indoor"],
+							["2", "Outdoor"],
+							["3", "One Push WB"],
+							["5", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 20
+					}
+				},
+				{
+					"name": "dnr",
+					"presentation": "DNR",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "Low"],
+							["2", "Middle"],
+							["3", "High"],
+							["4", "Auto"]
+						]
+					}
+				},
+				{
+					"name": "defog",
+					"presentation": "Defog",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "Low"],
+							["2", "Middle"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "stabilizer",
+					"presentation": "Stabilizer",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NDFX-SLEH2", "NEB2-SLCH2", "NDB2-SLFH2"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["2560x1440", "2560x1440"],
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["800x600", "800x600"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "69db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NDN1-SLGH8", "NDN2-SLGH8"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["3840x2160", "3840x2160"],
+							["2560x1440", "2560x1440"],
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["800x600", "800x600"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "hdr_level",
+					"presentation": "WDR Level",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Normal"],
+							["1", "Low Range"],
+							["2", "High Range"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NDFA-SLBH8", "NDFA-SLAH8", "NDB2-SLBH8", "NDE0-SLHH8", "NDFA-SLAH5", "NDE1-SLHH8"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["3840x2160", "3840x2160"],
+							["2560x1440", "2560x1440"],
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["800x600", "800x600"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NDE0-SLAH9", "NDE0-ILAH9"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["3008x3000", "3008x3000"],
+							["2800x2800", "2800x2800"],
+							["1600x1600", "1600x1600"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x640", "640x640"],
+							["320x320", "320x320"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x640", "640x640"],
+							["320x320", "320x320"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "2X"],
+							["2", "3X"],
+							["3", "5X"],
+							["4", "6X"],
+							["5", "7.5X"],
+							["6", "10X"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "45db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "blc",
+					"presentation": "Digital-WDR",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NFF8-SLCH5", "NFN1-SLCH5", "NFN2-SLCH5", "NFF8-SLAH5", "NDPC-SLAH5", "NFB2-SLAH5", "NFN1-SLDH5"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["2592x1944", "2592x1944"],
+							["2560x1440", "2560x1440"],
+							["1920x1080", "1920x1080"],
+							["1280x720", "1280x720"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1280x720", "1280x720"],
+							["800x600", "800x600"],
+							["768x432", "768x432"],
+							["704x576", "704x576"],
+							["704x480", "704x480"],
+							["640x480", "640x480"],
+							["640x360", "640x360"],
+							["352x288", "352x288"],
+							["352x240", "352x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	},
+	{
+		"model": ["NETM-MLAH1"],
+		"capability": [{
+			"basic": [{
+					"name": "profile_no",
+					"presentation": "Channel number",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 14
+					}
+				},
+				{
+					"name": "codec",
+					"presentation": "Codec",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["1", "H.264"],
+							["2", "MJPEG"],
+							["3", "H.265"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 1)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 2)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "resolution",
+					"presentation": "Resolution(Stream 3)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["640x480", "640x480"],
+							["320x240", "320x240"]
+						]
+					}
+				},
+				{
+					"name": "framerate",
+					"presentation": "Frame Rate(FPS)",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 30
+					}
+				},
+				{
+					"name": "gopsize",
+					"presentation": "GOP",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 120
+					}
+				},
+				{
+					"name": "h264_profile",
+					"presentation": "Profile",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "BaseLine"],
+							["1", "Main"],
+							["3", "High"]
+						]
+					}
+				},
+				{
+					"name": "bitrate_mode",
+					"presentation": "Bitrate Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "VBR"],
+							["1", "CBR"]
+						]
+					}
+				},
+				{
+					"name": "bitrate",
+					"presentation": "Target Bitrate",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 100,
+						"max": 10240
+					}
+				},
+				{
+					"name": "quality",
+					"presentation": "Quality",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1,
+						"max": 10
+					}
+				},
+				{
+					"name": "SmartCoreMode",
+					"presentation": "SMART STREAM",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SMART STREAM RC"],
+							["2", "SMART STREAM ETC"]
+						]
+					}
+				},
+				{
+					"name": "h264_extension_option",
+					"presentation": "Extension Option",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "SVC-T On"]
+						]
+					}
+				}
+			],
+			"camera": [{
+					"name": "sharpness",
+					"presentation": "Shapness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "brightness",
+					"presentation": "Brightness",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "contrast",
+					"presentation": "Contrast",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "saturation",
+					"presentation": "Saturation",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "hue",
+					"presentation": "Hue",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 100
+					}
+				},
+				{
+					"name": "ae_en",
+					"presentation": "Auto Exposure",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "exp_level",
+					"presentation": "Exposure Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 25,
+						"max": 400
+					}
+				},
+				{
+					"name": "ae_meter",
+					"presentation": "AE Metering",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "spot"],
+							["1", "center"],
+							["2", "average"]
+						]
+					}
+				},
+				{
+					"name": "shutter",
+					"presentation": "Shutter Speed",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "1/15"],
+							["1", "1/25"],
+							["2", "1/30"],
+							["3", "1/50"],
+							["4", "1/60"],
+							["5", "1/100"],
+							["6", "1/120"],
+							["7", "1/240"],
+							["8", "1/480"],
+							["9", "1/600"],
+							["10", "1/1000"],
+							["11", "1/2000"],
+							["12", "1/4000"],
+							["13", "1/8000"],
+							["14", "1/16000"],
+							["15", "1/32000"]
+						]
+					}
+				},
+				{
+					"name": "fixed_shutter",
+					"presentation": "Fixed Shutter Speed",
+					"value": {
+						"type": "checkbox",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "On"]
+						]
+					}
+				},
+				{
+					"name": "sshutter",
+					"presentation": "Slow Shutter",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Off"],
+							["1", "1/2"],
+							["2", "1/3"],
+							["3", "1/5"],
+							["4", "1/6"],
+							["5", "1/7.5"],
+							["6", "1/10"]
+						]
+					}
+				},
+				{
+					"name": "cam_gain",
+					"presentation": "Gain Limit",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "0db"],
+							["1", "3db"],
+							["2", "6db"],
+							["3", "9db"],
+							["4", "12db"],
+							["5", "15db"],
+							["6", "18db"],
+							["7", "24db"],
+							["8", "30db"],
+							["9", "36db"],
+							["10", "42db"],
+							["11", "48db"],
+							["12", "54db"],
+							["13", "60db"],
+							["14", "66db"],
+							["15", "72db"]
+						]
+					}
+				},
+				{
+					"name": "dnmode",
+					"presentation": "Day & Night",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Day"],
+							["1", "Night"],
+							["2", "Auto"],
+							["5", "Schedule"]
+						]
+					}
+				},
+				{
+					"name": "tdn_bw_level",
+					"presentation": "B/W Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_color_level",
+					"presentation": "Color Level",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 10
+					}
+				},
+				{
+					"name": "tdn_resp",
+					"presentation": "Transition Time",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Slow"],
+							["1", "Middle"],
+							["2", "Fast"]
+						]
+					}
+				},
+				{
+					"name": "bw_hour",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "bw_min",
+					"presentation": "Day->Night Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "color_hour",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "hour",
+						"min": 0,
+						"max": 23
+					}
+				},
+				{
+					"name": "color_min",
+					"presentation": "Night->Day Time",
+					"value": {
+						"type": "range",
+						"unit": "min",
+						"min": 0,
+						"max": 59
+					}
+				},
+				{
+					"name": "hdr",
+					"presentation": "WDR(Wide Dynamic Range)",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "hdr_level",
+					"presentation": "WDR Level",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Normal"],
+							["1", "Low Range"],
+							["2", "High Range"]
+						]
+					}
+				},
+				{
+					"name": "awb_en",
+					"presentation": "White Balance Activation",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "awb_mode",
+					"presentation": "White Balance Mode",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "Auto"],
+							["1", "2800K"],
+							["2", "4000K"],
+							["3", "5000K"],
+							["4", "6500K"],
+							["5", "7500K"],
+							["6", "Flash"],
+							["7", "Fluorescent"],
+							["8", "Fluorescent_H"],
+							["9", "Underwater"],
+							["10", "Manual"]
+						]
+					}
+				},
+				{
+					"name": "r_gain",
+					"presentation": "R Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "g_gain",
+					"presentation": "G Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "b_gain",
+					"presentation": "B Gain",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 1000,
+						"max": 2000
+					}
+				},
+				{
+					"name": "mctf3dnr",
+					"presentation": "3D Noise Reduction",
+					"value": {
+						"type": "range",
+						"unit": "none",
+						"min": 0,
+						"max": 11
+					}
+				},
+				{
+					"name": "mirror",
+					"presentation": "Mirror",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "flip",
+					"presentation": "Flip",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "OFF"],
+							["1", "ON"]
+						]
+					}
+				},
+				{
+					"name": "thermal_color",
+					"presentation": "Thermal Color",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "gray"],
+							["1", "Iron"],
+							["2", "Purple"],
+							["3", "Purple Yellow"],
+							["4", "Rainbow"]
+						]
+					}
+				},
+				{
+					"name": "a_flicker",
+					"presentation": "Flickerless",
+					"value": {
+						"type": "select",
+						"unit": "none",
+						"option": [
+							["0", "50Hz"],
+							["1", "60Hz"]
+						]
+					}
+				}
+			]
+		}]
+	}
+]

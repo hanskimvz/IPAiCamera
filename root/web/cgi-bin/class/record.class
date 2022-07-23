@@ -1,0 +1,326 @@
+<?
+class CRecordConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+	public $job_conf;
+	public $target_stream;	
+	function __construct($shmid = 0) 
+	{
+		$this->payloadLength = 0;
+		for($index = 0 ; $index < MAX_RECORDING_JOB ; $index++)
+		{	
+			$this->job_conf[$index] 	= new CRecordingJob();	
+			$this->payloadLength += $this->job_conf[$index]->payloadLength;	
+		}
+		$this->target_stream = new CTargetStream();
+		$this->payloadLength += $this->target_stream->payloadLength;
+
+		$this->packFormat = 'a'. $this->target_stream->payloadLength . 'target_stream' . '/'.
+			MakeUnpackFormat('job_conf', $this->job_conf[0]->payloadLength, MAX_RECORDING_JOB);
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id 		= shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+
+			if(!$this->shm_id) 
+				exit;	
+			$shmid = $this->shm_id;  
+		}		
+		// SIZE_POS_INFO = 4 * 3
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_RECORD*SIZE_POS_INFO, SIZE_POS_INFO);
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset = $positionInfo['offset'];
+		$total_size = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo "payloadLength=".$this->payloadLength."\r\n";
+			echo "total_size=".$total_size."\r\n";
+			for($index = 0 ; $index < MAX_RECORDING_JOB ; $index++)
+			{	
+				echo 'job_conf'.$index.'='.$this->job_conf[$index]->payloadLength."\r\n";
+			}	
+			exit;
+		}
+		
+		$data = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+
+		$this->target_stream->SetPayload();
+		$this->payload = $this->target_stream->payload;
+		for ($index=0; $index < MAX_RECORDING_JOB; ++$index)
+		{
+			$this->job_conf[$index]->SetPayload();
+			$this->payload .= $this->job_conf[$index]->payload;
+		}
+		//reserve data 21
+	}	
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->target_stream->UnpackDataInfo($_dataArray['target_stream']);
+		for ($index=0; $index<MAX_RECORDING_JOB; ++$index)
+		{		
+			$this->job_conf[$index]->UnpackDataInfo($_dataArray['job_conf'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+
+class CRecordingJob
+{
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('id'			=> array('value'=>0, 'type'=>'i1'),
+								'enabled' 		=> array('value'=>0, 'type'=>'c1'),
+								'stream_id' 	=> array('value'=>0, 'type'=>'c1'),
+								'file_type'		=> array('value'=>0, 'type'=>'c1'),
+								'storage_type' 	=> array('value'=>0, 'type'=>'c1'),
+								'storage_device'=> array('value'=>0, 'type'=>'c1'),
+								'continous'		=> array('value'=>0, 'type'=>'c1'),
+								'pre_duration' 	=> array('value'=>0, 'type'=>'i1'),
+								'post_duration' => array('value'=>0, 'type'=>'i1'),
+								);	
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'enabled' :
+			case 'stream_id' :
+			case 'file_type' :
+			case 'storage_type' :
+			case 'storage_device' :
+			case 'continous' :
+			case 'pre_duration' :
+			case 'post_duration' :
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'enabled' :
+			case 'stream_id' :
+			case 'file_type' :
+			case 'storage_type' :
+			case 'storage_device' :
+			case 'continous' :
+			case 'pre_duration' :
+			case 'post_duration' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CTargetStream
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array('value'=> array('value'=>0, 'type'=>'c1'));
+		$this->payloadLength = 0;
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'value':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+
+class CExportRecordFileRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'Key'    => array('value' => '', 'type' => 'a256'),
+				'Path'    => array('value' => '', 'type' => 'a256'),
+				'Reason'    => array('value' => '', 'type' => 'a256'),
+				'FileName'    => array('value' => '', 'type' => 'a256')
+				);	
+		$this->payloadLength = 0;
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Key':	
+			case 'Path':	
+			case 'Reason':	
+			case 'FileName':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Key':	
+			case 'Path':	
+			case 'Reason':	
+			case 'FileName':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+function show_record_management($obj, $isJson=false)
+{
+	$data[0] = (object)["target_stream"=>$obj->target_stream->value];
+	for( $i=0 ; $i < MAX_RECORDING_JOB ; $i++ )
+	{
+		$data[$i+1] = (object)[
+			"name"          => "RECORD".$i,
+			"index"			=> $i,
+			"enabled" 		=> $obj->job_conf[$i]->enabled,
+			"stream_id" 	=> $obj->job_conf[$i]->stream_id,
+			"file_type" 	=> $obj->job_conf[$i]->file_type,
+			"storage_type" 	=> $obj->job_conf[$i]->storage_type,
+			"storage_device"=> $obj->job_conf[$i]->storage_device,
+			"continous"		=> $obj->job_conf[$i]->continous,
+			"pre_duration"	=> $obj->job_conf[$i]->pre_duration,
+			"post_duration" => $obj->job_conf[$i]->post_duration
+		];
+	}
+	echo $isJson ? json_encode($data) : view_encode($data);
+}
+?>

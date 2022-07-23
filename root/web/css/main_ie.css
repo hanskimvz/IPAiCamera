@@ -1,0 +1,16 @@
+/*a:link   	{ color: #505050; font-size: inherit; text-decoration: none; }
+a:visited 	{ color: #505050; font-size: inherit; text-decoration: none; }
+a:hover		{ color: #ff9852; font-size: inherit; text-decoration: none; border: 0px;}
+a:active 	{ color: #df4f00; font-size: inherit; text-decoration: none; }
+*:focus     { border:none;}
+*:focus { outline: none; } 
+.warning a {
+	font-weight: 600;
+	text-decoration: underline;
+}*/
+/********** SIZE **********/
+
+.ie_slice{
+	line-height: 1px !important;
+	height : 26px;
+}

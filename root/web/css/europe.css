@@ -1,0 +1,165 @@
+#dst_timecontent .subtitle{
+	width : 160px !important;
+}
+.video .subtitle{
+	width: 130px;
+}
+/*
+#Date_Time_Settings{
+	font-size: 9px !important;
+}*/
+#Day_Night_Settings .subtitle{
+	width: 190px;
+}
+#Exposure_Settings .subtitle{
+	width: 140px;	
+}
+#View .button{
+	width: 150px;	
+}
+#Modify .subtitle{
+	width: 150px;	
+}
+#sd .half{
+	width: 140px !important;
+}
+#btClearSelectedArea{
+	width: 153px;	
+}
+.snmp .subtitle{
+	width: 170px;
+}
+#static_ip_setting .subtitle{
+	width: 170px;
+}
+#network_port .subtitle{
+	width: 170px;
+}
+#change_pass{
+	width: 153px;	
+}
+#check_later{
+	width: 153px;	
+}
+#iColor_level .subtitle{
+	font-size:10.6px;
+}
+#iBw_level .subtitle{
+	font-size:10.6px;
+}
+.content{
+	font-size:10.5px;
+}
+.half{
+	width: 90px !important;
+}
+#camOthers .half{
+	width: 100px !important;
+}
+#info th{ 
+	width: 175px !important;
+	
+}
+#sub_menu ul { 
+	font-size: 12px;
+	text-indent: 10px;
+} 
+#sub_menu li{
+	font-size: 10.5px;
+	padding-left: 0px !important;
+	font-weight : 700;
+}
+.sub_menu_long {
+	font-size: 9px !important;
+}
+
+#sub_menu li:hover { 
+	font-weight: 700;
+}
+#sub_menu li:active{
+	color: #148CFF;
+	font-weight: 700;
+}
+
+.select_minor{ 
+	font-weight: 700 !important;
+}
+.alarmin12{
+	width : 160px ;
+}
+.alarm_on {
+	margin: 0px 0px -10px -1px;
+}
+.alarm_off {
+	margin: 0px 0px  -10px -1px;
+}
+#motion_alarm .alarm_on {
+	margin: 0px 0px -7px -17px;
+}
+#motion_alarm .alarm_off {
+	margin: 0px 0px -7px -17px;
+}
+label#fw_status{
+	margin-left: 13px;
+}
+.select_major {
+	font-weight : 700 !important
+}
+.width_100
+{
+	width : 110px !important
+}
+.width_98
+{
+	width : 88px !important
+}
+.width_180
+{
+	width : 180px !important
+}
+.extra_longer
+{
+	width : 320px !important
+}
+.subtitle_width
+{
+	width : 150px !important
+}
+.button_margin_left
+{
+	margin-left : 5px;
+}
+#meter_wrapper
+{
+	margin-left : 165px;
+	width:150px;
+}
+#sound_box .slider_box 
+{
+	display: block;
+}
+#Exposure_Settings .m_check 
+{
+	display: flex;
+	align-items: center;
+}
+#Exposure_Settings input[type="checkbox"] + label 
+{
+	margin: -5px 5px 0px 2px;
+}
+#MyUploadForm .long 
+{
+	width: auto !important;
+	padding: 0 20px;
+}
+#MyPluginUploadForm .subtitle 
+{
+    width: 250px;
+}
+#camTitle.contentTitle.divSelSource {
+	display: block !important;
+	margin-bottom: 10px;
+}
+#camTitle + .selSource {
+	margin-bottom: 20px;
+}

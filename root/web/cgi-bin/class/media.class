@@ -1,0 +1,3697 @@
+<?php
+
+class CMediaSource
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('reserved' => array('value' => '', 'type' => 'a1088'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'reserved':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'reserved':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+
+class CFiseEyeCenter
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('finded' => array('value' => 0, 'type' => 'c1'),
+								'pos_x'  => array('value' => 0, 'type' => 'i1'),
+								'pos_y'  => array('value' => 0, 'type' => 'i1'),
+								'radius' => array('value' => 0, 'type' => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'finded':
+			case 'pos_x':
+			case 'pos_y':
+			case 'radius':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'finded':
+			case 'pos_x':
+			case 'pos_y':
+			case 'radius':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CFiseEyeConfinguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $CaliCenter;
+
+	function __construct()
+	{
+		$this->CaliCenter 	= new CFiseEyeCenter();
+
+		$this->dataInfo = array('MountType'  => array('value' => 0, 'type'  => 'c1'),
+								'SourceType' => array('value' => 0, 'type'  => 'i1'),
+								'CaliCenter' => array('value' => '', 'type' => 'a'.$this->CaliCenter->payloadLength)
+							);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	 = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'MountType':
+			case 'SourceType':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'MountType':
+			case 'SourceType':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->CaliCenter->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['CaliCenter']['value'] = $this->CaliCenter->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->CaliCenter->UnpackDataInfo($_dataArray['CaliCenter']);
+		//$this->SetPayload();
+	}
+}
+
+class CVideoSourceExtensionConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $FishEyeConf;
+
+	function __construct()
+	{
+		$this->FishEyeConf 	= new CFiseEyeConfinguration();
+
+		$this->dataInfo = array('FishEyeConf' => array('value' => '', 'type' => 'a'.$this->FishEyeConf->payloadLength));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+	}
+
+	function __set($name,  $val)
+	{
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->FishEyeConf->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['FishEyeConf']['value'] = $this->FishEyeConf->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->FishEyeConf->UnpackDataInfo($_dataArray['FishEyeConf']);
+		//$this->SetPayload();
+	}
+}
+class CVideoSourceConfigurations
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $Config;
+	function __construct($shmid = 0 )
+	{
+		$this->payloadLength = 0;
+		for($index = 0 ; $index < MAX_MEDIA_SOURCE ; $index++)
+		{
+			$this->Config[$index]	= new CVideoSourceConfiguration();
+			$this->payloadLength += $this->Config[$index]->payloadLength;
+		}
+
+		$this->packFormat = MakeUnpackFormat('Config', $this->Config[0]->payloadLength, MAX_MEDIA_SOURCE);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for($index=0; $index < MAX_MEDIA_SOURCE ; $index++)
+		{
+			$this->Config[$index]->SetPayload();
+			$this->payload .= $this->Config[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for($index=0; $index < MAX_MEDIA_SOURCE ; $index++)
+		{
+			$this->Config[$index]->UnpackDataInfo($_dataArray['Config'.$index]);
+		}
+	}
+	function getVideoSourceInfo()
+	{
+		$data = array();
+		for($idx=0 ; $idx < MAX_MEDIA_SOURCE ; $idx++)
+		{
+			$data[$idx]['type'] = $this->Config[$idx]->Type;
+			for($i=0 ; $i < MAX_VIDEO_CHANNEL; $i++) 
+			{
+				$data[$idx]['stream'][$i] = $this->Config[$idx]->StreamNums->num[$i]->value;
+			}
+		}
+		echo json_encode($data);
+	}
+}
+
+class CVideoSourceStreamNumber
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array('value' => array('value' => 0, 'type' => 'c1'));
+		$this->payloadLength = 1;
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+	function __destruct() { }
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+
+class CVideoSourceStreamNumbers
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $num;
+	function __construct()
+	{
+		$this->payloadLength = 0;
+		for($i=0 ; $i < MAX_VIDEO_CHANNEL; $i++) 
+		{
+			$this->num[$i] = new CVideoSourceStreamNumber();
+			$this->payloadLength += $this->num[$i]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat("num", $this->num[0]->payloadLength, MAX_VIDEO_CHANNEL);
+	}
+	function __destruct() { }
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for($i=0 ; $i < MAX_VIDEO_CHANNEL ; $i++)
+		{
+			$this->num[$i]->SetPayload();
+			$this->payload .= $this->num[$i]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for($i=0; $i<MAX_VIDEO_CHANNEL; ++$i)
+		{
+			$this->num[$i]->UnpackDataInfo($_dataArray['num'.$i]);
+		}
+	}
+}
+
+class CVideoSourceConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $Extension;
+	public $StreamNums;
+	public $Dewarp;
+
+	function __construct()
+	{
+		$this->payloadLength = 0;
+	  	$this->Extension = new CVideoSourceExtensionConfiguration();
+		$this->StreamNums = new CVideoSourceStreamNumbers();
+		$this->Dewarp  = new CDewarp();
+		$this->dataInfo  = array('Token'      => array('value' =>'', 'type' => 'a64'),
+								'SourceToken' => array('value' =>'', 'type' => 'a64'),
+								'Name'        => array('value' =>'', 'type' => 'a64'),
+								'UseCount'    => array('value' => 0, 'type' => 'i1'),
+								'x'           => array('value' => 0, 'type' => 'i1'),
+								'y'           => array('value' => 0, 'type' => 'i1'),
+								'width'       => array('value' => 0, 'type' => 'i1'),
+								'height'      => array('value' => 0, 'type' => 'i1'),
+								// extention
+								'Type'        => array('value' => 0, 'type' => 'i1'),
+								"StreamNums"  => array("value" => '', "type" => "a".$this->StreamNums->payloadLength),
+								"ethConfig"   => array("value" => '', "type" => "a100"),
+								"Extension"   => array("value" => '', "type" => "a" . $this->Extension->payloadLength),
+								"Dewarp"      => array('value' => '', 'type' => 'a'.$this->Dewarp->payloadLength)
+								);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+
+	// readonly
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'SourceToken':
+			case 'Name':
+			case 'UseCount':
+			case 'x':
+			case 'y':
+			case 'width':
+			case 'height':
+			case 'Type':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->StreamNums->SetPayload(); //read-only
+		$this->Extension->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['StreamNums']['value'] = $this->StreamNums->payload;
+		//$this->dataInfo['ethConfig']['value]; 
+		$this->dataInfo['Extension']['value'] = $this->Extension->payload;
+		$this->dataInfo['Dewarp']['value'] = $this->Dewarp->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Extension->UnpackDataInfo($_dataArray['Extension']);
+		$this->StreamNums->UnpackDataInfo($_dataArray['StreamNums']);
+		$this->Dewarp->UnpackDataInfo($_dataArray['Dewarp']);
+		//$this->SetPayload();
+	}
+}
+
+class CAudioSourceConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct($shmid = 0)
+	{
+		$this->dataInfo = array('Token'       => array('value' => '', 'type' => 'a64'),
+								'SourceToken' => array('value' => '', 'type' => 'a64'),
+								'Name'        => array('value' => '', 'type' => 'a64'),
+								'UseCount'    => array('value' => 0, 'type'  => 'i1'),
+								'InputLevel'  => array('value' => 0, 'type'  => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	 = MakeDataFormat($this->dataInfo);
+
+		if($shmid)
+		{
+			$MediaSource = new CMediaSource();
+			$Profiles    = new CProfiles();
+			$VideoSource = new CVideoSourceConfiguration();
+
+			$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_MEDIA*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+			$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+			$offset 		= $positionInfo['offset'] + $MediaSource->payloadLength + $Profiles->payloadLength + $VideoSource->payloadLength;
+			$total_size      = $this->payloadLength;
+
+			if($this->payloadLength != $total_size)
+			{
+				echo 'CAudioSourceConfiguration failed: reason: data size is different'. $this->payloadLength. $total_size."\r\n";
+				exit;
+			}
+
+			$data   = shmop_read($shmid, $offset, $total_size);
+			$this->UnpackDataInfo($data);
+		}
+
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'SourceToken':
+			case 'Name':
+			case 'UseCount':
+			case 'InputLevel':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'SourceToken':
+			case 'Name':
+			case 'UseCount':
+			case 'InputLevel':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CMediaStreamMulticast
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Enabled'     =>array('value'=>0,  'type'=>'c1'),
+								'IPv4Address' =>array('value'=>'', 'type'=>'a32'),
+								'Port'        =>array('value'=>0,  'type'=>'i1'),
+								'TTL'         =>array('value'=>0,  'type'=>'C1'),
+								'AutoStart'   =>array('value'=>0,  'type'=>'c1'),
+								'ManualMode'   =>array('value'=>0,  'type'=>'c1')
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'IPv4Address':
+			case 'Port':
+			case 'TTL':
+			case 'AutoStart':
+			case 'ManualMode':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Enabled':
+			case 'IPv4Address':
+			case 'Port':
+			case 'TTL':
+			case 'AutoStart':
+			case 'ManualMode':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+
+class CVideoResolution
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array(	'Width' 			=> array('value'=>0, 'type'=>'i1'),
+								'Height' 			=> array('value'=>0, 'type'=>'i1')
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Width':
+			case 'Height':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Width':
+			case 'Height':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CVideoRateControl
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array(	'FrameRateLimit' 			=> array('value'=>0, 'type'=>'i1'),
+								'EncodingInterval' 			=> array('value'=>0, 'type'=>'i1'),
+								'BitrateLimit' 				=> array('value'=>0, 'type'=>'i1'),
+								'HevcBitrateLimit' 				=> array('value'=>0, 'type'=>'i1'),
+								'ConstantBitRate' 			=> array('value'=>0, 'type'=>'c1'),
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'FrameRateLimit':
+			case 'EncodingInterval':
+			case 'BitrateLimit':
+			case 'HevcBitrateLimit':
+			case 'ConstantBitRate':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'FrameRateLimit':
+			case 'EncodingInterval':
+			case 'BitrateLimit':
+			case 'HevcBitrateLimit':
+			case 'ConstantBitRate':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+//ROI
+class CRoiControl
+{
+
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Qproi_x'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_y'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_w'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_h'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_t'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_s'   => array('value'=>0, 'type'=>'i1'),
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Qproi_x':
+			case 'Qproi_y':
+			case 'Qproi_w':
+			case 'Qproi_h':
+			case 'Qproi_t':
+			case 'Qproi_s':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Qproi_x':
+			case 'Qproi_y':
+			case 'Qproi_w':
+			case 'Qproi_h':
+			case 'Qproi_t':
+			case 'Qproi_s':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_VIDEO_QPROI;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+//SmartLBR
+class CLBRControl
+{
+
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('stream_quality'   => array('value'=>0, 'type'=>'i1'),
+				'fps_drop_enable'   => array('value'=>0, 'type'=>'i1'),
+				'bitrate'   => array('value'=>0, 'type'=>'i1'),
+				'motion_level'   => array('value'=>0, 'type'=>'i1'),
+				'noise_level'   => array('value'=>0, 'type'=>'i1'),
+				'dyn_gop_enable'   => array('value'=>0, 'type'=>'i1'),
+				'mode'   => array('value'=>0, 'type'=>'i1'),
+				'profile_0'   => array('value'=>0, 'type'=>'i1'),
+				'profile_1'   => array('value'=>0, 'type'=>'i1'),
+				'profile_2'   => array('value'=>0, 'type'=>'i1'),
+				'profile_3'   => array('value'=>0, 'type'=>'i1'),
+				'profile_4'   => array('value'=>0, 'type'=>'i1'),
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'stream_quality':
+			case 'fps_drop_enable':
+			case 'bitrate':	
+			case 'motion_level':
+			case 'noise_level':
+			case 'dyn_gop_enable':
+			case 'mode':
+			case 'profile_0':
+			case 'profile_1':
+			case 'profile_2':
+			case 'profile_3':
+			case 'profile_4':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+			case 'dyn_roi_enable':
+				{
+					return $this->dataInfo['stream_quality']['value'];
+				}			
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'stream_quality':
+			case 'fps_drop_enable':
+			case 'bitrate':	
+			case 'motion_level':
+			case 'noise_level':
+			case 'dyn_gop_enable':
+			case 'mode':
+			case 'profile_0':
+			case 'profile_1':
+			case 'profile_2':
+			case 'profile_3':
+			case 'profile_4':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+			case 'dyn_roi_enable':
+				{
+					$this->dataInfo['stream_quality']['value'] = $val;
+				}							
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_SMART_LBR;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CACFControl
+{
+
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('enabled'   => array('value'=>0, 'type'=>'i1'),
+				'framerate'   => array('value'=>0, 'type'=>'i1'),
+				'target_bitrate'   => array('value'=>0, 'type'=>'i1'),
+				'target_bitrate_hevc'   => array('value'=>0, 'type'=>'i1'),
+				'target_gop'   => array('value'=>0, 'type'=>'i1'),
+				'bitrateControl'   => array('value'=>0, 'type'=>'i1'),
+				'hold_on_time'   => array('value'=>0, 'type'=>'i1'),
+				'trigger_event'   => array('value'=>0, 'type'=>'i1')
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'enabled':
+			case 'framerate':
+			case 'target_bitrate':	
+			case 'target_bitrate_hevc':
+			case 'target_gop':
+			case 'bitrateControl':
+			case 'hold_on_time':
+			case 'trigger_event':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'enabled':
+			case 'framerate':
+			case 'target_bitrate':	
+			case 'target_bitrate_hevc':
+			case 'target_gop':
+			case 'bitrateControl':			
+			case 'hold_on_time':
+			case 'trigger_event':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_SMART_ACF;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CDewarp
+{
+
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('enabled'   => array('value'=>0, 'type'=>'i1'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'enabled':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'enabled':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_DEWARP;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CH264CodecProperty
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array(	'GovLength' 			=> array('value'=>0, 'type'=>'i1'),
+								'CodecProfile' 			=> array('value'=>0, 'type'=>'c1'),
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'GovLength':
+			case 'CodecProfile':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'GovLength':
+			case 'CodecProfile':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CVideoEncoderExtensionConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	public      $Roi;
+	public      $SmartLBR;
+	public      $SmartACF;
+	function __construct()
+	{
+		$this->Roi   = new CRoiControl();
+		$this->SmartLBR  = new CLBRControl();
+	  $this->SmartACF  = new CACFControl();
+		$this->dataInfo = array(
+				'SVCT_Mode'        => array('value' => 0, 'type'  => 'c1'),
+				'ViewMode'         => array('value' => 0, 'type'  => 'c1'),
+				'SmartCoreMode' => array('value' => 0, 'type'  => 'c1'),
+				'Roi'              => array('value' => '', 'type' => 'a'.$this->Roi->payloadLength),
+				'SmartLBR'         => array('value' => '', 'type' => 'a'.$this->SmartLBR->payloadLength),
+				'SmartACF'         => array('value' => '', 'type' => 'a'.$this->SmartACF->payloadLength),
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'SVCT_Mode':
+			case 'ViewMode':
+			case 'SmartCoreMode':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'SVCT_Mode':
+			case 'ViewMode':
+			case 'SmartCoreMode':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->Roi->SetPayload();
+		$this->SmartLBR->SetPayload();		
+		$this->SmartACF->SetPayload();
+		$this->payload = '';
+		$this->dataInfo['Roi']['value'] = $this->Roi->payload;
+		$this->dataInfo['SmartLBR']['value'] = $this->SmartLBR->payload;		
+		$this->dataInfo['SmartACF']['value'] = $this->SmartACF->payload;		
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Roi->UnpackDataInfo($_dataArray['Roi']);
+		$this->SmartLBR->UnpackDataInfo($_dataArray['SmartLBR']);		
+		$this->SmartACF->UnpackDataInfo($_dataArray['SmartACF']);		
+		//$this->SetPayload();
+	}
+}
+
+
+
+class CVideoEncoderConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $Resolution;
+	public  $RateControl;
+	public  $H264;
+	public  $RTPMulticast;
+	public  $Extension;
+	function __construct()
+	{
+		$this->Resolution   = new CVideoResolution();
+		$this->RateControl  = new CVideoRateControl();
+		$this->H264         = new CH264CodecProperty();
+		$this->RTPMulticast = new CMediaStreamMulticast();
+		$this->Extension    = new CVideoEncoderExtensionConfiguration();
+		$this->dataInfo = array('Token'          => array('value'=>'', 'type'=>'a64'),
+								'Name'           => array('value'=>'', 'type'=>'a64'),
+								'UseCount'       => array('value'=>0,  'type'=>'i1'),
+								'TargetSource'  => array('value'=>0,  'type'=>'i1'),
+								'TargetChannel'  => array('value'=>0,  'type'=>'i1'),
+								'Encoding'       => array('value'=>0,  'type'=>'c1'),
+								'Resolution'     => array('value'=>'', 'type'=>'a'.$this->Resolution->payloadLength),
+								'Compression'    => array('value'=>0,  'type'=>'c1'),
+								'RateControl'    => array('value'=>'', 'type'=>'a'.$this->RateControl->payloadLength),
+								'H264'           => array('value'=>'', 'type'=>'a'.$this->H264->payloadLength),
+								'RTPMulticast'   => array('value'=>'', 'type'=>'a'.$this->RTPMulticast->payloadLength),
+								'SessionTimeout' => array('value'=>0,  'type'=>'i1'),
+								'DSCP'           => array('value'=>0,  'type'=>'C1'),
+								'Extension'      => array('value'=>'', 'type'=>'a'.$this->Extension->payloadLength),
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'TargetSource':
+			case 'TargetChannel':
+			case 'Encoding':
+			case 'Compression':
+			case 'SessionTimeout':
+			case 'DSCP':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'TargetSource':
+			case 'TargetChannel':
+			case 'Encoding':
+			case 'Compression':
+			case 'SessionTimeout':
+			case 'DSCP':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->Resolution->SetPayload();
+		$this->RateControl->SetPayload();
+		$this->H264->SetPayload();
+		$this->RTPMulticast->SetPayload();
+		$this->Extension->SetPayload();
+
+		$this->payload                           = '';
+		$this->dataInfo['Resolution']['value']   = $this->Resolution->payload;
+		$this->dataInfo['RateControl']['value']  = $this->RateControl->payload;
+		$this->dataInfo['H264']['value']         = $this->H264->payload;
+		$this->dataInfo['RTPMulticast']['value'] = $this->RTPMulticast->payload;
+		$this->dataInfo['Extension']['value']    = $this->Extension->payload;
+		$this->payload                          .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Resolution->UnpackDataInfo($_dataArray['Resolution']);
+		$this->RateControl->UnpackDataInfo($_dataArray['RateControl']);
+		$this->H264->UnpackDataInfo($_dataArray['H264']);
+		$this->RTPMulticast->UnpackDataInfo($_dataArray['RTPMulticast']);
+		$this->Extension->UnpackDataInfo($_dataArray['Extension']);
+		//$this->SetPayload();
+	}
+}
+
+class CVideoEncoderConfigurations
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $conf;
+
+	function __construct()
+	{
+
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->conf[$index]	 = new CVideoEncoderConfiguration();
+			$this->payloadLength += $this->conf[$index]->payloadLength;
+		}
+
+		$this->packFormat = MakeUnpackFormat('conf', $this->conf[0]->payloadLength, MAX_VIDEO_ENCODER);
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->conf[$index]->SetPayload();
+			$this->payload .= $this->conf[$index]->payload;
+		}
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+
+		}
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->conf[$index]->UnpackDataInfo($_dataArray['conf'.$index]);
+		}
+
+		//$this->SetPayload();
+	}
+}
+
+class CAudioEncoderConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $RTPMulticast;
+
+	function __construct()
+	{
+		$this->RTPMulticast = new CMediaStreamMulticast();
+
+		$this->dataInfo = array('Token'          => array('value' => '', 'type'  => 'a64'),
+								'Name'           => array('value' => '', 'type'  => 'a64'),
+								'UseCount'       => array('value' => 0, 'type'   => 'i1'),
+								'Encoding'       => array('value' => 0, 'type'   => 'c1'),
+								'Bitrate'        => array('value' => 0, 'type'   => 'i1'),
+								'SampleRate'     => array('value' => 0, 'type'   => 'i1'),
+								'RTPMulticast'   => array('value' => '', 'type'  => 'a'.$this->RTPMulticast->payloadLength),
+								'Format'         => array('value' => '', 'type' => 'c1'),
+								'SessionTimeout' => array('value' => 0, 'type'   => 'i1'),
+								'DSCP'        => array('value' => 0, 'type'   => 'C1'),
+								'Enabled'        => array('value' => 0, 'type'   => 'c1'),
+								'Volume'         => array('value' => 0, 'type'   => 'c1'),
+								'AmpEnabled'         => array('value' => 0, 'type'   => 'c1')
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'Encoding':
+			case 'Bitrate':
+			case 'SampleRate':
+			case 'SessionTimeout':
+			case 'DSCP':
+			case 'Enabled':
+			case 'Volume':
+			case 'AmpEnabled':
+			case 'Format':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'Encoding':
+			case 'Bitrate':
+			case 'SampleRate':
+			case 'SessionTimeout':
+			case 'DSCP':
+			case 'Enabled':
+			case 'Volume':
+			case 'AmpEnabled':
+			case 'Format':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->RTPMulticast->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['RTPMulticast']['value'] = $this->RTPMulticast->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->RTPMulticast->UnpackDataInfo($_dataArray['RTPMulticast']);
+		//$this->SetPayload();
+	}
+}
+
+
+class CProfile
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Name'                      => array('value' => '', 'type' => 'a64'),
+								'Token'                     => array('value' => '', 'type' => 'a64'),
+								'FixedProfile'              => array('value' => 0, 'type'  => 'c1'),
+								'VideoSourceConfigToken'    => array('value' => '', 'type' => 'a64'),
+								'AudioSourceConfigToken'    => array('value' => '', 'type' => 'a64'),
+								'VideoEncoderConfigToken'   => array('value' => '', 'type' => 'a64'),
+								'AudioEncoderConfigToken'   => array('value' => '', 'type' => 'a64'),
+								'VideoAnalyticsConfigToken' => array('value' => '', 'type' => 'a64'),
+								'PTZConfigToken'            => array('value' => '', 'type' => 'a64'),
+								'MetadataConfigToken'       => array('value' => '', 'type' => 'a64'),
+								'AudioDecoderConfigToken'   => array('value' => '', 'type' => 'a64'),
+								'AudioOutputConfigToken'    => array('value' => '', 'type' => 'a64')
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Token':
+			case 'FixedProfile':
+			case 'VideoSourceConfigToken':
+			case 'AudioSourceConfigToken':
+			case 'VideoEncoderConfigToken':
+			case 'AudioEncoderConfigToken':
+			case 'VideoAnalyticsConfigToken':
+			case 'PTZConfigToken':
+			case 'MetadataConfigToken':
+			case 'AudioDecoderConfigToken':
+			case 'AudioOutputConfigToken':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Token':
+			case 'FixedProfile':
+			case 'VideoSourceConfigToken':
+			case 'AudioSourceConfigToken':
+			case 'VideoEncoderConfigToken':
+			case 'AudioEncoderConfigToken':
+			case 'VideoAnalyticsConfigToken':
+			case 'PTZConfigToken':
+			case 'MetadataConfigToken':
+			case 'AudioDecoderConfigToken':
+			case 'AudioOutputConfigToken':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CProfiles
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $Profile;
+	function __construct()
+	{
+		$this->packFormat = '';
+		for ($index=0; $index<MAX_PROFILE; ++$index)
+		{
+			$this->Profile[$index] = new CProfile();
+			$this->payloadLength += $this->Profile[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Profile', $this->Profile[0]->payloadLength, MAX_PROFILE);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_PROFILE; ++$index)
+		{
+			$this->Profile[$index]->SetPayload();
+			$this->payload .= $this->Profile[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_PROFILE; ++$index)
+		{
+			$this->Profile[$index]->UnpackDataInfo($_dataArray['Profile'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+
+class CAudioOutputConfiguration
+{
+	public   $command;
+	public   $payload;
+	public  $payloadLength;
+	public  $dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Token'         => array('value' => '', 'type'  => 'a64'),
+				'OutputToken'   => array('value' => '', 'type'  => 'a64'),
+				'Name'          => array('value' => '', 'type'  => 'a64'),
+				'UseCount'      => array('value' => 0, 'type'   => 'i1'),
+				'OutputLevel'=> array('value' => 0, 'type'   => 'i1')
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'OutputToken':
+			case 'Name':
+			case 'UseCount':
+			case 'OutputLevel':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'OutputToken':
+			case 'Name':
+			case 'UseCount':
+			case 'OutputLevel':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CVideoOutputConfiguration
+{   
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Token'         => array('value' => '', 'type'  => 'a64'),
+								'OutputToken'   => array('value' => '', 'type'  => 'a64'),
+								'Name'          => array('value' => '', 'type'  => 'a64'),
+								'UseCount'      => array('value' => 0, 'type'   => 'i1'),
+								'VoutResolution'=> array('value' => 0, 'type'   => 'i1')
+                );
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+    }
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+            case 'OutputToken':
+			case 'Name':
+			case 'UseCount':
+            case 'VoutResolution':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+            case 'OutputToken':
+			case 'Name':
+			case 'UseCount':
+            case 'VoutResolution':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CProfileConfiguration
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $VideoSourceConfigurations;
+	public  $AudioSourceConfiguration;
+	public  $VideoEncoderConfigurations;
+	public  $AudioEncoderConfiguration;
+	public  $PTZConfiguration;
+	public  $AudioOutputConfiguration;
+	public  $VideoOutputConfiguration;
+	function __construct($shmid = 0 )
+	{
+		$this->VideoSourceConfigurations 	= new CVideoSourceConfigurations();
+		$this->AudioSourceConfiguration 	= new CAudioSourceConfiguration();
+		$this->VideoEncoderConfigurations   = new CVideoEncoderConfigurations();
+		$this->AudioEncoderConfiguration 	= new CAudioEncoderConfiguration();
+		$this->PTZConfiguration = new CPTZConfiguration();
+		$this->AudioOutputConfiguration = new CAudioOutputConfiguration();
+		$this->VideoOutputConfiguration = new CVideoOutputConfiguration();
+
+		$this->payloadLength = 0;
+
+		$this->payloadLength += $this->VideoSourceConfigurations->payloadLength;
+		$this->payloadLength += $this->AudioSourceConfiguration->payloadLength;
+		$this->payloadLength += $this->VideoEncoderConfigurations->payloadLength;
+		$this->payloadLength += $this->AudioEncoderConfiguration->payloadLength;
+
+
+		$this->dataInfo = array('VideoAnalyticsConfiguration' => array('value' => '', 'type' => 'a2232'),
+								'PTZConfiguration'   => array('value' => '', 'type'  => 'a'.$this->PTZConfiguration->payloadLength),
+								'MetadataConfiguration'       => array('value' => '', 'type' => 'a701'),
+								'AudioDecoderConfiguration'   => array('value' => '', 'type' => 'a142'),
+								'AudioOutputConfiguration'    => array('value' => '', 'type' => 'a200'),
+								'VideoOutputConfiguration'    => array('value' => '', 'type' => 'a'.$this->VideoOutputConfiguration->payloadLength )
+							);
+
+
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+
+
+		$this->packFormat 	= 'a'.$this->VideoSourceConfigurations->payloadLength.'VideoSourceConfigurations'.'/'.
+							'a'.$this->AudioSourceConfiguration->payloadLength.'AudioSourceConfiguration'.'/'.
+							'a'.$this->VideoEncoderConfigurations->payloadLength.'VideoEncoderConfigurations'.'/'.
+							'a'.$this->AudioEncoderConfiguration->payloadLength.'AudioEncoderConfiguration'.'/'.
+							MakeDataFormat($this->dataInfo);
+
+		/* reading data from shared memory */
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id)
+				exit;
+
+			$shmid = $this->shm_id;
+		}
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_MEDIA*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'] + $positionInfo['size'] - $this->payloadLength;
+		$total_size      = $this->payloadLength;
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'CChannelConfiguration failed: reason: data size is different : '.'payloadLength='.$this->payloadLength.' total_size='.$total_size."\r\n";
+
+			//shmop_close($this->shm_id);
+			exit;
+		}
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->VideoSourceConfigurations->SetPayload();
+		$this->AudioSourceConfiguration->SetPayload();
+		$this->VideoEncoderConfigurations->SetPayload();
+		$this->AudioEncoderConfiguration->SetPayload();
+		$this->PTZConfiguration->SetPayload();
+		$this->AudioOutputConfiguration->SetPayload();
+		$this->VideoOutputConfiguration->SetPayload();
+
+		$this->payload = '';
+		$this->payload .= $this->VideoSourceConfigurations->payload.$this->AudioSourceConfiguration->payload;
+		$this->payload .= $this->VideoEncoderConfigurations->payload;
+		$this->payload .= $this->AudioEncoderConfiguration->payload;
+		$this->dataInfo['PTZConfiguration']['value'] = $this->PTZConfiguration->payload;
+		$this->dataInfo['AudioOutputConfiguration']['value'] = $this->AudioOutputConfiguration->payload;
+		$this->dataInfo['VideoOutputConfiguration']['value'] = $this->VideoOutputConfiguration->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->VideoSourceConfigurations->UnpackDataInfo($_dataArray['VideoSourceConfigurations']);
+		$this->AudioSourceConfiguration->UnpackDataInfo($_dataArray['AudioSourceConfiguration']);
+		$this->VideoEncoderConfigurations->UnpackDataInfo($_dataArray['VideoEncoderConfigurations']);
+		$this->AudioEncoderConfiguration->UnpackDataInfo($_dataArray['AudioEncoderConfiguration']);
+		$this->PTZConfiguration->UnpackDataInfo($_dataArray['PTZConfiguration']);
+		$this->AudioOutputConfiguration->UnpackDataInfo($_dataArray['AudioOutputConfiguration']);
+		$this->VideoOutputConfiguration->UnpackDataInfo($_dataArray['VideoOutputConfiguration']);
+		//$this->SetPayload();
+	}
+
+	function getVideoQproiInfo()
+	{
+		for($src=0; $src < MAX_MEDIA_SOURCE ; ++$src )
+		{
+			for($stream=0; $stream < MAX_VIDEO_CHANNEL; ++$stream )
+			{
+				$ch = $this->VideoSourceConfigurations->Config[$src]->StreamNums->num[$stream]->value;
+				if( $ch < 0 ) continue;
+				$data[$src][$stream]["Qproi_x"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_x;
+				$data[$src][$stream]["Qproi_y"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_y;
+				$data[$src][$stream]["Qproi_w"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_w;
+				$data[$src][$stream]["Qproi_h"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_h;
+				$data[$src][$stream]["Qproi_t"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_t;
+				$data[$src][$stream]["Qproi_s"] 
+					= $this->VideoEncoderConfigurations->conf[$ch]->Extension->Roi->Qproi_s;
+			}
+		}
+		echo json_encode($data);
+	}
+	function getFisheyeInformation($name, $isjson=false)
+	{
+		if(!$isjson)
+		{
+			//echo "mount_type= " . $GLOBALS['fish_conf']->MountType          . ";\r\n";
+			//echo "source_type= " . $GLOBALS['fish_conf']->SourceType         . ";\r\n";
+			//echo "[cali_center]\r\n"
+			//echo "finded= " . $GLOBALS['fish_conf']->CaliCenter->finded . ";\r\n";
+			echo "pos_x = " . $GLOBALS['fish_conf']->CaliCenter->pos_x  . ";\r\n";
+			echo "pos_y = " . $GLOBALS['fish_conf']->CaliCenter->pos_y  . ";\r\n";
+			echo "radius= " . $GLOBALS['fish_conf']->CaliCenter->radius . ";\r\n";
+		}
+		else
+		{
+			$data = array();
+
+			$used = 0;
+
+			$data['cali_center']['pos_x']    = $this->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->pos_x ;
+			$data['cali_center']['pos_y']    = $this->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->pos_y ;
+			$data['cali_center']['radius']   = $this->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->radius ;
+
+			echo json_encode($data);
+
+		}	
+	}
+}
+/*
+class CVideoEncoderConfigurations
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $Channel;
+	function __construct()
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index] = new CVideoEncoderConfiguration();
+			$this->payloadLength += $this->Channel[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Channel', $this->Channel[0]->payloadLength, MAX_VIDEO_ENCODER);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index]->SetPayload();
+			$this->payload .= $this->Channel[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index]->UnpackDataInfo($_dataArray['Channel'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+*/
+class CPreset
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Token'          => array('value' => '', 'type'  => 'a32'),
+								'Name'           => array('value' => '', 'type'  => 'a32'),
+								'x'       => array('value' => 0, 'type'   => 'i1'),
+								'y'       => array('value' => 0, 'type'   => 'i1'),
+								'z'       => array('value' => 0, 'type'   => 'i1'),
+								'shortcut'       => array('value' => 0, 'type'   => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'x':
+			case 'y':
+			case 'z':
+			case 'shortcut':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'x':
+			case 'y':
+			case 'z':
+			case 'shortcut':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CTourPosition
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('mode'       => array('value' => 0, 'type'   => 'i1'),
+								'preset'       => array('value' => 0, 'type'   => 'i1'),	
+								'param0'       => array('value' => 0, 'type'   => 'i1'),
+								'param1'       => array('value' => 0, 'type'   => 'i1'),
+								'param2'       => array('value' => 0, 'type'   => 'i1'),
+								'param3'       => array('value' => 0, 'type'   => 'i1'),
+								'param4'       => array('value' => 0, 'type'   => 'i1'),
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'mode':
+			case 'preset':
+			case 'param0':
+			case 'param1':
+			case 'param2':
+			case 'param3':
+			case 'param4':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'mode':
+			case 'preset':
+			case 'param0':
+			case 'param1':
+			case 'param2':
+			case 'param3':
+			case 'param4':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{		
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+
+class CPresetConfig
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $preset;
+	function __construct()
+	{
+		$this->packFormat = '';
+		for ($index=0; $index<MAX_PRESET_COUNT; ++$index)
+		{
+			$this->preset[$index] = new CPreset();
+			$this->payloadLength += $this->preset[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('preset', $this->preset[0]->payloadLength, MAX_PRESET_COUNT);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_PRESET_COUNT; ++$index)
+		{
+			$this->preset[$index]->SetPayload();
+			$this->payload .= $this->preset[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_PRESET_COUNT; ++$index)
+		{
+			$this->preset[$index]->UnpackDataInfo($_dataArray['preset'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+
+class CPresetTour
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Position;
+	public  $copy;
+
+	
+	function __construct()
+	{
+		$this->dataInfo = array('Token'          => array('value' => '', 'type'  => 'a32'),
+								'Name'           => array('value' => '', 'type'  => 'a32'),
+								'Size'       => array('value' => 0, 'type'   => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);	
+
+
+		$this->copy = new CTourPosition();
+		
+		for ($index=0; $index<MAX_PRESET_TOUR_POSITION; ++$index)
+		{
+			$this->Position[$index] = clone $this->copy ;
+		//	$this->Position[$index]  = new CTourPosition();
+			$this->payloadLength += $this->Position[$index]->payloadLength;
+		}
+		$this->packFormat .= MakeUnpackFormat('Position', $this->Position[0]->payloadLength, MAX_PRESET_TOUR_POSITION);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'Size':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'Size':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+		
+		for ($index=0; $index<MAX_PRESET_TOUR_POSITION; ++$index)
+		{
+			$this->Position[$index]->SetPayload();
+			$this->payload .= $this->Position[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_PRESET_TOUR_POSITION; ++$index)
+		{
+			$this->Position[$index]->UnpackDataInfo($_dataArray['Position'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+
+class CPresetTourConfig
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $tour;
+
+	function __construct()
+	{
+	
+		$this->packFormat = '';
+
+		$copy = new CPresetTour();
+
+		for ($index=0; $index<MAX_PRESET_TOUR_COUNT; ++$index)
+		{		
+			$this->tour[$index] = new CPresetTour();			
+			$this->payloadLength += $this->tour[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('tour', $this->tour[0]->payloadLength, MAX_PRESET_TOUR_COUNT);
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_PRESET_TOUR_COUNT; ++$index)
+		{
+			$this->tour[$index]->SetPayload();
+			$this->payload .= $this->tour[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_PRESET_TOUR_COUNT; ++$index)
+		{
+			
+			$this->tour[$index]->UnpackDataInfo($_dataArray['tour'.$index]);
+
+		}
+		//$this->SetPayload();
+	}
+}
+
+class CHomePosition 
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('x'       => array('value' => 0, 'type'   => 'i1'),
+								'y'       => array('value' => 0, 'type'   => 'i1'),
+								'z'       => array('value' => 0, 'type'   => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':
+			case 'y':
+			case 'z':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'x':
+			case 'y':
+			case 'z':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CPowerUpAction
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Enable'       => array('value' => 0, 'type'   => 'c1'),
+								'Action'       => array('value' => 0, 'type'   => 'c1'),
+								'Number'       => array('value' => 0, 'type'   => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'Action':
+			case 'Number':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'Action':
+			case 'Number':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CParkingAction
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Enable'       => array('value' => 0, 'type'   => 'c1'),
+		            			'WaitTime'       => array('value' => 0, 'type'   => 'i1'),
+								'Action'       => array('value' => 0, 'type'   => 'c1'),
+								'Number'       => array('value' => 0, 'type'   => 'i1')
+							);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'WaitTime':
+			case 'Action':
+			case 'Number':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'WaitTime':
+			case 'Action':
+			case 'Number':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+
+class CPowerUpActionSetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $powerUpAction;
+
+	function __construct() 
+	{
+		$this->powerUpAction = new CPowerUpAction();	
+		
+		$this->dataInfo = array(
+				'id'       => array('value' => 0, 'type'  => 'i1'),
+				'powerUpAction' => array('value' => '', 'type' => 'a'.$this->powerUpAction->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->powerUpAction->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['powerUpAction']['value'] = $this->powerUpAction->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->powerUpAction->UnpackDataInfo($_dataArray['powerUpAction']);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CParkingActionSetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $parkingAction;
+
+	function __construct() 
+	{
+		$this->parkingAction = new CParkingAction();	
+		
+		$this->dataInfo = array(
+				'id'       => array('value' => 0, 'type'  => 'i1'),
+				'parkingAction' => array('value' => '', 'type' => 'a'.$this->parkingAction->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->parkingAction->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['parkingAction']['value'] = $this->parkingAction->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->parkingAction->UnpackDataInfo($_dataArray['parkingAction']);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CPtzCommonSetRequest
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type' => 'i1'),
+				'value' => array('value' => 0, 'type' => 'i1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CWiperAction  // overview mode WiperAction
+{
+	public   $command;
+
+	public   $payload;
+	public  $payloadLength;
+	public  $dataInfo;
+	public  $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('Enable'       => array('value' => 0, 'type'   => 'c1'),
+				'Speed'       => array('value' => 0, 'type'   => 'c1'),
+				'Timeout'       => array('value' => 0, 'type'   => 'i1')
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'Speed':
+			case 'Timeout':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Enable':
+			case 'Speed':
+			case 'Timeout':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CWiperActionSetRequest
+{
+	public   $command;
+	public   $payload;
+	public  $payloadLength;
+	public  $dataInfo;
+	public  $packFormat;
+
+	public  $WiperAction;
+
+	function __construct()
+	{
+		$this->WiperAction = new CWiperAction();
+
+		$this->dataInfo = array(
+				'id'       => array('value' => 0, 'type'  => 'i1'),
+				'WiperAction' => array('value' => '', 'type' => 'a'.$this->WiperAction->payloadLength)
+				);
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'id':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->WiperAction->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['WiperAction']['value'] = $this->WiperAction->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->WiperAction->UnpackDataInfo($_dataArray['WiperAction']);
+		//$this->SetPayload();
+	}
+}
+
+class CPTZConfiguration
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $homePosition;
+	public  $presetConfig;
+	public  $presetTourConfig;
+
+	public  $PowerUpAction;
+	public  $ParkingAction;
+	public  $WiperAction;
+
+	function __construct()
+	{
+		$this->presetConfig = new CPresetConfig();			
+		$this->presetTourConfig = new CPresetTourConfig();     
+		$this->homePosition = new CHomePosition();
+		$this->PowerUpAction = new CPowerUpAction();
+		$this->ParkingAction = new CParkingAction();
+		$this->WiperAction = new CWiperAction();
+		$this->dataInfo = array('Token'          => array('value' => '', 'type'  => 'a64'),
+								'Name'           => array('value' => '', 'type'  => 'a64'),
+								'UseCount'       => array('value' => 0, 'type'   => 'i1'),
+								'NodeToken'      => array('value' => '', 'type'  => 'a64'),
+								'DefaultAbsolutePanTiltPositionSpace'  => array('value' => '', 'type'  => 'a32'),
+								'DefaultAbsoluteZoomPositionSpace'      => array('value' => '', 'type'  => 'a32'),
+								'DefaultRelativePanTiltTranslationSpace'  => array('value' => '', 'type'  => 'a32'),
+								'DefaultRelativeZoomTranslationSpace'     => array('value' => '', 'type'  => 'a32'),
+								'DefaultContinuousPanTiltVelocitySpace'   => array('value' => '', 'type'  => 'a32'),
+								'DefaultContinuousZoomVelocitySpace'      => array('value' => '', 'type'  => 'a32'),
+								'DefaultPTZSpeed'      => array('value' => '', 'type'  => 'a76'),
+								'DefaultPTZTimeout' => array('value' => 0, 'type'   => 'i1'),
+								'PanTiltLimits'      => array('value' => '', 'type'  => 'a48'),
+								'ZoomLimits'      => array('value' => '', 'type'  => 'a40'),
+								'PanRange' => array('value' => 0, 'type'   => 'i1'),
+								'TiltMaxRange' => array('value' => 0, 'type'   => 'i1'),
+								'TiltMinRange' => array('value' => 0, 'type'   => 'i1'),
+								'ZoomRange' => array('value' => 0, 'type'   => 'i1'),
+								'EFlipMode' => array('value' => 0, 'type'   => 'i1'),
+								'ReverseMode' => array('value' => 0, 'type'   => 'i1'),
+								'DigitalZoomMode' => array('value' => 0, 'type'   => 'i1'),
+								'AutoFlip' => array('value' => 0, 'type'   => 'i1'),
+								'homePosition'   => array('value' => '', 'type'  => 'a'.$this->homePosition->payloadLength),
+								'presetConfig'   => array('value' => '', 'type'  => 'a'.$this->presetConfig->payloadLength),
+								'presetTourConfig'   => array('value' => '', 'type'  => 'a'.$this->presetTourConfig->payloadLength),
+								'PowerUpAction'   => array('value' => '', 'type'  => 'a'.$this->PowerUpAction->payloadLength),
+								'ParkingAction'   => array('value' => '', 'type'  => 'a'.$this->ParkingAction->payloadLength),
+								'WiperAction'   => array('value' => '', 'type'  => 'a'.$this->WiperAction->payloadLength),
+								'InvertMode' => array('value' => 0, 'type'   => 'i1'),
+								'WasherRT' => array('value' => 0, 'type'   => 'i1')
+							);
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'NodeToken':
+			case 'DefaultAbsolutePanTiltPositionSpace':
+			case 'DefaultAbsoluteZoomPositionSpace':
+			case 'DefaultRelativePanTiltTranslationSpace':
+			case 'DefaultRelativeZoomTranslationSpace':
+			case 'DefaultContinuousPanTiltVelocitySpace':
+			case 'DefaultContinuousZoomVelocitySpace':
+			case 'DefaultPTZSpeed':
+			case 'DefaultPTZTimeout':
+			case 'PanTiltLimits':
+			case 'ZoomLimits':
+			case 'EFlipMode':
+			case 'ReverseMode':
+			case 'DigitalZoomMode':
+			case 'AutoFlip':
+			case 'InvertMode':
+			case 'WasherRT':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'Name':
+			case 'UseCount':
+			case 'NodeToken':
+			case 'DefaultAbsolutePanTiltPositionSpace':
+			case 'DefaultAbsoluteZoomPositionSpace':
+			case 'DefaultRelativePanTiltTranslationSpace':
+			case 'DefaultRelativeZoomTranslationSpace':
+			case 'DefaultContinuousPanTiltVelocitySpace':
+			case 'DefaultContinuousZoomVelocitySpace':
+			case 'DefaultPTZSpeed':
+			case 'DefaultPTZTimeout':
+			case 'PanTiltLimits':
+			case 'ZoomLimits':
+			case 'EFlipMode':
+			case 'ReverseMode':	
+			case 'DigitalZoomMode':
+			case 'AutoFlip':
+			case 'InvertMode':
+			case 'WasherRT':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->homePosition->SetPayload();
+		$this->presetConfig->SetPayload();
+		$this->presetTourConfig->SetPayload();
+		$this->PowerUpAction->SetPayload();
+		$this->ParkingAction->SetPayload();
+		$this->WiperAction->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['homePosition']['value'] = $this->homePosition->payload;
+		$this->dataInfo['presetConfig']['value'] = $this->presetConfig->payload;
+		$this->dataInfo['presetTourConfig']['value'] = $this->presetTourConfig->payload;
+		$this->dataInfo['PowerUpAction']['value'] = $this->PowerUpAction->payload;
+		$this->dataInfo['ParkingAction']['value'] = $this->ParkingAction->payload;
+		$this->dataInfo['WiperAction']['value'] = $this->WiperAction->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->homePosition->UnpackDataInfo($_dataArray['homePosition']);
+		$this->presetConfig->UnpackDataInfo($_dataArray['presetConfig']);
+		
+		$this->presetTourConfig->UnpackDataInfo($_dataArray['presetTourConfig']);
+		$this->PowerUpAction->UnpackDataInfo($_dataArray['PowerUpAction']);
+		$this->ParkingAction->UnpackDataInfo($_dataArray['ParkingAction']);
+		$this->WiperAction->UnpackDataInfo($_dataArray['WiperAction']);
+		//$this->SetPayload();
+	}
+}
+
+
+class CChannelConfiguration
+{
+	private $shm_id;
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $Channel;
+	function __construct($shmid = 0)
+	{
+		$this->packFormat = '';
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index] = new CVideoEncoderConfiguration();
+			$this->payloadLength += $this->Channel[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Channel', $this->Channel[0]->payloadLength, MAX_VIDEO_ENCODER);
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id)
+			  exit;
+
+			$shmid = $this->shm_id;
+		}
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_MEDIA*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'] + $positionInfo['size'] - $this->payloadLength;
+		$total_size      = $this->payloadLength;
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'CChannelConfiguration failed: reason: data size is different : '.'payloadLength='.$this->payloadLength.' total_size='.$total_size."\r\n";
+
+			//shmop_close($this->shm_id);
+			exit;
+		}
+
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+
+	function __destruct()
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index]->SetPayload();
+			$this->payload .= $this->Channel[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_VIDEO_ENCODER; ++$index)
+		{
+			$this->Channel[$index]->UnpackDataInfo($_dataArray['Channel'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+
+
+
+class CMediaConfiguration
+{
+	private $shm_id;
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public	$MediaSource;
+	public	$Profiles;
+	public	$ProfileConfig;
+
+	function __construct($shmid = 0)
+	{
+		$this->MediaSource   = new CMediaSource();
+		$this->Profiles      = new CProfiles();
+		$this->ProfileConfig = new CProfileConfiguration();
+
+		$this->payloadLength = 0;
+		$this->payloadLength += $this->MediaSource->payloadLength;
+		$this->payloadLength += $this->Profiles->payloadLength;
+		$this->payloadLength += $this->ProfileConfig->payloadLength;
+
+		$this->packFormat 	= 'a'.$this->MediaSource->payloadLength.'MediaSource'.'/'.
+							'a'.$this->Profiles->payloadLength.'Profiles'.'/'.
+							'a'.$this->ProfileConfig->payloadLength.'ProfileConfig'; //.'/'.
+
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id)
+			  exit;
+
+			$shmid = $this->shm_id;
+		}
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_MEDIA*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'];
+		$total_size      = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'CMediaConfiguration failed: reason: data size is different :' . "<br>";
+			echo 'payloadLength='   . $this->payloadLength . ' total_size='                      . $total_size . "<br>";
+			echo 'MediaSource : '   . 'payloadLength='     . $this->MediaSource->payloadLength   . "<br>";
+			echo 'Profiles : '      . 'payloadLength='     . $this->Profiles->payloadLength      . "<br>";
+			echo 'ProfileConfig : ' . 'payloadLength='     . $this->ProfileConfig->payloadLength . "<br>";
+
+			//shmop_close($this->shm_id);
+			exit;
+		}
+
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+
+	function __destruct()
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->MediaSource->SetPayload();
+		$this->Profiles->SetPayload();
+		$this->ProfileConfig->SetPayload();
+
+		$this->payload = '';
+		$this->payload .= $this->MediaSource->payload.$this->Profiles->payload.$this->ProfileConfig->payload.$this->ChannelConfig->payload;
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->MediaSource->UnpackDataInfo($_dataArray['MediaSource']);
+		$this->Profiles->UnpackDataInfo($_dataArray['Profiles']);
+		$this->ProfileConfig->UnpackDataInfo($_dataArray['ProfileConfig']);
+		//$this->SetPayload();
+	}
+	function getFisheyeInformation($name, $isjson=false)
+	{
+		if(!$isjson)
+		{
+			//echo "mount_type= " . $GLOBALS['fish_conf']->MountType          . ";\r\n";
+			//echo "source_type= " . $GLOBALS['fish_conf']->SourceType         . ";\r\n";
+			//echo "[cali_center]\r\n"
+			//echo "finded= " . $GLOBALS['fish_conf']->CaliCenter->finded . ";\r\n";
+			echo "pos_x = " . $GLOBALS['fish_conf']->CaliCenter->pos_x  . ";\r\n";
+			echo "pos_y = " . $GLOBALS['fish_conf']->CaliCenter->pos_y  . ";\r\n";
+			echo "radius= " . $GLOBALS['fish_conf']->CaliCenter->radius . ";\r\n";
+		}
+		else
+		{
+			$data = array();
+
+			$used = 0;
+
+			$data['cali_center']['pos_x']    = $this->ProfileConfig->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->pos_x ;
+			$data['cali_center']['pos_y']    = $this->ProfileConfig->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->pos_y ;
+			$data['cali_center']['radius']   = $this->ProfileConfig->VideoSourceConfigurations->Config[0]->Extension->FishEyeConf->CaliCenter->radius ;
+
+			echo json_encode($data);
+
+		}	
+	}
+}
+class CVideoProfile
+{
+	public  $command;
+	public  $payload;
+	public  $payloadLength;
+	public  $dataInfo;
+	public  $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array('Value'=> array('value'=>'', 'type'=>'i1'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);;
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Value':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Value':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+
+function getVinStreamInfo($ProfileConf)
+{
+	for($index = 0 ; $index < MAX_MEDIA_SOURCE ; $index++)
+	{
+		$conf = $ProfileConf->VideoSourceConfigurations->Config[$index];
+		for($i=0; $i < MAX_VIDEO_CHANNEL ; $i++ )
+		{
+			$data[$index][$i] = (int)$conf->StreamNums->num[$i]->value;
+		}
+	}
+	echo json_encode($data);
+}
+
+function getChannelInfo($ProfileConf)
+{
+	for($channel = 0 ;  $channel < MAX_PROFILE ; $channel++)
+	{
+		$ChannelInfo = $ProfileConf->VideoEncoderConfigurations->conf[$channel];
+		if ( $ChannelInfo->Encoding == CODEC_NONE )
+		{
+			$data[$channel]['codec']                 = 0;
+			$data[$channel]['codec_name']            = '';
+			$data[$channel]['resolution']            = "0x0";
+			$data[$channel]['framerate']             = 0;
+			$data[$channel]['bitrate_mode']          = 0;
+			$data[$channel]['bitrate']               = 0;
+			$data[$channel]['hevc_bitrate']          = 0;
+			$data[$channel]['quality']               = 0;
+			$data[$channel]['rtsp_timeout']          = 0;
+			$data[$channel]['gopsize']               = 0;
+			$data[$channel]['h264_profile']          = 0;
+			$data[$channel]['h264_extension_option'] = 0;
+			$data[$channel]['SmartCoreMode']      = 0;
+			$data[$channel]['lbr_mode']              = 0;
+		}
+		else 
+		{
+			$data[$channel]['codec']      = $ChannelInfo->Encoding;
+			$data[$channel]['codec_name'] = trim($ChannelInfo->Name);
+
+			$resolution= $ChannelInfo->Resolution->Width."x".$ChannelInfo->Resolution->Height;
+
+			$data[$channel]['resolution'] = $resolution;
+			$data[$channel]['framerate'] = $ChannelInfo->RateControl->FrameRateLimit;
+
+			$bitratemode = $ChannelInfo->RateControl->ConstantBitRate;
+			$data[$channel]['bitrate_mode'] = $bitratemode;
+			$quality = $ChannelInfo->Compression;
+			$data[$channel]['bitrate']=$ChannelInfo->RateControl->BitrateLimit;
+			$data[$channel]['hevc_bitrate']=$ChannelInfo->RateControl->HevcBitrateLimit; 
+			$data[$channel]['quality']=$quality;
+			$data[$channel]['rtsp_timeout']=$ChannelInfo->SessionTimeout;
+			$data[$channel]['gopsize']=$ChannelInfo->H264->GovLength;
+			$data[$channel]['h264_profile']=$ChannelInfo->H264->CodecProfile;
+			$data[$channel]['h264_extension_option']=$ChannelInfo->Extension->SVCT_Mode;
+			$data[$channel]['SmartCoreMode'] = $ChannelInfo->Extension->SmartCoreMode;
+			// lb
+			$data[$channel]['lbr_mode'] = $ChannelInfo->Extension->SmartLBR->mode;
+		}
+	}
+	echo json_encode($data);
+}
+function get_acf_plus_info($ProfileConf)
+{
+	for($channel = 0 ;  $channel < MAX_PROFILE ; $channel++)
+    {
+        $ChannelInfo = $ProfileConf->VideoEncoderConfigurations->conf[$channel];
+        $data[$channel]['enabled'] = $ChannelInfo->Extension->SmartACF->enabled;
+        $data[$channel]['framerate'] = $ChannelInfo->Extension->SmartACF->framerate;
+        if($ChannelInfo->Encoding == 3)
+        {
+          $data[$channel]['target_bitrate'] = $ChannelInfo->Extension->SmartACF->target_bitrate_hevc;
+        }
+        else
+        {
+          $data[$channel]['target_bitrate'] = $ChannelInfo->Extension->SmartACF->target_bitrate;
+        }
+        $data[$channel]['target_gop'] = $ChannelInfo->Extension->SmartACF->target_gop;
+        $data[$channel]['bitrateControl'] = $ChannelInfo->Extension->SmartACF->bitrateControl;
+        $data[$channel]['hold_on_time'] = $ChannelInfo->Extension->SmartACF->hold_on_time;
+        $data[$channel]['trigger_event'] = $ChannelInfo->Extension->SmartACF->trigger_event;
+    }
+    echo json_encode($data);
+}
+function get_rate_control_info($ProfileConf)
+{
+	for($channel = 0 ;  $channel < MAX_PROFILE ; $channel++)
+    {
+        $ChannelInfo = $ProfileConf->VideoEncoderConfigurations->conf[$channel];
+        $data[$channel]['stream_quality'] = $ChannelInfo->Extension->SmartLBR->stream_quality;
+        $data[$channel]['dyn_roi_enable'] = $ChannelInfo->Extension->SmartLBR->stream_quality;
+        $data[$channel]['dyn_gop_enable'] = $ChannelInfo->Extension->SmartLBR->dyn_gop_enable;
+        $data[$channel]['fps_drop_enable'] = $ChannelInfo->Extension->SmartLBR->fps_drop_enable;
+    }
+    echo json_encode($data);
+}
+function show_preset($obj, $isJson = true)
+{
+	$data = array();
+	$data[-1]['token'] = 0 ;
+
+	for( $i = 0 ; $i < 256 ; $i++)
+	{
+		if(trim($obj->preset[$i]->Token) != null){
+			$data['presetInfo'][$i]['token'] = trim($obj->preset[$i]->Token); 
+			$data['presetInfo'][$i]['name'] = trim($obj->preset[$i]->Name); 
+			$data['presetInfo'][$i]['shortcut'] = trim($obj->preset[$i]->shortcut);
+		}
+	}
+
+	if( $isJson )
+	{
+//		echo "presetInfo=".json_encode($data). ";\r\n";
+		echo json_encode($data) ;
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+
+}
+function show_presettour($obj, $isJson = true)
+{
+	$data = array();
+	$data['presetTourInfo'][-1][-1]['index'] = 0 ;
+	
+	for( $i = 0 ; $i < MAX_PRESET_TOUR_COUNT ; $i++)
+	{
+		if(trim($obj->tour[$i]->Token) != "")
+		{
+			for( $j = 0 ; $j < 256 ; $j++)
+			{
+				
+				if($obj->tour[$i]->Position[$j]->param0 != null)
+				{
+					$data['presetTourInfo'][$i][$j]['index'] = $j ;
+					$data['presetTourInfo'][$i][$j]['preset'] = trim($obj->tour[$i]->Position[$j]->preset); 
+					$data['presetTourInfo'][$i][$j]['delay'] = $obj->tour[$i]->Position[$j]->param0; 
+					$data['presetTourInfo'][$i][$j]['speed'] = $obj->tour[$i]->Position[$j]->param1; 
+				}
+			}				
+		}
+	}	
+
+ 	if( $isJson )
+	{
+	//	echo "presetTourInfo=".json_encode($data). ";\r\n";
+		echo json_encode($data) ;
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+}
+function get_parkingAction($ProfileConf)
+{
+        $ParkingActionInfo = $ProfileConf->PTZConfiguration->ParkingAction;
+        $data['Enable'] = $ParkingActionInfo->Enable;
+        $data['WaitTime'] = $ParkingActionInfo->WaitTime;
+        $data['Action'] = $ParkingActionInfo->Action;
+        $data['Number'] = $ParkingActionInfo->Number;
+
+    echo json_encode($data);
+}
+function get_PowerupAction($ProfileConf)
+{
+		$PowerUpActionInfo = $ProfileConf->PTZConfiguration->PowerUpAction;
+		$data['Enable'] = $PowerUpActionInfo->Enable;
+		$data['Action'] = $PowerUpActionInfo->Action;
+		$data['Number'] = $PowerUpActionInfo->Number;
+
+	echo json_encode($data);
+}
+function get_AutoFlip($ProfileConf)
+{
+		$AutoFlipInfo = $ProfileConf->PTZConfiguration;
+		$data['Enable'] = $AutoFlipInfo->AutoFlip;
+
+		echo json_encode($data);
+}
+function get_Dzoom($ProfileConf)
+{
+		$DzoomInfo = $ProfileConf->PTZConfiguration;
+		$data['Enable'] = $DzoomInfo->DigitalZoomMode;
+
+		echo json_encode($data);
+}
+function get_vout_resoultion($ProfileConf)
+{
+		$VoutInfo = $ProfileConf->VideoOutputConfiguration;
+		$data['vout_resolution'] = $VoutInfo->VoutResolution;
+
+		echo json_encode($data);
+}
+function get_WiperAction($ProfileConf)  // overview mode
+{
+	$WiperActionInfo = $ProfileConf->PTZConfiguration->WiperAction;
+	$data['Enable'] = $WiperActionInfo->Enable;
+	$data['Speed'] = $WiperActionInfo->Speed;
+	$data['Timeout'] = $WiperActionInfo->Timeout;
+
+	echo json_encode($data);
+}
+function get_InvertMode($ProfileConf)
+{
+    $InvertInfo = $ProfileConf->PTZConfiguration;
+    $data['Enable'] = $InvertInfo->InvertMode;
+
+    echo json_encode($data);
+}
+?>

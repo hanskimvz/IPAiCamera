@@ -1,0 +1,232 @@
+//#82bde1 		:#82bde1; 
+//#rgba(132, 166, 231, 1)  	:rgba(132, 166, 231, 1);
+
+
+/********** MAIN **********/
+html {
+	background: white !important; /* Old browsers */
+}
+.content {
+ /*   background-color: rgba(212, 212, 212, 1);*/
+}
+#frame{
+	background-color: #dddddd;
+}
+#frame #div_left {
+    background-color: #dddddd;
+}
+
+/********** ADMIN **********/
+#left_frame {
+    background-color: #dddddd;
+}
+#tabs {
+    background-color: #dddddd;
+}
+/**********  **********/
+#logo{
+    display: block;
+    height: 85px;
+    background-size: 150px !important;
+    background-position-x: 24px !important;
+    background-position-y: 33px !important;
+    background: url("../../../images/Rubezh_logo.png");
+    background-repeat: no-repeat;
+}
+
+// a:hover		{ color: #3d377a; font-size: inherit; text-decoration: none; border: 0px;}
+
+/********** BUTTON **********/
+.button{
+	width: 153px;
+	height: 30px;
+	background-color: #82bde1  ;
+	font-size: 13px;
+	color: #fff;
+	border: 0px;
+	margin: 10px 0px 10px 0px;
+	text-align: center !important;
+	text-transform: uppercase;
+}
+.button:hover     { background-color: rgba(99, 162, 202, 1) ; }
+.button:active    { background-color: rgba(46, 134, 189, 1); }
+.button:disabled  { background-color: #e8e8e8; }
+
+
+/********** CHECK_BOX **********/
+input[type="checkbox"]{ display:none; }
+input[type="checkbox"] + label {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	border: 3px solid #B8B8B8;
+	background-color: #B8B8B8;
+	cursor: pointer;
+	margin: -5px 2px 0px 2px;
+	vertical-align: middle;
+}
+input[type="checkbox"]:checked + label{
+	border: 3px solid #B8B8B8;
+	background-color: #82bde1  ;
+}
+/********** RADIO **********/
+input[type="radio"]{ 
+	display:none; 
+	vertical-align: middle;
+	text-align: left;
+}
+input[type="radio"] + label {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	border: 3px solid #d8d8d8;
+	background-color: #d8d8d8;
+	cursor: pointer;
+	margin: 2px 0px;
+	border-radius: 10px;
+	vertical-align: middle;
+}
+input[type="radio"]:checked + label{
+	background-color:  #82bde1 !important;
+}
+input[type="radio"]:disabled + label{
+	background-color: #b8b8b8;
+	opacity: 0.5;
+}
+input[type="radio"] + label + span{
+	line-height: 17px;   
+	margin: 0px 10px 0px 5px;
+	vertical-align: middle;
+}
+/*
+#sub_menu li:active{
+	color: #23203F;
+	font-weight: 900;
+}
+
+*/
+input[type="file"]:hover +label {
+	border-color: rgba(99, 162, 202, 1) ;
+	background-color: rgba(99, 162, 202, 1) ;
+}
+.filebox.disign_sel label {
+	color: #fff;
+ 	background-color: #82bde1;
+	border-color: #82bde1;
+}
+
+.select_minor{ 
+	background-color: #ccd7f2 !important;
+	color: #fff !important;
+}
+.select_major{ 
+	color: rgba(38, 130, 156, 1) !important;
+}
+input[name='vins'] + label {
+	color: #fff;
+	background-color: #82bde1;
+	width: 33px;
+	height: 23px;
+	border: 0px;
+	line-height: 23px;
+	border-radius: 0px;
+	margin : 0px 1px;
+}
+input[name='vins']:hover + label { background-color: rgba(99, 162, 202, 1); }
+input[name='vins']:checked + label { background-color: rgba(46, 134, 189, 1) !important; }
+
+/********** SLIDER **********/
+
+.slider_box button{
+	color: #82bde1;
+}
+
+/*
+.ui-slider > .ui-slider-handle, .ui-slider-horizontal .ui-slider-handle
+{
+	background: #23203F;
+	width: 12px;
+	height: 12px;
+	border: 2px solid #23203F;
+	border-radius: 25px;
+	top: -0.4em !important;
+}
+input[type="checkbox"]:checked + label{
+	border: 3px solid #B8B8B8;
+	background-color: #23203F ;
+}
+*/
+
+.result_table .sel_record_item, .sel_list_item { background-color: #82bde1 !important;  font-weight: 900 !important;  color: #fff !important;}
+.result_table .list_items:active	{ background-color: #82bde1; font-size: inherit; text-decoration: none; }
+
+.log_table .sel_record_item, .sel_list_item { background-color: #82bde1 !important;  font-weight: 900 !important;  color: #fff !important;}
+.log_table .list_items:active	{ background-color: #82bde1; font-size: inherit; text-decoration: none; }
+
+.cb-disable span .selected  {background-color: #82bde1; color: #fff; }
+.cb-enable span .selected  { background-color: #82bde1; color: #fff; }
+.color{background-color: #82bde1 !important; color: #fff;}
+
+/********** Caution **********/
+/*
+.contentNotice{
+	font-size: 13px;
+	color: #001bb9;
+	margin: 10px 0px 0px 5px;
+	text-transform: capitalize;
+}
+.caution{
+	font-size: 12px;
+	color: #001bb9;
+	margin: 0px 0px 5px 0px;
+	margin-left: 5px;
+	font-weight : 600 ;
+}
+.wdr_caution{
+	font-size :12px;
+	font-weight: 600;
+	margin : 0px 0px 5px 20px;
+	color : #001bb9;
+}
+#progressbar {
+	background-color: #4d44af ;
+}
+*/
+/********** ETC **********/
+#LV_Filter_Mode .subtitle{
+	width: 150px !important;	
+}
+.alarm_on {
+	display: inline-block;
+	overflow: hidden;
+	width: 25px;
+	height: 25px;
+/*	margin: 0px 0px 0px 0px; */
+	background: url(../images/alarm_rvi.png) -120px -83px no-repeat;
+}
+.alarm_off {
+	display: inline-block;
+	overflow: hidden;
+	width: 25px;
+	height: 25px;
+/*	margin: 0px 0px 0px 0px; */
+	background: url(../images/alarm_rvi.png) -80px -83px no-repeat;
+}
+.ui-slider > .ui-slider-handle, .ui-slider-horizontal .ui-slider-handle
+{
+	background: #82bde1;
+	border: 2px solid #82bde1;
+}
+#sub_menu li:active{
+	color: #82bde1;
+	font-weight: 900;
+}
+

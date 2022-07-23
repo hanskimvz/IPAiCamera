@@ -1,0 +1,225 @@
+<?php
+
+set_time_limit(10);
+
+define('BUFFER_SIZE', 65536);
+define('MAGIC_NUMBER', 0xB1F4FAF5);
+define('MAJOR_VERSION', 0);
+define('MINOR_VERSION', 1);
+
+class IPCSocket
+{
+	private $socket;
+	private	$ipcAddr;
+	private	$dataClass;
+
+	public	$command;
+	public	$payload;	// byte stream
+	public  $payloadLength;
+	public	$dataInfo; // array data	
+
+	function __construct($_ipcAddr = '')
+	{
+		if ($_ipcAddr == '')
+		{
+			$this->ipcAddr = '/opt/sock/server/ipcserver';
+		}
+		else
+		{
+			$this->ipcAddr = $_ipcAddr;
+		}
+
+		$digest = '';
+		$currentUserName = '';
+		$auth_data ='';
+		if(isset($_SERVER['PHP_AUTH_DIGEST']))
+			$auth_data = $_SERVER['PHP_AUTH_DIGEST'];
+		preg_match_all('/(\w+)="([\w\s\~\`\!\@\$\^\*\(\)\_\-\|\{\}\[\]\;\,\.\?\/]+)"/', $auth_data, $digest);
+		for ($index=0; $index<count($digest[1]); ++$index) {
+			if ($digest[1][$index] == 'username') {
+				$currentUserName = trim($digest[2][$index]);
+				break;
+			}
+		}		
+		$this->dataInfo = array('MagicNumber'       => array('value'=>(int)MAGIC_NUMBER,  'type'=>'i1'),
+								'IPCMajorVersion'   => array('value'=>MAJOR_VERSION,      'type'=>'i1'),
+								'IPCMinorVersion'   => array('value'=>MINOR_VERSION,      'type'=>'i1'),
+								'OperationCode'     => array('value'=>0,                  'type'=>'i1'),
+								'Command'			=> array('value'=>0,                  'type'=>'i1'),
+								'Type'				=> array('value'=>0,                  'type'=>'c1'),
+								'ErrorCode' 		=> array('value'=>0,                  'type'=>'c1'),
+								'PayloadLength'	    => array('value'=>0,                  'type'=>'i1'),
+								'PeerIP' 			=> array('value'=>'127.0.0.1',        'type'=>'a32'),
+								'PeerPort' 			=> array('value'=>80,                 'type'=>'i1'),
+								'PeerUserName' 		=> array('value'=>$currentUserName,   'type'=>'a32'),
+								'KeepAlive' 		=> array('value'=>0,                  'type'=>'c1'),
+								'Id' 				=> array('value'=>0,                  'type'=>'c1'),
+								'Reserved' 			=> array('value'=>'',                 'type'=>'a6'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->socket = NULL;
+	}	
+	function __destruct() 
+	{
+		if($this->socket != NULL)
+		{
+			socket_shutdown($this->socket);
+			socket_close($this->socket);
+			$this->socket = NULL;
+		}	
+	}
+	function setHeaderValue($_dataClass, $comm, $id = 0, $keepalive = 0)
+	{
+		if( $_dataClass != NULL)
+		{
+			$_dataClass->SetPayload();
+			
+			if($comm == 0)
+				$this->command  = $_dataClass->command;
+			else
+				$this->command  = $comm;
+		}
+		else
+			$this->command  = $comm;
+		
+		$this->dataInfo['Command']['value'] = $this->command;
+		$this->dataInfo['KeepAlive']['value'] = $keepalive;
+		$this->dataInfo['Id']['value'] = $id;
+		$this->dataInfo['PeerIP']['value'] = $_SERVER['REMOTE_ADDR'] ;
+		$this->dataInfo['PayloadLength']['value'] = ($_dataClass != NULL ) ? $_dataClass->payloadLength : 0;
+
+		$this->payload = MakePayload($this->dataInfo);
+	}
+
+	function createSocket()
+	{
+		$this->socket = @socket_create(AF_UNIX, SOCK_STREAM, 0);
+		if ($this->socket < 0)	
+		  return FALSE;
+
+		// socket_set_option($this->socket, SOL_SOCKET, SO_RCVTIMEO, array('sec'=>3, 'usec'=>0));
+
+		$retryCnt = 0;
+		$sleepVal = array(1000, 3000, 5000);
+		do
+		{
+			$retVal = @socket_connect($this->socket, $this->ipcAddr);
+			if ($retVal == FALSE)
+			{
+				$retVal = @socket_connect($this->socket, $this->ipcAddr);
+				if ($retVal == FALSE && $retryCnt > 2)
+				{
+					exit;
+				}
+
+				usleep($sleepVal[$retryCnt++]);
+			}
+		}
+		while (!$retVal);
+
+		return TRUE;
+	}
+
+	function sendPacket($_packet, $len)
+	{
+		$retVal = @socket_write($this->socket, $_packet, $len);
+		if ($retVal == FALSE) 
+		  return FALSE;
+		return TRUE;
+	}
+
+	function receivePacket($_packetSize)
+	{
+		$recvPacketSize = 0;
+		$totalRecvPacket = '';
+		do
+		{
+			$recvPacket = socket_read($this->socket, ($_packetSize-$recvPacketSize));			
+			if ($recvPacket == FALSE || strlen($recvPacket) == 0)
+			{
+				// not checking these condition
+				if ($recvPacketSize < $_packetSize)  continue;	// not complete recv data
+				if (socket_last_error($this->socket) == 0) 	continue;	// Success
+				if (socket_last_error($this->socket) == 4) 	continue;	// ??
+				if (socket_last_error($this->socket) == 11) continue;	// EAGAIN
+
+				echo 'socket_read() failed: reason: '.socket_strerror(socket_last_error($this->socket))."\r\n";
+				exit;
+			}
+
+			$totalRecvPacket .= $recvPacket;
+			$recvPacketSize = strlen($totalRecvPacket);
+		}
+		while($_packetSize != $recvPacketSize);
+
+		return $totalRecvPacket;
+	}
+
+	function Connection($_dataClass, $command = 0, $id = 0, $keepalive = 0)
+	{
+		$this->setHeaderValue($_dataClass, $command, $id, $keepalive);
+
+		if ($this->socket == NULL && $this->createSocket() == FALSE)
+		{
+			exit;
+		}
+
+		$this->dataClass = $_dataClass;
+
+		if (!$this->sendPacket($this->payload, $this->payloadLength)) 	
+		  ResponseResult(FALSE);
+
+		if ( $_dataClass != NULL)
+		{
+			if (!($this->sendPacket($_dataClass->payload, $_dataClass->payloadLength))) 
+			  ResponseResult(FALSE);
+		}
+
+		$recvPacket = $this->receivePacket($this->payloadLength);
+
+		// Binary string into arrayed data
+		SetDataInfo($this, $recvPacket);
+
+		if ($this->dataInfo['ErrorCode']['value'] == APP_OK)
+		{
+			if($this->dataInfo['PayloadLength']['value'] > 0)
+			{
+				$recvPacket = $this->receivePacket($this->dataInfo['PayloadLength']['value']);
+
+				if ($command != CMD_GET_SNAPSHOT_IMAGE && $command != CMD_GET_HR_IMAGE && $_dataClass != NULL)
+					$_dataClass->UnpackDataInfo($recvPacket);
+				else 
+					return $recvPacket;
+			}
+		}
+		else
+		{
+		
+		}
+
+    		if($keepalive == 0)
+    		{
+			// add function befor socket_close()
+			socket_shutdown($this->socket);
+			socket_close($this->socket);
+
+			$this->socket = NULL;
+		}
+
+		return $_dataClass;
+	}
+	
+
+	function ReConnection($_dataClass)
+	{
+		if($this->socket != NULL)
+		{
+			socket_shutdown($this->socket);
+			socket_close($this->socket);
+			$this->socket = NULL;
+		}
+		usleep(1000);
+		$this->Connection($_dataClass);
+	}
+}
+?>

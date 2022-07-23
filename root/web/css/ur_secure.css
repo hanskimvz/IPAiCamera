@@ -1,0 +1,38 @@
+#logo{
+	position: static;
+	height: 43px;
+	width: 200px;
+	border: 0px;
+	display: block;
+	margin-bottom:0px !important;
+	margin-left: 10px;
+	background-repeat:no-repeat !important;
+	background: url("../images/UR-SECURE_logo.png");
+}
+#left_frame #logo{
+	position: absolute;
+	margin-right: 10px;
+	margin-left: -5px;
+	height:50px;
+	top: -60px;
+	background-size: 200px 50px !important;
+}
+
+#div_left #logo {
+	position: absolute;
+	bottom: 675px !important;
+	left: -25px;
+	height: 55px;
+	width: 220px;
+	background-size: 220px 55px !important;
+}
+
+
+#tabs{
+ height:710px;
+}
+
+
+
+
+

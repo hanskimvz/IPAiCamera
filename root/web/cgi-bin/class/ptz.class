@@ -1,0 +1,1985 @@
+<?php
+
+class CPtzPosition
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'x' 			=> array('value'=>0, 'type'=>'i1'),
+								'y' 			=> array('value'=>0, 'type'=>'i1'),
+								'z' 			=> array('value'=>0, 'type'=>'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'z':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'z':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CFocusPosition
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'value' 			=> array('value'=>0, 'type'=>'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CIrisPosition
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'value' 			=> array('value'=>0, 'type'=>'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CPTZStatus
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'PanTilt' 			=> array('value'=>0, 'type'=>'c1'),
+								'Zoom' 			=> array('value'=>0, 'type'=>'c1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CPTZSpeed
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'PanTilt' 			=> array('value'=>0, 'type'=>'i1'),
+								'Zoom' 			=> array('value'=>0, 'type'=>'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CPTZVector
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	'x' 			=> array('value'=>0, 'type'=>'i1'),
+								'y' 			=> array('value'=>0, 'type'=>'i1'),
+								'z' 			=> array('value'=>0, 'type'=>'i1')
+							);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'z':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'z':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CPTZPositionAll
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $ptz;
+	public  $focus;
+	public  $iris;
+	public  $ptz_status;
+	function __construct() 
+	{
+		$this->ptz        = new CPtzPosition();
+		$this->focus      = new CFocusPosition();
+		$this->iris       = new CIrisPosition();
+		$this->ptz_status = new CPTZStatus();
+		
+		$this->dataInfo = array(	
+				'ptz'        => array('value' => '', 'type' => 'a'.$this->ptz->payloadLength),
+				'focus'      => array('value' => '', 'type' => 'a'.$this->focus->payloadLength),
+				'iris '      => array('value' => '', 'type' => 'a'.$this->iris->payloadLength),
+				'ptz_status' => array('value' => '', 'type' => 'a'.$this->ptz_status->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->ptz->SetPayload();
+		$this->focus->SetPayload();
+		$this->iris->SetPayload();
+		$this->ptz_status->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['ptz']['value'] = $this->ptz->payload;
+		$this->dataInfo['focus']['value'] = $this->focus->payload;
+		$this->dataInfo['iris']['value'] = $this->iris->payload;
+		$this->dataInfo['ptz_status']['value'] = $this->ptz_status->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->ptz->UnpackDataInfo($_dataArray['ptz']);
+		$this->focus->UnpackDataInfo($_dataArray['focus']);
+		$this->iris->UnpackDataInfo($_dataArray['iris']);
+		$this->ptz_status->UnpackDataInfo($_dataArray['ptz_status']);
+		//$this->SetPayload();
+	}			
+}
+
+class CPTZPositionMoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $position;
+	public  $speed;
+
+	function __construct() 
+	{
+		$this->position = new CPtzPosition();	
+		$this->speed = new CPTZSpeed();		
+		
+		$this->dataInfo = array(
+				'id'       => array('value' => 0, 'type'  => 'i1'),
+				'PanTilt' 			=> array('value'=>0, 'type'=>'c1'),
+				'Zoom' 			=> array('value'=>0, 'type'=>'c1'),
+				'position' => array('value' => '', 'type' => 'a'.$this->position->payloadLength),
+				'speed'    => array('value' => '', 'type' => 'a'.$this->speed->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+		  case 'PanTilt':
+		  case 'Zoom':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+		  case 'PanTilt':
+		  case 'Zoom':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->position->SetPayload();
+		$this->speed->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['position']['value'] = $this->position->payload;
+		$this->dataInfo['speed']['value'] = $this->speed->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->position->UnpackDataInfo($_dataArray['position']);
+		$this->speed->UnpackDataInfo($_dataArray['speed']);
+		//$this->SetPayload();
+	}			
+}
+
+class CFocusPositionMoveRequest
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type' => 'i1'),
+				'value' => array('value' => 0, 'type' => 'i1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CFocusMode
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('mode'=> array('value'=>0, 'type'=>'i1'));	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'mode':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'mode':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CIrisPositionMoveRequest
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type' => 'i1'),
+				'value' => array('value' => 0, 'type' => 'i1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':	
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':	
+			case 'value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CPTZMoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $vector;
+
+	function __construct() 
+	{
+		$this->vector = new CPTZVector();		
+		
+		$this->dataInfo = array(
+				'id'      => array('value' => 0, 'type'  => 'i1'),
+				'PanTilt' 			=> array('value'=>0, 'type'=>'c1'),
+				'Zoom' 			=> array('value'=>0, 'type'=>'c1'),
+				'vector'  => array('value' => '', 'type' => 'a'.$this->vector->payloadLength),
+				'timeout' => array('value' => 0, 'type'  => 'i1')
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'PanTilt':
+		  case 'Zoom':
+			case 'timeout':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'PanTilt':
+		  case 'Zoom':		  
+			case 'timeout':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->vector->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['vector']['value'] = $this->vector->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->vector->UnpackDataInfo($_dataArray['vector']);
+		//$this->SetPayload();
+	}			
+}
+
+class CPTZArrowRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type' => 'i1'),
+				'pan'  => array('value' => 0, 'type' => 'i1'),
+				'tilt' => array('value' => 0, 'type' => 'i1')
+				);	
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'pan':	
+		  case 'tilt':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'pan':	
+		  case 'tilt':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CZoomRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type' => 'i1'),
+				'zoom' => array('value' => 0, 'type' => 'i1')
+				);
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'zoom':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':	
+		  case 'zoom':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CFocusMoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type' => 'i1'),
+				'value' => array('value' => 0, 'type' => 'i1')
+				);	
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':
+			case 'value':	
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':
+			case 'value':	
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CIrisMoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type' => 'i1'),
+				'value' => array('value' => 0, 'type' => 'i1')
+				);	
+
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':
+			case 'value':	
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'value':	
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CPTZStopRequest
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'      => array('value' => 0, 'type' => 'i1'),
+				'PanTilt' => array('value' => 0, 'type' => 'c1'),
+				'Zoom'    => array('value' => 0, 'type' => 'c1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+		  case 'id':
+			case 'PanTilt':	
+			case 'Zoom':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CPTZSpeedRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $speed;
+
+	function __construct() 
+	{
+		$this->speed = new CPTZSpeed();		
+		
+		$this->dataInfo = array(
+				'id'    => array('value' => 0, 'type'  => 'i1'),
+				'speed' => array('value' => '', 'type' => 'a'.$this->speed->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->speed->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['speed']['value'] = $this->speed->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->speed->UnpackDataInfo($_dataArray['speed']);
+		//$this->SetPayload();
+	}			
+}
+
+class CFocusModeRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $mode;
+
+	function __construct() 
+	{
+		$this->mode = new CFocusMode();		
+
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'mode' => array('value' => '', 'type' => 'a'.$this->mode->payloadLength)
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->mode->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['mode']['value'] = $this->mode->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->mode->UnpackDataInfo($_dataArray['mode']);
+		//$this->SetPayload();
+	}			
+}
+
+class CPresetSetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1'),
+				'token' => array('value' => '', 'type' => 'a32'),
+				'name' => array('value' => '', 'type' => 'a32'),
+				'shortcut'   => array('value' => 0, 'type'  => 'i1'),
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			case 'token':
+			case 'name':
+			case 'shortcut':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			case 'token':
+			case 'name':
+			case 'shortcut':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_PRESET;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CPresetRemoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_REMOVE_PRESET;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CPresetGotoRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+  public  $speed;
+  
+	function __construct() 
+	{
+	  $this->speed = new CPTZSpeed();
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1'),
+				'speed' => array('value' => '', 'type' => 'a'.$this->speed->payloadLength)
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_GOTO_PRESET;
+		$this->speed->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['speed']['value'] = $this->speed->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->speed->UnpackDataInfo($_dataArray['speed']);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CPresetTourAddRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_ADD_PRESET_TOUR;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CPresetTourSetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $tour;
+
+	function __construct() 
+	{
+		$this->tour = new CPresetTour();		
+
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1'),
+				'tour' => array('value' => '', 'type' => 'a'.$this->tour->payloadLength)
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->tour->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['tour']['value'] = $this->tour->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->tour->UnpackDataInfo($_dataArray['tour']);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CPresetTourRemoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_REMOVE_PRESET_TOUR;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CPresetTourOperationRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1'),
+				'operation'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			case 'operation':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			case 'operation':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_OPERATE_PRESET_TOUR;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CPowerPtzRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'left'   => array('value' => 0, 'type'  => 'i1'),
+				'top'   => array('value' => 0, 'type'  => 'i1'),
+				'right'   => array('value' => 0, 'type'  => 'i1'),
+				'bottom'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'left':
+			case 'top':
+			case 'right':
+			case 'bottom':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'left':
+			case 'top':
+			case 'right':
+			case 'bottom':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_PRESET;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+class CPTZPositionGetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $ptz;
+
+	function __construct()
+	{
+		$this->ptz = new CPtzPosition();
+
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'ptz' => array('value' => '', 'type' => 'a'.$this->ptz->payloadLength)
+				);
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'id':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->ptz->SetPayload();
+
+		$this->payload = '';
+		$this->dataInfo['ptz']['value'] = $this->ptz->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->ptz->UnpackDataInfo($_dataArray['ptz']);
+		//$this->SetPayload();
+	}
+}
+
+?> 

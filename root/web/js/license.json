@@ -1,0 +1,301 @@
+{
+	"list":[
+		{
+			"name":"busybox",
+			"version":"1.32.0",
+			"license":"GPLv2",
+			"status":"seperarte executable",
+			"use":"provide several unix utility",
+			"target":["CV22"]
+		},
+		{
+			"name":"alsa-lib",
+			"version":"1.1.6",
+			"license":"GPLv2.1",
+			"status":"dynamically linked",
+			"use":"audio library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libglib2",
+			"version":"2.64.3",
+			"license":"LGPLv2",
+			"status":"dynamically linked",
+			"use":"data handling library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libgnutls",
+			"version":"3.6.11.1",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide secure protocol",
+			"target":["CV22"]
+		},
+		{
+			"name":"libjson-c",
+			"version":"0.13.1-20180305",
+			"license":"JSON License",
+			"status":"dynamically linked",
+			"use":"json handling library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libcurl",
+			"version":"7.64.0",
+			"license":"MIT/X derivate License",
+			"status":"dynamically linked/seperate excutabl",
+			"use":"URL transfer library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libffi",
+			"version":"3.1",
+			"license":"MIT License",
+			"status":"dynamically linked",
+			"use":"provide programming i/f",
+			"target":["CV22"]
+		},
+		{
+			"name":"libgcrypt",
+			"version":"1.7.3",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide crypto library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libnl",
+			"version":"3.5.0",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide network protocol",
+			"target":["CV22"]
+		},
+		{
+			"name":"libogg",
+			"version":"1.3.4",
+			"license":"BSD-style License",
+			"status":"dynamically linked",
+			"use":"provide media library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libsamplerate",
+			"version":"0.1.8",
+			"license":"GPLv2",
+			"status":"dynamically linked",
+			"use":"provide media library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libselinux",
+			"version":"3.0",
+			"license":"Public domain",
+			"status":"dynamically linked",
+			"use":"provide linux support library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libsndfile",
+			"version":"1.0.27",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide sound library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libssh2",
+			"version":"1.9.0",
+			"license":"BSD ",
+			"status":"dynamically linked",
+			"use":"provide ssh2 protocol",
+			"target":["CV22"]
+		},
+		{
+			"name":"libtasn1",
+			"version":"4.13",
+			"license":"GPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide asn.1 schema",
+			"target":["CV22"]
+		},
+		{
+			"name":"libxml2",
+			"version":"2.9.10",
+			"license":"LPGLv2.1",
+			"status":"dynamically linked",
+			"use":"provide xml library",
+			"target":["CV22"]
+		},
+		{
+			"name":"lighttpd",
+			"version":"1.4.53",
+			"license":"BSD",
+			"status":"seperarte executable",
+			"use":"web server",
+			"target":["CV22"]
+		},
+		{
+			"name":"ncurses",
+			"version":"6.2",
+			"license":"MIT",
+			"status":"dynamically linked",
+			"use":"provice CUI library",
+			"target":["CV22"]
+		},
+		{
+			"name":"nettle3",
+			"version":"3.4.1",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"provide crypto library",
+			"target":["CV22"]
+		},
+		{
+			"name":"dbus",
+			"version":"1.12.20",
+			"license":"GPLv2",
+			"status":"dynamically linked",
+			"use":"provide message library",
+			"target":["CV22"]
+		},
+		{
+			"name":"dbus-glib",
+			"version":"0.104",
+			"license":"GPLv2",
+			"status":"dynamically linked",
+			"use":"provide message library",
+			"target":["CV22"]
+		},
+		{
+			"name":"openssl",
+			"version":"1.1.1d",
+			"license":"BSD style",
+			"status":"dynamically linked",
+			"use":"provide network protocol",
+			"target":["CV22"]
+		},
+		{
+			"name":"libpam",
+			"version":"1.3.1",
+			"license":"BSD",
+			"status":"dynamically linked",
+			"use":"provide authenticating lib",
+			"target":["CV22"]
+		},
+		{
+			"name":"pcre",
+			"version":"8.41",
+			"license":"BSD",
+			"status":"dynamically linked",
+			"use":"regular ex library",
+			"target":["CV22"]
+		},
+		{
+			"name":"procps-ng",
+			"version":"3.3.10",
+			"license":"LGPLv2 ",
+			"status":"dynamically linked",
+			"use":"utility library",
+			"target":["CV22"]
+		},
+		{
+			"name":"pulseaudio",
+			"version":"13",
+			"license":"LGPLv2.1",
+			"status":"dynamically linked",
+			"use":"sound library",
+			"target":["CV22"]
+		},
+		{
+			"name":"speex",
+			"version":"1.2.0",
+			"license":"BSD-style License",
+			"status":"dynamically linked",
+			"use":"speech codec",
+			"target":["CV22"]
+		},
+		{
+			"name":"systemd",
+			"version":"246.2",
+			"license":"LGPL2.1",
+			"status":"dynamically linked",
+			"use":"system management",
+			"target":["CV22"]
+		},
+		{
+			"name":"ubi-tools",
+			"version":"2.0.1",
+			"license":"GPLv2",
+			"status":"seperarte executable",
+			"use":"ubi file system",
+			"target":["CV22"]
+		},
+		{
+			"name":"udev",
+			"version":"215",
+			"license":"GPLv2",
+			"status":"seperarte executable",
+			"use":"device manager",
+			"target":["CV22"]
+		},
+		{
+			"name":"zlib",
+			"version":"1.2.11",
+			"license":"zlib License",
+			"status":"dynamically linked",
+			"use":"compression library",
+			"target":["CV22"]
+		},
+		{
+			"name":"iptables-3.8",
+			"version":"1.6.1",
+			"license":"GPLv2",
+			"status":"seperarte executable",
+			"use":"firewall",
+			"target":["CV22"]
+		},
+		{
+			"name":"kmod",
+			"version":"26",
+			"license":"GPLv2",
+			"status":"dynamically linked/seperate executable",
+			"use":"kernel util",
+			"target":["CV22"]
+		},
+		{
+			"name":"php",
+			"version":"7.4.1",
+			"license":"PHP License 3.01",
+			"status":"seperarte executable",
+			"use":"script engine",
+			"target":["CV22"]
+		},
+		{
+			"name":"net-snmp",
+			"version":"5.3.4",
+			"license":"BSD style",
+			"status":"dynamically linked/seperate executable",
+			"use":"snmp library",
+			"target":["CV22"]
+		},
+		{
+			"name":"libupnp",
+			"version":"1.6.18",
+			"license":"libupnp license",
+			"status":"statically linked",
+			"use":"upnp library",
+			"target":["CV22"]
+		},
+		{
+			"name":"openssh",
+			"version":"8.1p1",
+			"license":"Simplified BSD License",
+			"status":"dynamically linked",
+			"use":"openssh library",
+			"target":["CV22"]
+		}
+	]
+
+}

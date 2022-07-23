@@ -1,0 +1,7 @@
+#logo{
+	height:50px;
+	background: url("../images/STANLEY_logo.png");
+	background-repeat:no-repeat;
+	background-size : 200px 50px;
+	margin-top : 10px;
+}

@@ -1,0 +1,109 @@
+#dst_timecontent .subtitle{
+	width : 160px !important;
+}
+.video .subtitle{
+	width: 130px;
+}
+/*
+#Date_Time_Settings{
+	font-size: 9px !important;
+}*/
+#Day_Night_Settings .subtitle{
+	width: 190px;
+}
+#Exposure_Settings .subtitle{
+	width: 140px;	
+}
+#View .button{
+	width: 150px;	
+}
+#Modify .subtitle{
+	width: 150px;	
+}
+#sd .half{
+	width: 140px !important;
+}
+#btClearSelectedArea{
+	width: 153px;	
+}
+.snmp .subtitle{
+	width: 170px;
+}
+#static_ip_setting .subtitle{
+	width: 170px;
+}
+#network_port .subtitle{
+	width: 170px;
+}
+#change_pass{
+	width: 153px;	
+}
+#check_later{
+	width: 153px;	
+}
+#iColor_level .subtitle{
+	font-size:10.6px;
+}
+#iBw_level .subtitle{
+	font-size:10.6px;
+}
+.content{
+	font-size:10.5px;
+}
+.russian_content{
+	width:207px;
+}
+.half{
+	width: 90px !important;
+}
+#camOthers .half{
+	width: 100px !important;
+}
+#info th{ 
+	width: 175px !important;
+	
+}
+#sub_menu ul { 
+	font-size: 13px;
+} 
+#sub_menu li{
+	font-size: 10.5px !important;
+	padding-left: 0px !important;
+}
+#sub_menu span{
+	margin-left: -10px ;
+}
+#sub_menu li:hover { 
+	font-weight: 700;
+}
+#sub_menu li:active{
+	color: #148CFF;
+	font-weight: 700;
+}
+
+.select_minor{ 
+	font-weight: 700 !important;
+}
+.alarmin12{
+	width : 130px ;
+}
+.alarm_on {
+	margin: 0px 0px -10px -1px;
+}
+.alarm_off {
+	margin: 0px 0px  -10px -1px;
+}
+#motion_alarm .alarm_on {
+	margin: 0px 0px -7px -17px;
+}
+#motion_alarm .alarm_off {
+	margin: 0px 0px -7px -17px;
+}
+label#fw_status{
+	margin-left: 13px;
+}
+#meter_wrapper
+{
+	margin-left : 165px;
+	width:150px;
+}

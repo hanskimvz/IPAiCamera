@@ -1,0 +1,23 @@
+[
+{
+"sd card": [
+"SD card is not inserted"
+]},
+{
+"nand":[
+"EMMC write speed: 82.2MB/s",
+"EMMC read speed: 355.1MB/s"
+]},
+{
+"eeprom":[
+"EEPROM read OK"
+]},
+{
+"audio":[
+"Audio ACK OK"
+]},
+{
+"system files":[
+"File system OK"
+]}
+]

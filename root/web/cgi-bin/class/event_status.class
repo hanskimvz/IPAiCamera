@@ -1,0 +1,382 @@
+<?php
+
+class CEventStatusParam
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Value'=> array('value'=>0, 'type'=>'i1'));	
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Value':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CMotionAlarmStatus
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Data;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		$this->Data = new CEventStatusParam();
+		$this->payloadLength = $this->Data->payloadLength;
+		$this->packFormat = 'a'.$this->Data->payloadLength.'Data';
+	}
+
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->Data->SetPayload();
+		$this->payload .= $this->Data->payload;
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->Data->UnpackDataInfo($_dataArray['Data']);
+		//$this->SetPayload();
+	}	
+}
+
+class CDigitalOutputStatus
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Data;
+	function __construct() 
+	{
+	  $this->packFormat = '';
+		$this->dataInfo = array('Size' => array('value'=>0, 'type'=>'i1'));		
+	  $this->payloadLength = GetDataInfoLength($this->dataInfo);
+	  $this->packFormat = MakeDataFormat($this->dataInfo);
+	  
+		
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->Data[$index] = new CEventStatusParam();
+			$this->payloadLength += $this->Data[$index]->payloadLength;
+		}
+		$this->packFormat .= MakeUnpackFormat('Data', $this->Data[0]->payloadLength, MAX_RELAY);
+	}
+
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->Data[$index]->SetPayload();
+			$this->payload .= $this->Data[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{		
+			$this->Data[$index]->UnpackDataInfo($_dataArray['Data'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+class CSensorAlarmStatus
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Data;
+	function __construct() 
+	{
+	  $this->packFormat = '';
+		$this->dataInfo = array('Size'=> array('value'=>0, 'type'=>'i1'));		
+	  $this->payloadLength = GetDataInfoLength($this->dataInfo);
+	  $this->packFormat = MakeDataFormat($this->dataInfo);
+	  
+		
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->Data[$index] = new CEventStatusParam();
+			$this->payloadLength += $this->Data[$index]->payloadLength;
+		}
+		$this->packFormat .= MakeUnpackFormat('Data', $this->Data[0]->payloadLength, MAX_SENSOR);
+	}
+
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->Data[$index]->SetPayload();
+			$this->payload .= $this->Data[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{		
+			$this->Data[$index]->UnpackDataInfo($_dataArray['Data'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+
+class CEventAlarmStatus
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $Motion;
+	public  $Relay;
+	public  $Sensor;
+	function __construct() 
+	{
+		$this->Motion = new CMotionAlarmStatus();
+		$this->Relay = new CDigitalOutputStatus();
+		$this->Sensor = new CSensorAlarmStatus();
+		$this->payloadLength = 0;
+		$this->payloadLength += $this->Motion->payloadLength;
+		$this->payloadLength += $this->Relay->payloadLength;
+		$this->payloadLength += $this->Sensor->payloadLength;
+		$this->packFormat = '';
+		$this->packFormat .= 'a'.$this->Motion->payloadLength.'Motion'.'/'.
+	                       'a'.$this->Relay->payloadLength.'Relay'.'/'.
+	                       'a'.$this->Sensor->payloadLength.'Sensor';
+	}
+
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->Motion->SetPayload();
+		$this->Relay->SetPayload();
+		$this->Sensor->SetPayload();
+		$this->payload .= $this->Motion->payload;
+		$this->payload .= $this->Relay->payload;
+		$this->payload .= $this->Sensor->payload;
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->Motion->UnpackDataInfo($_dataArray['Motion']);
+		$this->Relay->UnpackDataInfo($_dataArray['Relay']);
+		$this->Sensor->UnpackDataInfo($_dataArray['Sensor']);
+		//$this->SetPayload();
+	}	
+}
+
+class CRequestDigitalOutput
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{		
+		$this->dataInfo = array(
+				'index'    => array('value' => 0, 'type' => 'i1'),
+				'value'    => array('value' => 0, 'type' => 'i1'),
+				'duration' => array('value' => 0, 'type' => 'i1')
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'index':			
+			case 'value':	
+			case 'duration':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'index':			
+			case 'value':	
+			case 'duration':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+?> 

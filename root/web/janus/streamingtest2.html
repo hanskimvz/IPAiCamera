@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Janus WebRTC Server: Streaming Demo</title>
+<script type="text/javascript" src="./include/adapter.min.js" ></script>
+<script type="text/javascript" src="./include/jquery.min.js" ></script>
+<script type="text/javascript" src="./include/bootstrap.min.js"></script>
+<script type="text/javascript" src="./include/bootbox.min.js"></script>
+<script type="text/javascript" src="./include/spin.min.js"></script>
+<script type="text/javascript" src="./include/toastr.min.js"></script>
+<script type="text/javascript" src="janus.js" ></script>
+<script type="text/javascript" src="streamingtest2.js"></script>
+
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/demo.css" type="text/css"/>
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/toastr.css"/>
+<style>
+            html, body {
+                width: 960px;
+                height: 540px;
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+</head>
+<body>
+
+    <div id="list" style="display:none;>
+        <div class="btn-group btn-group-sm">
+            <button class="btn btn-primary" autocomplete="off" id="watch">Watch or Listen</button>
+            <div class="btn-group btn-group-sm">
+                <button autocomplete="off" id="streamset" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Streams list<span class="caret"></span>
+                </button>
+                <ul id="streamslist" class="dropdown-menu" role="menu">
+                </ul>
+            </div>
+        </div>
+    </div>
+<div id="stream"></div>
+
+
+
+
+</body>
+</html>
+

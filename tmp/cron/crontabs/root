@@ -1,0 +1,1 @@
+* * * * * /usr/bin/php-cgi -q /mnt/plugin/crpt/mk_ct_report.cgi

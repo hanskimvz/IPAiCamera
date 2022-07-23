@@ -1,0 +1,1629 @@
+<?php
+
+class CWeek_event
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'sun' => array('value' => 0, 'type' => 'c1'),
+				'mon' => array('value' => 0, 'type' => 'c1'),
+				'tue' => array('value' => 0, 'type' => 'c1'),
+				'wed' => array('value' => 0, 'type' => 'c1'),
+				'thu' => array('value' => 0, 'type' => 'c1'),
+				'fri' => array('value' => 0, 'type' => 'c1'),
+				'sat' => array('value' => 0, 'type' => 'c1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'sun':	
+			case 'mon':
+			case 'tue':
+			case 'wed':
+			case 'thu':
+			case 'fri':
+			case 'sat':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'sun':	
+			case 'mon':
+			case 'tue':
+			case 'wed':
+			case 'thu':
+			case 'fri':
+			case 'sat':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CTimeRange_event
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'start_hour' => array('value' => 0, 'type' => 'i1'),
+				'start_min'  => array('value' => 0, 'type' => 'i1'),
+				'end_hour'   => array('value' => 0, 'type' => 'i1'),
+				'end_min'    => array('value' => 0, 'type' => 'i1')
+				);	
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'start_hour':	
+			case 'start_min':
+			case 'end_hour':
+			case 'end_min':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'start_hour':	
+			case 'start_min':
+			case 'end_hour':
+			case 'end_min':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CEventActionType
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'output'         => array('value' => 0, 'type' => 'c1'),
+				'duration'       => array('value' => 0, 'type' => 'i1'),
+				'transfer'       => array('value' => 0, 'type' => 'c1'),
+				'camerafunction' => array('value' => 0, 'type' => 'i1'),
+				'functionindex'  => array('value' => 0, 'type' => 'i1')
+				);	
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'output':	
+			case 'duration':
+			case 'transfer':
+			case 'camerafunction':
+			case 'functionindex':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'output':	
+			case 'duration':
+			case 'transfer':
+			case 'camerafunction':
+			case 'functionindex':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CAlarmInputConf
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $week;
+	public  $time_range;
+	public  $action;
+	
+	function __construct() 
+	{
+		$this->week = new CWeek_event();	
+		$this->time_range = new CTimeRange_event();	
+		$this->action = new CEventActionType();	
+		
+		$this->dataInfo = array(
+				'device'     => array('value' => 0, 'type'  => 'c1'),	 // input_device_t, 0:off, 1:NO, 2:NC
+				'always'     => array('value' => 0, 'type'  => 'c1'),
+				'week'       => array('value' => '', 'type' => 'a'.$this->week->payloadLength),
+				'time_range' => array('value' => '', 'type' => 'a'.$this->time_range->payloadLength),
+				'action'     => array('value' => '', 'type' => 'a'.$this->action->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'device':			
+			case 'always':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'device':			
+			case 'always':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->week->SetPayload();
+		$this->time_range->SetPayload();
+		$this->action->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['week']['value'] = $this->week->payload;
+		$this->dataInfo['time_range']['value'] = $this->time_range->payload;
+		$this->dataInfo['action']['value'] = $this->action->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->week->UnpackDataInfo($_dataArray['week']);
+		$this->time_range->UnpackDataInfo($_dataArray['time_range']);
+		$this->action->UnpackDataInfo($_dataArray['action']);
+		//$this->SetPayload();
+	}			
+}
+
+class CMotionArea
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'x' 			=> array('value'=>0, 'type'=>'c1'),
+				'y' 			=> array('value'=>0, 'type'=>'c1'),
+				'w' 			=> array('value'=>0, 'type'=>'c1'),
+				'h' 			=> array('value'=>0, 'type'=>'c1'),
+				'type' 			=> array('value'=>0, 'type'=>'c1'),
+				'_dummy' 		=> array('value'=>'', 'type'=>'a59'),
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'w':
+			case 'h':
+			case 'type':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'w':
+			case 'h':
+			case 'type':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+
+class CMotionDetectConf
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $week;
+	public  $time_range;
+	public  $action;
+	public  $area;
+	
+	function __construct() 
+	{
+		$this->week       = new CWeek_event();
+		$this->time_range = new CTimeRange_event();
+		$this->action     = new CEventActionType();
+		for( $idx = 0 ; $idx < 4 ; ++$idx ) {
+			$this->area[$idx] = new CMotionArea();
+		}
+		
+		$this->dataInfo = array(
+				'channel'    => array('value'=>0,  'type'=> 'i1'),
+				'enable0'    => array('value'=>0,  'type'=> 'c1'),
+				'enable1'    => array('value'=>0,  'type'=> 'c1'),
+				'enable2'    => array('value'=>0,  'type'=> 'c1'),
+				'enable3'    => array('value'=>0,  'type'=> 'c1'),
+				'sens0'      => array('value'=>0,  'type'=> 'i1'),
+				'sens1'      => array('value'=>0,  'type'=> 'i1'),
+				'sens2'      => array('value'=>0,  'type'=> 'i1'),
+				'sens3'      => array('value'=>0,  'type'=> 'i1'),
+				'always'     => array('value'=>0,  'type'=> 'c1'),
+				'week'       => array('value'=>'', 'type'=> 'a'.$this->week->payloadLength),
+				'time_range' => array('value'=>'', 'type'=> 'a'.$this->time_range->payloadLength),
+				'action'     => array('value'=>'', 'type'=> 'a'.$this->action->payloadLength),
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += ($this->area[0]->payloadLength * 4);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo)
+			. MakeUnpackFormat('area', $this->area[0]->payloadLength, 4);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'channel':			
+			case 'enable0':	
+			case 'enable1':	
+			case 'enable2':	
+			case 'enable3':	
+			case 'sens0':	
+			case 'sens1':	
+			case 'sens2':	
+			case 'sens3':	
+			case 'always':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'channel':			
+			case 'enable0':	
+			case 'enable1':	
+			case 'enable2':	
+			case 'enable3':	
+			case 'sens0':	
+			case 'sens1':	
+			case 'sens2':	
+			case 'sens3':	
+			case 'always':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->week->SetPayload();
+		$this->time_range->SetPayload();
+		$this->action->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['week']['value'] = $this->week->payload;
+		$this->dataInfo['time_range']['value'] = $this->time_range->payload;
+		$this->dataInfo['action']['value'] = $this->action->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+		for( $idx = 0 ; $idx < 4 ; ++$idx ) {
+			$this->area[$idx]->SetPayload();
+			$this->payload .= $this->area[$idx]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->week->UnpackDataInfo($_dataArray['week']);
+		$this->time_range->UnpackDataInfo($_dataArray['time_range']);
+		$this->action->UnpackDataInfo($_dataArray['action']);
+
+		for( $idx = 0 ; $idx < 4 ; ++$idx ) {
+			$this->area[$idx]->UnpackDataInfo($_dataArray['area'.$idx]);
+		}
+		//$this->SetPayload();
+	}			
+}
+class CMotionDetectConfs
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $conf;
+	
+	function __construct() 
+	{
+		$this->payloadLength = 0;
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx] = new CMotionDetectConf();
+			$this->payloadLength += $this->conf[$idx]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('conf', $this->conf[0]->payloadLength, MAX_MEDIA_SOURCE);
+	}
+
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->payload = '';
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx]->SetPayload();
+			$this->payload .= $this->conf[$idx]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx]->UnpackDataInfo($_dataArray['conf'.$idx]);
+		}
+	}
+}
+class CTemperatureArea
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'x' 			=> array('value'=>0, 'type'=>'c1'),
+				'y' 			=> array('value'=>0, 'type'=>'c1'),
+				'w' 			=> array('value'=>0, 'type'=>'c1'),
+				'h' 			=> array('value'=>0, 'type'=>'c1'),
+				'type' 			=> array('value'=>0, 'type'=>'c1'),
+				'_dummy' 		=> array('value'=>'', 'type'=>'a59'),
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'w':
+			case 'h':
+			case 'type':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'x':	
+			case 'y':
+			case 'w':
+			case 'h':
+			case 'type':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CTemperatureDetectConf
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $week;
+	public  $time_range;
+	public  $action;
+	public  $area;
+	
+	function __construct() 
+	{
+		$this->week       = new CWeek_event();
+		$this->time_range = new CTimeRange_event();
+		$this->action     = new CEventActionType();
+		for( $idx = 0 ; $idx < 8 ; ++$idx ) {
+			$this->area[$idx] = new CTemperatureArea();
+		}
+		
+		$this->dataInfo = array(
+				'channel'    => array('value'=>0,  'type'=> 'i1'),
+				'enable0'    => array('value'=>0,  'type'=> 'c1'),
+				'enable1'    => array('value'=>0,  'type'=> 'c1'),
+				'enable2'    => array('value'=>0,  'type'=> 'c1'),
+				'enable3'    => array('value'=>0,  'type'=> 'c1'),
+				'enable4'    => array('value'=>0,  'type'=> 'c1'),
+				'enable5'    => array('value'=>0,  'type'=> 'c1'),
+				'enable6'    => array('value'=>0,  'type'=> 'c1'),
+				'enable7'    => array('value'=>0,  'type'=> 'c1'),
+				'temperature0'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature1'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature2'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature3'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature4'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature5'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature6'      => array('value'=>0,  'type'=> 'i1'),
+				'temperature7'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime0'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime1'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime2'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime3'      => array('value'=>0,  'type'=> 'i1'),			
+				'filteringtime4'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime5'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime6'      => array('value'=>0,  'type'=> 'i1'),
+				'filteringtime7'      => array('value'=>0,  'type'=> 'i1'),			
+				'rule0'    => array('value'=>0,  'type'=> 'c1'),
+				'rule1'    => array('value'=>0,  'type'=> 'c1'),
+				'rule2'    => array('value'=>0,  'type'=> 'c1'),
+				'rule3'    => array('value'=>0,  'type'=> 'c1'),
+				'rule4'    => array('value'=>0,  'type'=> 'c1'),
+				'rule5'    => array('value'=>0,  'type'=> 'c1'),
+				'rule6'    => array('value'=>0,  'type'=> 'c1'),
+				'rule7'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance0'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance1'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance2'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance3'    => array('value'=>0,  'type'=> 'c1'),				
+				'tolerance4'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance5'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance6'    => array('value'=>0,  'type'=> 'c1'),
+				'tolerance7'    => array('value'=>0,  'type'=> 'c1'),				
+				'emissivitytype0'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype1'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype2'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype3'    => array('value'=>0,  'type'=> 'c1'),				
+				'emissivitytype4'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype5'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype6'    => array('value'=>0,  'type'=> 'c1'),
+				'emissivitytype7'    => array('value'=>0,  'type'=> 'c1'),				
+				'emissivity0'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity1'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity2'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity3'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity4'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity5'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity6'    => array('value'=>0,  'type'=> 'i1'),
+				'emissivity7'    => array('value'=>0,  'type'=> 'i1'),
+				'measurement0'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement1'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement2'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement3'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement4'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement5'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement6'    => array('value'=>0,  'type'=> 'c1'),
+				'measurement7'    => array('value'=>0,  'type'=> 'c1'),
+				'slopegradient0'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient1'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient2'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient3'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient4'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient5'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient6'      => array('value'=>0,  'type'=> 'i1'),
+				'slopegradient7'      => array('value'=>0,  'type'=> 'i1'),
+				'osd0'    => array('value'=>0,  'type'=> 'c1'),
+				'osd1'    => array('value'=>0,  'type'=> 'c1'),
+				'osd2'    => array('value'=>0,  'type'=> 'c1'),
+				'osd3'    => array('value'=>0,  'type'=> 'c1'),
+				'osd4'    => array('value'=>0,  'type'=> 'c1'),
+				'osd5'    => array('value'=>0,  'type'=> 'c1'),
+				'osd6'    => array('value'=>0,  'type'=> 'c1'),
+				'osd7'    => array('value'=>0,  'type'=> 'c1'),
+				'convert_md' => array('value'=>0,  'type'=> 'c1'),
+				'always'     => array('value'=>0,  'type'=> 'c1'),
+				'week'       => array('value'=>'', 'type'=> 'a'.$this->week->payloadLength),
+				'time_range' => array('value'=>'', 'type'=> 'a'.$this->time_range->payloadLength),
+				'action'     => array('value'=>'', 'type'=> 'a'.$this->action->payloadLength),
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += ($this->area[0]->payloadLength * 8);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo)
+			. MakeUnpackFormat('area', $this->area[0]->payloadLength, 8);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'channel':			
+			case 'enable0':	
+			case 'enable1':	
+			case 'enable2':	
+			case 'enable3':		
+			case 'enable4':
+			case 'enable5':
+			case 'enable6':
+			case 'enable7':
+			case 'temperature0':	
+			case 'temperature1':	
+			case 'temperature2':	
+			case 'temperature3':	
+			case 'temperature4':
+			case 'temperature5':
+			case 'temperature6':
+			case 'temperature7':
+			case 'filteringtime0':	
+			case 'filteringtime1':	
+			case 'filteringtime2':	
+			case 'filteringtime3':	
+			case 'filteringtime4':
+			case 'filteringtime5':
+			case 'filteringtime6':
+			case 'filteringtime7':
+			case 'rule0':	
+			case 'rule1':	
+			case 'rule2':	
+			case 'rule3':	
+			case 'rule4':
+			case 'rule5':
+			case 'rule6':
+			case 'rule7':
+			case 'tolerance0':	
+			case 'tolerance1':	
+			case 'tolerance2':	
+			case 'tolerance3':	
+			case 'tolerance4':
+			case 'tolerance5':
+			case 'tolerance6':
+			case 'tolerance7':
+			case 'emissivitytype0':	
+			case 'emissivitytype1':	
+			case 'emissivitytype2':	
+			case 'emissivitytype3':	
+			case 'emissivitytype4':
+			case 'emissivitytype5':
+			case 'emissivitytype6':
+			case 'emissivitytype7':
+			case 'emissivity0':	
+			case 'emissivity1':	
+			case 'emissivity2':	
+			case 'emissivity3':	
+			case 'emissivity4':
+			case 'emissivity5':
+			case 'emissivity6':
+			case 'emissivity7':
+			case 'measurement0':	
+			case 'measurement1':	
+			case 'measurement2':	
+			case 'measurement3':	
+			case 'measurement4':
+			case 'measurement5':
+			case 'measurement6':
+			case 'measurement7':
+			case 'slopegradient0':	
+			case 'slopegradient1':	
+			case 'slopegradient2':	
+			case 'slopegradient3':	
+			case 'slopegradient4':
+			case 'slopegradient5':
+			case 'slopegradient6':
+			case 'slopegradient7':
+			case 'convert_md':
+			case 'always':	
+			case 'osd0':
+			case 'osd1':
+			case 'osd2':
+			case 'osd3':
+			case 'osd4':
+			case 'osd5':
+			case 'osd6':
+			case 'osd7':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'channel':			
+			case 'enable0':	
+			case 'enable1':	
+			case 'enable2':	
+			case 'enable3':	
+			case 'enable4':
+			case 'enable5':
+			case 'enable6':
+			case 'enable7':
+			case 'temperature0':	
+			case 'temperature1':	
+			case 'temperature2':	
+			case 'temperature3':	
+			case 'temperature4':
+			case 'temperature5':
+			case 'temperature6':
+			case 'temperature7':
+			case 'filteringtime0':	
+			case 'filteringtime1':	
+			case 'filteringtime2':	
+			case 'filteringtime3':	
+			case 'filteringtime4':
+			case 'filteringtime5':
+			case 'filteringtime6':
+			case 'filteringtime7':
+			case 'rule0':	
+			case 'rule1':	
+			case 'rule2':	
+			case 'rule3':	
+			case 'rule4':
+			case 'rule5':
+			case 'rule6':
+			case 'rule7':
+			case 'tolerance0':	
+			case 'tolerance1':	
+			case 'tolerance2':	
+			case 'tolerance3':				
+			case 'tolerance4':
+			case 'tolerance5':
+			case 'tolerance6':
+			case 'tolerance7':
+			case 'emissivitytype0':	
+			case 'emissivitytype1':	
+			case 'emissivitytype2':	
+			case 'emissivitytype3':	
+			case 'emissivitytype4':
+			case 'emissivitytype5':
+			case 'emissivitytype6':
+			case 'emissivitytype7':
+			case 'emissivity0':	
+			case 'emissivity1':	
+			case 'emissivity2':	
+			case 'emissivity3':	
+			case 'emissivity4':
+			case 'emissivity5':
+			case 'emissivity6':
+			case 'emissivity7':
+			case 'measurement0':	
+			case 'measurement1':	
+			case 'measurement2':	
+			case 'measurement3':	
+			case 'measurement4':
+			case 'measurement5':
+			case 'measurement6':
+			case 'measurement7':
+			case 'slopegradient0':	
+			case 'slopegradient1':	
+			case 'slopegradient2':	
+			case 'slopegradient3':	
+			case 'slopegradient4':
+			case 'slopegradient5':
+			case 'slopegradient6':
+			case 'slopegradient7':
+			case 'osd0':
+			case 'osd1':
+			case 'osd2':
+			case 'osd3':
+			case 'osd4':
+			case 'osd5':
+			case 'osd6':
+			case 'osd7':
+			case 'convert_md':
+			case 'always':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->week->SetPayload();
+		$this->time_range->SetPayload();
+		$this->action->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['week']['value'] = $this->week->payload;
+		$this->dataInfo['time_range']['value'] = $this->time_range->payload;
+		$this->dataInfo['action']['value'] = $this->action->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+		for( $idx = 0 ; $idx < 8 ; ++$idx ) {
+			$this->area[$idx]->SetPayload();
+			$this->payload .= $this->area[$idx]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->week->UnpackDataInfo($_dataArray['week']);
+		$this->time_range->UnpackDataInfo($_dataArray['time_range']);
+		$this->action->UnpackDataInfo($_dataArray['action']);
+
+		for( $idx = 0 ; $idx < 8 ; ++$idx ) {
+			$this->area[$idx]->UnpackDataInfo($_dataArray['area'.$idx]);
+		}
+		//$this->SetPayload();
+	}			
+}
+class CTemperatureDetectConfs
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $conf;
+	
+	function __construct() 
+	{
+		$this->payloadLength = 0;
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx] = new CTemperatureDetectConf();
+			$this->payloadLength += $this->conf[$idx]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('conf', $this->conf[0]->payloadLength, MAX_MEDIA_SOURCE);
+	}
+
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->payload = '';
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx]->SetPayload();
+			$this->payload .= $this->conf[$idx]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for( $idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx ) {
+			$this->conf[$idx]->UnpackDataInfo($_dataArray['conf'.$idx]);
+		}
+	}
+}
+
+class CTransferConf
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{		
+		$this->dataInfo = array(
+				'mode'         => array('value' => 0, 'type' => 'c1'),
+				'numofimg'     => array('value' => 0, 'type' => 'c1'),
+				'preduration'  => array('value' => 0, 'type' => 'c1'),
+				'postduration' => array('value' => 0, 'type' => 'c1'),
+				'maxImgEnabled' => array('value' => 0, 'type' => 'c1'),
+				'maxImgCnt' => array('value' => 0, 'type' => 'i1')				
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'mode':			
+			case 'numofimg':	
+			case 'preduration':	
+			case 'postduration':	
+			case 'maxImgEnabled':
+			case 'maxImgCnt':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'mode':			
+			case 'numofimg':	
+			case 'preduration':	
+			case 'postduration':			
+			case 'maxImgEnabled':
+			case 'maxImgCnt':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CSchedulerConf
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $action;
+	public  $week;
+	public  $time_range;
+	
+	function __construct() 
+	{
+		$this->week = new CWeek_event();	
+		$this->action = new CEventActionType();	
+		$this->time_range = new CTimeRange_event();	
+		
+		$this->dataInfo = array(
+				'enable'         => array('value' => 0, 'type'  => 'c1'),
+				'interval_value' => array('value' => 0, 'type'  => 'i1'),
+				'interval_unit'  => array('value' => 0, 'type'  => 'i1'),
+				'always'         => array('value' => 0, 'type'  => 'c1'),
+				'week'           => array('value' => '', 'type' => 'a'.$this->week->payloadLength),
+				'time_range'     => array('value' => '', 'type' => 'a'.$this->time_range->payloadLength)
+				);		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'enable':			
+			case 'interval_value':	
+			case 'interval_unit':	
+			case 'always':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'enable':			
+			case 'interval_value':	
+			case 'interval_unit':	
+			case 'always':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->week->SetPayload();
+		$this->time_range->SetPayload();
+		$this->action->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['week']['value'] = $this->week->payload;
+		$this->dataInfo['time_range']['value'] = $this->time_range->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->week->UnpackDataInfo($_dataArray['week']);
+		$this->time_range->UnpackDataInfo($_dataArray['time_range']);
+		//$this->SetPayload();
+	}				
+}
+
+class CInteger
+{
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('value'=> array('value'=>0, 'type'=>'i1'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value':
+			{
+				return trim($this->dataInfo[$name]['value']);
+			}
+			break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'value' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+	}
+}
+
+class CStorageDeviceExtension
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{		
+		$this->dataInfo = array(
+				'IpType'         => array('value'=>'', 'type'=>'c1'),
+				'Dev'            => array('value'=>'', 'type'=>'a32'),
+				'MountDirectory' => array('value'=>'', 'type'=>'a256'),
+				'Addr'           => array('value'=>'', 'type'=>'a64'),
+				'UserName'       => array('value'=>'', 'type'=>'a32'),
+				'Password'       => array('value'=>'', 'type'=>'a32')
+				);
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'IpType':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+			case 'Dev':
+			case 'MountDirectory':
+			case 'UserName':
+			case 'Password':
+			case 'Addr' :
+			{
+				return trim($this->dataInfo[$name]['value']);
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'IpType':
+			case 'Dev':
+			case 'MountDirectory':
+			case 'UserName':
+			case 'Password':
+			case 'Addr' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CStorageDeviceConfig
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Extension;
+	
+	function __construct() 
+	{		
+		$this->Extension = new CStorageDeviceExtension();
+		$this->dataInfo = array(
+				'Type'       => array('value'=>0, 'type'=>'i1'),
+				'Activation' => array('value'=>'', 'type'=>'c1'),
+				'AutoDelete' => array('value'=>'', 'type'=>'c1'),
+				'OverWrite'  => array('value'=>'', 'type'=>'c1'),
+				'Reserved'   => array('value'=>'', 'type'=>'a31')
+				);
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += $this->Extension->payloadLength;
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+		$this->packFormat  .= "a". $this->Extension->payloadLength . "Extension/";
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type':
+			case 'AutoDelete':
+			case 'OverWrite':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'AutoDelete':
+			case 'OverWrite':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+
+		$this->Extension->SetPayload();
+		$this->payload .= $this->Extension->payload;
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->Extension->UnpackDataInfo($_dataArray["Extension"]);
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+
+class CStorageDevicesConfig
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $Device;
+	
+	function __construct() 
+	{		
+		$this->payloadLength = 0;
+		for($i=0 ; $i < MAX_STORAGE_DEVICE ; $i++)
+		{
+			$this->Device[$i] = new CStorageDeviceConfig();
+			$this->payloadLength += $this->Device[$i]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Device', $this->Device[0]->payloadLength, MAX_STORAGE_DEVICE);
+	}
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->payload = '';
+		for($i=0 ; $i < MAX_STORAGE_DEVICE ; $i++)
+		{
+			$this->Device[$i]->SetPayload();
+			$this->payload .= $this->Device[$i]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for($i=0 ; $i < MAX_STORAGE_DEVICE ; $i++)
+		{
+			$this->Device[$i]->UnpackDataInfo($_dataArray['Device' . $i ]);
+		}
+	}			
+	function getStorageDevciesConfig($idx=0, $isJason=false)
+	{
+		if( $isJason == true ) {
+			for($i=$idx ; $i < MAX_STORAGE_DEVICE ; $i++ ) {
+				$data[$i]["Type"] = $this->Device[$i]->Type;
+				$data[$i]["AutoDelete"] = $this->Device[$i]->AutoDelete;
+				$data[$i]["OverWrite"] = $this->Device[$i]->OverWrite;
+
+				$data[$i]["Extension"]["IpType"] = $this->Device[$i]->Extension->IpType;
+				$data[$i]["Extension"]["Dev"] = $this->Device[$i]->Extension->Dev; //addr 
+				$data[$i]["Extension"]["MountDirectory"] = $this->Device[$i]->Extension->MountDirectory;
+				$data[$i]["Extension"]["UserName"] = $this->Device[$i]->Extension->UserName;
+				$data[$i]["Extension"]["Password"] = $this->Device[$i]->Extension->Password;
+				if( $idx > 0 ) break;
+			}
+			echo json_encode($data);
+		}
+		else {
+			for($i=$idx ; $i < MAX_STORAGE_DEVICE ; $i++ ) {
+				printf("[STORAGE%02d]\r\n", $i+1);
+				printf("type=%d\n", $this->Device[$i]->Type);
+				printf("auto_delete=%d\r\n", $this->Device[$i]->AutoDelete);
+				printf("over_write=%d\r\n", $this->Device[$i]->OverWrite);
+				if( $this->Device[$i]->Type == 2) { // nfs
+					printf("ip_type=%s\r\n", $this->Device[$i]->Extension->IpType);
+					printf("dev=%s\r\n", $this->Device[$i]->Extension->Dev); //addr
+					printf("mount_directory=%s\r\n", $this->Device[$i]->Extension->MountDirectory);
+					//printf("username=%s\r\n", $this->Device[$i]->Extension->UserName);
+					//printf("password=%s\r\n", $this->Device[$i]->Extension->Password);
+				}
+				if( $idx > 0 ) break;
+				else echo "\r\n";
+			}
+		}
+	}
+}
+
+class CEventConfiguration
+{
+	private $shm_id;
+	
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	public  $alarm_input_conf;
+	public  $transfer_conf;
+	public  $schedule_conf;
+	public  $StorageDevices;
+	public  $motion_confs;
+	public  $temperature_confs;
+	
+	function __construct($shmid = 0)
+	{
+		$this->motion_confs   = new CMotionDetectConfs();
+		$this->temperature_confs   = new CTemperatureDetectConfs();
+		$this->transfer_conf = new CTransferConf();
+		$this->schedule_conf = new CSchedulerConf();
+		$this->StorageDevices  = new CStorageDevicesConfig();
+
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->alarm_input_conf[$index] = new CAlarmInputConf();
+			$this->payloadLength += $this->alarm_input_conf[$index]->payloadLength;
+		}
+		
+		$this->payloadLength += $this->motion_confs->payloadLength;	
+		$this->payloadLength += $this->temperature_confs->payloadLength;	
+		$this->payloadLength += $this->transfer_conf->payloadLength;	
+		$this->payloadLength += $this->schedule_conf->payloadLength;	
+		$this->payloadLength += $this->StorageDevices->payloadLength;
+		
+		$this->packFormat 	= '';
+		$this->packFormat 	=MakeUnpackFormat('alarm_input_conf', $this->alarm_input_conf[0]->payloadLength, MAX_SENSOR).
+							'a'.$this->motion_confs->payloadLength.'motion_confs'.'/'.
+							'a'.$this->temperature_confs->payloadLength.'temperature_confs'.'/'.
+							'a'.$this->transfer_conf->payloadLength.'transfer_conf'.'/'.
+							'a'.$this->schedule_conf->payloadLength.'schedule_conf'.'/'.
+							"a".$this->StorageDevices->payloadLength."StorageDevices";
+
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+			  exit;	
+
+			$shmid = $this->shm_id;  
+		}		
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_EVENT*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'];	
+		$total_size      = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'payloadLength'.$this->payloadLength."\r\n";
+			echo 'total_size'.$total_size."\r\n";
+		       echo 'alarm_input_conf'.$this->alarm_input_conf[0]->payloadLength."\r\n";
+		       echo 'motion_confs'.$this->motion_confs->payloadLength."\r\n";
+			   echo 'temperature_confs'.$this->temperature_confs->payloadLength."\r\n";
+		       echo 'transfer_conf'.$this->transfer_conf->payloadLength."\r\n";
+		       echo 'schedule_conf'.$this->schedule_conf->payloadLength."\r\n";
+			   echo "StorageDevices" . $this->StorageDevices->payloadLength . "\r\n";
+		  //shmop_close($this->shm_id);
+			exit;
+		}
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->motion_confs->SetPayload();
+		$this->temperature_confs->SetPayload();
+		$this->transfer_conf->SetPayload();
+		$this->schedule_conf->SetPayload();
+		$this->StorageDevices->SetPayload();
+
+		$this->payload = '';
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->alarm_input_conf[$index]->SetPayload();
+			$this->payload .= $this->alarm_input_conf[$index]->payload;
+		}
+		$this->payload .= $this->motion_confs->payload.$this->temperature_confs->payload.$this->transfer_conf->payload.$this->schedule_conf->payload; //.$this->sdcard_conf->payload;	
+		$this->payload .= $this->StorageDevices->payload;
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{		
+			$this->alarm_input_conf[$index]->UnpackDataInfo($_dataArray['alarm_input_conf'.$index]);
+		}
+		$this->motion_confs->UnpackDataInfo($_dataArray['motion_confs']);
+		$this->temperature_confs->UnpackDataInfo($_dataArray['temperature_confs']);		
+		$this->transfer_conf->UnpackDataInfo($_dataArray['transfer_conf']);
+		$this->schedule_conf->UnpackDataInfo($_dataArray['schedule_conf']);
+		$this->StorageDevices->UnpackDataInfo($_dataArray["StorageDevices"]);
+		//$this->SetPayload();
+	}		
+}
+
+?>

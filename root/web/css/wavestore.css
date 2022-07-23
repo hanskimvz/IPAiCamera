@@ -1,0 +1,135 @@
+
+html {
+	background: #718394; /* Old browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718394', endColorstr='#9d7568',GradientType=0 ); /* IE6-9 */
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+}
+
+a:hover		{ color: #009bfb; font-size: inherit; text-decoration: none; border: 0px;}
+a:active 	{ color: #0777bc; font-size: inherit; text-decoration: none; }
+
+#div_left #logo{
+    display: block;
+    height: 65px;
+    background: url("../../../images/WAVESTORE_logo.png");
+    background-size: 200px;
+    background-repeat: no-repeat;
+}
+
+#left_frame #logo{
+    display: block;
+    height: 78px;
+	background: url("../../../images/WAVESTORE_logo.png");
+	background-size: 200px;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+	border-bottom : 1px solid #a0a0a0;
+}
+
+#left_frame{
+    height:740px;
+    margin-top:-2px;
+}
+
+#tabs{
+    height:700px;
+    margin-top:-2px;
+}
+
+.ui-slider > .ui-slider-handle, .ui-slider-horizontal .ui-slider-handle
+{
+	background: #0777bc;
+	border: 2px solid #0777bc;
+}
+
+.slider_box button{
+	background-color: transparent;
+	color: #0777bc;
+}
+.slider_box button:active{ color: #0777bc !important; }
+.slider_box button:hover{ color: #009bfb; } 
+.slider_box button:disabled { color: #b8b8b8; }
+
+.select_major { 
+    color: #0777bc !important;
+}
+
+.select_minor {
+	background-color: #92b4ca !important;
+}
+
+.filebox.disign_sel label {
+    color: #fff;
+  background-color: #0777bc;
+  border-color: #0777bc;
+}
+
+#sub_menu li:active{
+    color: #0777bc;
+}
+
+.button{ background-color: #0777bc; }
+.button:hover     { background-color: #009bfb; }
+.button:active    { background-color: #0777bc; }
+.button:disabled  { background-color: #b8b8b8; }
+
+.color { background-color: #0777bc !important;}
+
+input[type="radio"]:checked + label {
+    background-color: #0777bc !important;
+}
+
+input[type="checkbox"]:checked + label{
+	background-color: #0777bc; ;
+}
+
+input[type="file"]:hover +label {
+    background-color:	#009bfb;
+    border-color: #009bfb;
+}
+
+input[name='vins']:hover + label { background-color: #009bfb   !important; }
+input[name='vins']:checked + label { background-color: #045a8f !important;}
+input[name='vins'] + label {
+	background-color: #0777bc !important;
+}
+
+.ptz_up_left{
+	background: url(/images/ptz_wavestore.png) no-repeat -0px 0px;
+}
+
+.ptz_up {
+	background: url(/images/ptz_wavestore.png) no-repeat -50px 0px;
+}
+
+.ptz_up_right{
+	background: url(/images/ptz_wavestore.png) no-repeat -100px 0px;
+}
+
+.ptz_left{
+	background: url(/images/ptz_wavestore.png) no-repeat -150px 0px;
+}
+
+.ptz_right{
+    background: url(/images/ptz_wavestore.png) no-repeat -200px 0px;
+}
+
+.ptz_down_left{
+    background: url(/images/ptz_wavestore.png) no-repeat -300px 0px;
+}
+
+.ptz_down{
+    background: url(/images/ptz_wavestore.png) no-repeat -350px 0px;
+}
+
+.ptz_down_right{
+	background: url(/images/ptz_wavestore.png) no-repeat -400px 0px;
+}
+
+.result_table .sel_record_item, .sel_list_item {
+    background-color: #92b4ca !important;
+}
+.result_table .list_items:active	{ background-color: #92b4ca; }
+.log_table .list_items:active	{ background-color: #92b4ca; }

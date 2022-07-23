@@ -1,0 +1,2627 @@
+{
+   "Corridor" : {
+      "enabled" : 0
+   },
+   "DeviceInfo" : {
+      "BuildVersion" : "2022.01.12",
+      "CDS_ADJ" : 0,
+      "CDS_ADJ_Cor" : 0,
+      "DeviceId" : "IP_CAM",
+      "DeviceName" : "IP-Camera",
+      "FirmwareVersion" : "A15.3.0",
+      "FisheyeInputOffset" : {
+         "x" : 0,
+         "y" : 0
+      },
+      "Location" : "unknown",
+      "Manufacturer" : "NiceHans",
+      "Model" : "IPAi65A08-MR",
+      "ModuleVersion" : "-",
+      "OnvifConf" : {
+         "auth_mode" : 2,
+         "discovery_mode" : {
+            "Mode" : 0
+         },
+         "hostname" : "IPNC",
+         "scopes" : {
+            "Conf" : [
+               {
+                  "Definition" : 0,
+                  "Item" : "onvif://www.onvif.org/Profile/Streaming"
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : "onvif://www.onvif.org/type/video_encoder"
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : "onvif://www.onvif.org/type/audio_encoder"
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : "onvif://www.onvif.org/hardware/IPAi65A08-MR"
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : "onvif://www.onvif.org/manufacturer/NiceHans"
+               },
+               {
+                  "Definition" : 1,
+                  "Item" : "onvif://www.onvif.org/location/unknown"
+               },
+               {
+                  "Definition" : 1,
+                  "Item" : "onvif://www.onvif.org/name/IP-Camera"
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : ""
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : ""
+               },
+               {
+                  "Definition" : 0,
+                  "Item" : ""
+               }
+            ]
+         }
+      },
+      "ProductName" : "M1B2-SLGH8",
+      "Reserved" : "",
+      "SerialNumber" : "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+      "TDN" : 1,
+      "Thermal_offset" : "0",
+      "Token" : "30623834-3036-6666-3661-0013230b8406",
+      "UpTime" : 0,
+      "VideoType" : 0
+   },
+   "DeviceIo" : {
+      "RelaySettings" : {
+         "Relay" : [
+            {
+               "DelayTime" : 1,
+               "IdleState" : 1,
+               "Mode" : 1
+            },
+            {
+               "DelayTime" : 0,
+               "IdleState" : 0,
+               "Mode" : 0
+            },
+            {
+               "DelayTime" : 0,
+               "IdleState" : 0,
+               "Mode" : 0
+            },
+            {
+               "DelayTime" : 0,
+               "IdleState" : 0,
+               "Mode" : 0
+            }
+         ],
+         "Size" : 1
+      },
+      "SensorSettings" : {
+         "Sensor" : [
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            },
+            {
+               "Mode" : 0
+            }
+         ],
+         "Size" : 1
+      },
+      "SerialPortsSetting" : {
+         "address" : 0,
+         "auxiliary" : "",
+         "baudrate" : 0,
+         "databit" : 0,
+         "parity" : 0,
+         "protocol" : 0,
+         "stopbit" : 0
+      },
+      "TemperatureSetting" : {
+         "mode" : 0,
+         "threshold" : 85
+      },
+      "reserved" : ""
+   },
+   "FtpUpgradeSetting" : {
+      "AutoUpdate" : 0,
+      "Directory" : "/",
+      "Enabled" : 1,
+      "Interval" : 24,
+      "PassiveModeEnabled" : 1,
+      "Password" : "admin",
+      "Port" : 21,
+      "Server" : "0.0.0.0",
+      "Status" : 0,
+      "Username" : "admin"
+   },
+   "Osds" : {
+      "Osd" : [
+         {
+            "focus_enabled" : 0,
+            "osd_stream" : 7,
+            "ptz_enabled" : 0,
+            "ptz_x" : 0,
+            "ptz_y" : 0,
+            "temperature_enabled" : 0,
+            "temperature_x" : 0,
+            "temperature_y" : 0,
+            "text" : "",
+            "text_enabled" : 0,
+            "text_x" : 0,
+            "text_y" : 0,
+            "time_enabled" : 0,
+            "time_x" : 0,
+            "time_y" : 0
+         },
+         {
+            "focus_enabled" : 0,
+            "osd_stream" : 0,
+            "ptz_enabled" : 0,
+            "ptz_x" : 0,
+            "ptz_y" : 0,
+            "temperature_enabled" : 0,
+            "temperature_x" : 0,
+            "temperature_y" : 0,
+            "text" : "",
+            "text_enabled" : 0,
+            "text_x" : 0,
+            "text_y" : 0,
+            "time_enabled" : 0,
+            "time_x" : 0,
+            "time_y" : 0
+         },
+         {
+            "focus_enabled" : 0,
+            "osd_stream" : 0,
+            "ptz_enabled" : 0,
+            "ptz_x" : 0,
+            "ptz_y" : 0,
+            "temperature_enabled" : 0,
+            "temperature_x" : 0,
+            "temperature_y" : 0,
+            "text" : "",
+            "text_enabled" : 0,
+            "text_x" : 0,
+            "text_y" : 0,
+            "time_enabled" : 0,
+            "time_x" : 0,
+            "time_y" : 0
+         },
+         {
+            "focus_enabled" : 0,
+            "osd_stream" : 0,
+            "ptz_enabled" : 0,
+            "ptz_x" : 0,
+            "ptz_y" : 0,
+            "temperature_enabled" : 0,
+            "temperature_x" : 0,
+            "temperature_y" : 0,
+            "text" : "",
+            "text_enabled" : 0,
+            "text_x" : 0,
+            "text_y" : 0,
+            "time_enabled" : 0,
+            "time_x" : 0,
+            "time_y" : 0
+         }
+      ]
+   },
+   "Security" : {
+      "AutoLock" : {
+         "AutoLockAttempt" : 1,
+         "AutoLockEnabled" : 0
+      },
+      "Certificates" : {
+         "CA" : [
+            {
+               "Id" : 567610293,
+               "Name" : "DigiCertAssuredIDRootCA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610294,
+               "Name" : "DigiCertGlobalRootCA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610295,
+               "Name" : "DigiCertHighAssuranceEVRootCA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610296,
+               "Name" : "GeoTrust_Global_CA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610297,
+               "Name" : "GeoTrust_Global_CA2",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610298,
+               "Name" : "GeoTrust_Primary_CA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610299,
+               "Name" : "GeoTrust_Universal_CA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610300,
+               "Name" : "Geotrust_PCA_G3_Root",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610301,
+               "Name" : "PCA_1_G6",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610302,
+               "Name" : "PCA_2_G6",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610303,
+               "Name" : "Root-R1",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610304,
+               "Name" : "Root-R2",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610305,
+               "Name" : "Root-R3",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610306,
+               "Name" : "VeriSign Class 1 Public Primary Certification Authority - G3",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610307,
+               "Name" : "VeriSign Class 2 Public Primary Certification Authority - G3",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610308,
+               "Name" : "VeriSign Class 3 Public Primary Certification Authority - G3",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610309,
+               "Name" : "VeriSign Class 3 Public Primary Certification Authority - G5",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610310,
+               "Name" : "VeriSign Class 4 Public Primary Certification Authority - G3",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610311,
+               "Name" : "entrust_2048_ca",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610312,
+               "Name" : "entrust_ev_ca",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610313,
+               "Name" : "entrust_g2_ca",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610314,
+               "Name" : "thawte_Primary_Root_CA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610315,
+               "Name" : "thawte_Primary_Root_CA-G3_SHA256",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 567610316,
+               "Name" : "thawte_Primary_Root_CA-G4_DSA",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            }
+         ],
+         "Certificate" : [
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            },
+            {
+               "Id" : 0,
+               "Name" : "",
+               "ReferenceCount" : 0
+            }
+         ]
+      },
+      "HttpsConf" : {
+         "ConnectionPolicy" : [ 2, 2, 2, 0, 0 ],
+         "targetCert" : {
+            "Id" : 0,
+            "Name" : "",
+            "ReferenceCount" : 0
+         }
+      },
+      "IEEE8021x" : {
+         "EAPOLVersion" : 1,
+         "Enabled" : 0,
+         "Password" : "",
+         "Protocol" : 0,
+         "UserId" : "",
+         "etc" : "",
+         "targetCA" : {
+            "Id" : 0,
+            "Name" : "",
+            "ReferenceCount" : 0
+         },
+         "targetCert" : {
+            "Id" : 0,
+            "Name" : "",
+            "ReferenceCount" : 0
+         }
+      },
+      "IpFilter" : {
+         "Enabled" : 0,
+         "IpV4Addr" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
+         "Type" : 0
+      },
+      "RtspAuthentication" : {
+         "AuthEnabled" : 0
+      },
+      "SystemService" : {
+         "EncodeVersion" : 0,
+         "SupportSSH" : 1,
+         "tmp" : ""
+      }
+   },
+   "SmartLBR" : {
+      "bitrate" : 0,
+      "dyn_gop_enable" : 0,
+      "fps_drop_enable" : 0,
+      "motion_level" : 0,
+      "noise_level" : 0,
+      "onoff" : 0,
+      "profile_0" : 0,
+      "profile_1" : 0,
+      "profile_2" : 0,
+      "profile_3" : 0,
+      "profile_4" : 0,
+      "stream_quality" : 0
+   },
+   "SystemDatetime" : {
+      "DaylightSavings" : {
+         "Bias" : 0,
+         "Enable" : 0,
+         "EndTime" : {
+            "hour" : 0,
+            "month" : 0,
+            "ordinal" : 0,
+            "week" : 0
+         },
+         "StartTime" : {
+            "hour" : 0,
+            "month" : 0,
+            "ordinal" : 0,
+            "week" : 0
+         }
+      },
+      "HourFormat" : 0,
+      "Language" : 9,
+      "Reserved" : "",
+      "SystemTime" : {
+         "day" : 21,
+         "hour" : 21,
+         "is_gmt" : 0,
+         "min" : 43,
+         "mon" : 1,
+         "sec" : 39,
+         "year" : 0
+      },
+      "TimeFormat" : 0,
+      "TimeZone" : "STWT-8",
+      "TimeZoneIndex" : 20,
+      "Type" : 1
+   },
+   "SystemOption" : 0,
+   "Users" : {
+      "Admin_Pw_Change" : 1,
+      "User" : [
+         {
+            "Enabled" : 1,
+            "Level" : 1,
+            "Name" : "root",
+            "Password" : [
+               234,
+               232,
+               68,
+               40,
+               144,
+               5,
+               204,
+               202,
+               227,
+               163,
+               169,
+               170,
+               79,
+               63,
+               90,
+               8,
+               196,
+               244,
+               191,
+               169,
+               62,
+               168,
+               187,
+               235,
+               70,
+               247,
+               150,
+               220,
+               124,
+               1,
+               208,
+               6
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         },
+         {
+            "Enabled" : 0,
+            "Level" : 0,
+            "Name" : "",
+            "Password" : [
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0,
+               0
+            ],
+            "PasswordHint" : ""
+         }
+      ]
+   },
+   "VideoQproiControl" : {
+      "enable" : 0,
+      "height" : 0,
+      "sens" : 0,
+      "width" : 0,
+      "x" : 0,
+      "y" : 0
+   }
+}

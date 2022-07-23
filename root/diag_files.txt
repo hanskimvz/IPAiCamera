@@ -1,0 +1,5 @@
+ipnc
+passwd
+shadow
+ModelInfo.ini
+diag.sh

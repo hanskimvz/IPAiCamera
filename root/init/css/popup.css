@@ -1,0 +1,43 @@
+
+body{
+	font-family : Arial ; 
+    width: auto !important;
+	
+}
+.warning{
+    color: #A50000;
+    font-size: 24px;	
+}
+.title{
+    font-size: 22px;
+    font-weight: 700;
+}
+.passchbody{
+    width: auto;
+    height: auto;
+}
+.secontent{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.subtitle{
+    margin: 0px;
+}
+.content{
+    background-color: rgba(255,255,255,0.6);
+    padding: 10px;
+}
+#meter_wrapper_ui{
+    padding: 5px 0px 0px 0px;
+}
+.rvi_content{
+    background-color: rgba(221,221,221,1);
+    padding: 10px;
+}
+.IV_content{
+    background-color: rgba(221,221,221,1);
+    padding: 10px;
+}
+
+

@@ -1,0 +1,3347 @@
+<?php
+if(!class_exists("CFtpSetting"))
+{
+	class CFtpSetting
+	{
+		public 	$command;
+		public 	$payload;
+		public  $payloadLength;
+		public	$dataInfo;
+		public  $packFormat;
+		function __construct() 
+		{
+			$this->dataInfo = array(
+					'Enabled' => array('value' => 0, 'type'  => 'c1'),
+					'Server'                  => array('value' => '', 'type' => 'a64'),
+					'Directory'               => array('value' => '', 'type' => 'a256'),
+					'Port'                    => array('value' => 0, 'type'  => 'i1'),
+					'Username'                => array('value' => '', 'type' => 'a32'),
+					'Password'                => array('value' => '', 'type' => 'a32'),
+					'PassiveModeEnabled'      => array('value' => 0, 'type'  => 'c1'),
+					'Status'                  => array('value' => 0, 'type'  => 'i1'),
+					'AutoUpdate'              => array('value' => 0, 'type'  => 'c1'),
+					'Interval'                => array('value' => 0, 'type'  => 'i1')
+					);
+			$this->payloadLength = GetDataInfoLength($this->dataInfo);
+			$this->packFormat 	= MakeDataFormat($this->dataInfo);
+		}
+		function __get($name)
+		{
+			switch($name)
+			{
+				case 'Enabled':
+				case 'Server':
+				case 'Directory':
+				case 'Port':
+				case 'Username':
+				case 'Password':
+				case 'PassiveModeEnabled':
+				case 'Status':
+				case 'AutoUpdate':
+				case 'Interval':
+					{
+						return $this->dataInfo[$name]['value'];
+					}
+					break;
+			}	
+		}
+		function __set($name,  $val) 
+		{
+			switch($name)
+			{
+				case 'Enabled':
+				case 'Server':
+				case 'Directory':
+				case 'Port':
+				case 'Username':
+				case 'Password':
+				case 'PassiveModeEnabled':	
+				case 'Status':
+				case 'AutoUpdate':
+				case 'Interval':
+					{
+						$this->dataInfo[$name]['value'] = $val;
+					}
+					break;
+			}		
+		}
+		function __destruct() 
+		{
+		}
+		// arrayed data info binary string
+		function SetPayload()
+		{
+			$this->command = 0;
+			$this->payload = '';
+			$this->payload .= MakePayload($this->dataInfo);		
+		}		
+		// Binary string into arrayed data
+		function UnpackDataInfo($_dataArray)
+		{
+			if (is_string($_dataArray)) 
+			{
+				$_dataArray = unpack($this->packFormat, $_dataArray);
+			}
+			SetDataInfo($this, $_dataArray);
+			$this->SetPayload();
+		}	
+	}
+}
+class COnvifConfiguration
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'hostname'       => array('value'=>'', 'type'=>'a32'),
+				'scopes'         => array('value'=>'', 'type'=>'a680'),
+				'discovery_mode' => array('value'=>0,  'type'=>'c1'),
+				'auth_mode'      => array('value'=>0,  'type'=>'c1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'hostname':			
+			case 'discovery_mode':		
+			case 'auth_mode':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'hostname':			
+			case 'discovery_mode':		
+			case 'auth_mode':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		
+		//$this->SetPayload();
+	}	
+}
+
+class CDeviceInfomationReserved
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array("reserved"=>array("value"=>"","type"=>"a128"));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+	function __destruct()
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_DEVICE_INFORMATION;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+class CDeviceInfomation
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $OnvifConf;
+	public $FisheyeInputOffset;
+	public $Reserved;
+
+	function __construct() 
+	{
+		$this->OnvifConf = new COnvifConfiguration();
+		$this->FisheyeInputOffset = new CFisheyeInputOffset();
+		//$this->Reserved = new CDeviceInfomationReserved();
+		$this->dataInfo = array(
+				'Token'               =>array('value'=>'','type'=>'a64'),
+				'ProductName'         =>array('value'=>'','type'=>'a32'),
+				'Manufacturer'        =>array('value'=>'','type'=>'a32'),
+				'Model'               =>array('value'=>'','type'=>'a32'),
+				'FirmwareVersion'     =>array('value'=>'','type'=>'a32'),
+				'ModuleVersion'       =>array('value'=>'','type'=>'a32'),
+				'DeviceId'            =>array('value'=>'','type'=>'a64'),
+				'DeviceName'          =>array('value'=>'','type'=>'a32'),
+				'BuildVersion'        =>array('value'=>'','type'=>'a32'),
+				'VideoType'           =>array('value'=>0, 'type'=>'c1'),
+				'TDN'       	      =>array('value'=>0, 'type'=>'c1'),
+				'CDS_ADJ'             =>array('value'=>0, 'type'=>'i1'),
+				'UpTime'              =>array('value'=>0, 'type'=>'i1'),
+				'FisheyeInputOffset'  =>array('value'=>'', 'type'=>'a'.$this->FisheyeInputOffset->payloadLength),
+				'OnvifConf'           =>array('value'=>'', 'type'=>'a'.$this->OnvifConf->payloadLength),
+				'Thermal_offset'	  =>array('value'=>'','type'=>'a32'),
+				'SerialNumber'	  	  =>array('value'=>'','type'=>'a32'),                
+				'CDS_ADJ_Cor'         =>array('value'=>0, 'type'=>'i1'),
+				'Location'            =>array('value'=>'','type'=>'a32'),
+				'Reserved'            =>array('value'=>'', 'type'=>'a32')
+				);
+
+		$this->payloadLength = 0;    
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Token':
+			case 'ProductName':
+			case 'Manufacturer':
+			case 'Thermal_offset':
+			case 'SerialNumber':
+			case 'Model':
+			case 'FirmwareVersion':
+			case 'ModuleVersion':
+			case 'DeviceId':
+			case 'DeviceName':
+			case 'Location':
+			case 'BuildVersion':
+			case 'VideoType':
+			{
+				return trim($this->dataInfo[$name]['value']);
+			}
+			case 'TDN':
+			case 'CDS_ADJ':
+			case 'UpTime':
+			case 'CDS_ADJ_Cor':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Token':			
+			case 'ProductName':	
+			case 'Manufacturer':
+			case 'Thermal_offset':
+			case 'SerialNumber':
+			case 'Model':
+			case 'FirmwareVersion':
+			case 'ModuleVersion':
+			case 'DeviceId':
+			case 'DeviceName':
+			case 'Location':
+			case 'BuildVersion':
+			case 'VideoType':	
+			case 'TDN':	
+			case 'CDS_ADJ':	
+			case 'UpTime':
+			case 'CDS_ADJ_Cor':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_DEVICE_INFORMATION;
+		$this->payload = '';
+
+		$this->FisheyeInputOffset->SetPayload();
+		$this->OnvifConf->SetPayload();
+		//$this->Reserved->SetPayload();
+
+		$this->payload = "";
+		$this->dataInfo['FisheyeInputOffset']['value']   = $this->FisheyeInputOffset->payload;
+		$this->dataInfo['OnvifConf']['value']  	= $this->OnvifConf->payload;
+		//$this->dataInfo['Reserved']['value']    = $this->Reserved->payload;
+		$this->payload                          .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		
+		$this->FisheyeInputOffset->UnpackDataInfo($_dataArray['FisheyeInputOffset']);
+		$this->OnvifConf->UnpackDataInfo($_dataArray['OnvifConf']);
+		//$this->Reserved->UnpackDataInfo($_dataArray['Reserved']);
+		//$this->SetPayload();
+	}		
+}
+class CUser
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'Enabled'  =>array('value'=>0,  'type'=>'c1'),
+				'Name'     =>array('value'=>'', 'type'=>'a32'),
+				'Password' =>array('value'=>'', 'type'=>'a32'),
+				'PasswordHint' =>array('value'=>'', 'type'=>'a64'),
+				'Level'    =>array('value'=>1,  'type'=>'c1')
+				);
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			case 'Name':	
+			case 'Password':
+			case 'PasswordHint':
+			case 'Level':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			case 'Name':	
+			case 'Password':
+			case 'PasswordHint':
+			case 'Level':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_ADD_USER;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+class CUsers
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;	
+	public	$dataInfo;
+	public  $packFormat;
+	
+	public  $User;
+	function __construct() 
+	{
+		$this->packFormat = '';
+		for ($index=0; $index<MAX_USER; ++$index)
+		{
+			$this->User[$index] = new CUser();
+			$this->payloadLength += $this->User[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('User', $this->User[0]->payloadLength, MAX_USER);
+
+		$this->dataInfo = array(
+				'Admin_Pw_Change'  =>array('value'=>0,  'type'=>'c1'),
+				);
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+        $this->packFormat .= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_USERS;
+		$this->payload = '';
+		for ($index=0; $index<MAX_USER; ++$index)
+		{
+			$this->User[$index]->SetPayload();
+			$this->payload .= $this->User[$index]->payload;
+		}
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for ($index=0; $index<MAX_USER; ++$index)
+		{		
+			$this->User[$index]->UnpackDataInfo($_dataArray['User'.$index]);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+	function getAccessUserInfo($name)
+	{
+		$auth_data = $_SERVER['PHP_AUTH_DIGEST'];
+		preg_match_all('/(\w+)="([\w\s\~\`\!\@\$\^\*\(\)\_\-\|\{\}\[\]\;\,\.\?\/]+)"/', $auth_data, $digest);
+		for($i=0; $i<count($digest[1]); $i++)
+		{
+			if($digest[1][$i] == 'username')
+			{
+				$access_user_id = $digest[2][$i];
+				break;
+			}
+		}
+		$user_conf = $this->User;
+		for ($i=0; $i<MAX_USER ; $i++)
+		{
+			if( $user_conf[$i]->Enabled == 1)
+			{
+				if (trim($user_conf[$i]->Name) == $access_user_id)
+				{
+					$access_user_pw = trim($user_conf[$i]->Password);
+					$access_user_level = trim($user_conf[$i]->Level);
+					break;
+				}
+			}
+		} 
+		echo $name. "['id'] = '".$access_user_id."';\r\n";
+		echo $name. "['pass'] = '".strtoupper(md5($access_user_pw))."';\r\n";
+		echo $name. "['auth'] = ".$access_user_level.";\r\n";
+        echo $name. "['pwchange'] = ".$this->dataInfo['Admin_Pw_Change']['value'].";\r\n";
+	}
+	function getAccessUserInfo_x($name)
+	{
+		$auth_data = $_SERVER['PHP_AUTH_DIGEST'];
+		preg_match_all('/(\w+)="([\w\s\~\`\!\@\$\^\*\(\)\_\-\|\{\}\[\]\;\,\.\?\/]+)"/', $auth_data, $digest);
+		for($i=0; $i<count($digest[1]); $i++)
+		{
+			if($digest[1][$i] == 'username')
+			{
+				$access_user_id = $digest[2][$i];
+				break;
+			}
+		}
+		$user_conf = $this->User;
+		for ($i=0; $i<MAX_USER ; $i++)
+		{
+			if( $user_conf[$i]->Enabled == 1)
+			{
+				if (trim($user_conf[$i]->Name) == $access_user_id)
+				{
+					$access_user_level = trim($user_conf[$i]->Level);
+					break;
+				}
+			}
+		} 
+		echo $name. "['auth'] = ".$access_user_level.";\r\n";
+        echo $name. "['pwchange'] = ".$this->dataInfo['Admin_Pw_Change']['value'].";\r\n";
+	}
+	function getAllUsersInfo($name)
+	{
+		$user_conf = $this->User;
+		$index = 0;
+		for ($i=0; $i<MAX_USER ; $i++)
+		{
+			if( $user_conf[$i]->Enabled == 1)
+			{
+				echo $name. "[".$index."]= new Object();\r\n";
+				echo $name. "[".$index."]['id']='"	.trim($user_conf[$i]->Name)."';\r\n";
+				//echo $name. "[".$index."]['pass']='"	.trim($user_conf[$i]->Password)."';\r\n";
+				echo $name. "[".$index."]['pass']='';\r\n";
+				echo $name. "[".$index."]['auth']="	.trim($user_conf[$i]->Level).";\r\n";
+				$index++;
+			}
+		} 
+	}
+}
+class CSystemTime
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	
+				'is_gmt' => array('value' => 0, 'type' => 'c1'),
+				'year'   => array('value' => 0, 'type' => 'i1'),
+				'mon'    => array('value' => 0, 'type' => 'c1'),
+				'day'    => array('value' => 0, 'type' => 'c1'),
+				'hour'   => array('value' => 0, 'type' => 'c1'),
+				'min'    => array('value' => 0, 'type' => 'c1'),
+				'sec'    => array('value' => 0, 'type' => 'c1')
+				);
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'is_gmt':			
+			case 'year':	
+			case 'mon':
+			case 'day':
+			case 'hour':
+			case 'min':
+			case 'sec':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'is_gmt':			
+			case 'year':	
+			case 'mon':
+			case 'day':
+			case 'hour':
+			case 'min':
+			case 'sec':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class CSystemDatetime
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $SystemTime;
+	
+	function __construct() 
+	{
+		$this->SystemTime 			= new CSystemTime();
+		$this->dataInfo = array(	
+				'Type'              => array('value' => 0, 'type'  => 'c1'),
+				'Language'          => array('value' => 0, 'type'  => 'c1'),
+				'dst_enable'        => array('value' => 0, 'type'  => 'c1'),
+				'dst_start_mon'     => array('value' => 0, 'type'  => 'c1'),
+				'dst_start_ordinal' => array('value' => 0, 'type'  => 'c1'),
+				'dst_start_week'    => array('value' => 0, 'type'  => 'c1'),
+				'dst_start_hour'    => array('value' => 0, 'type'  => 'c1'),
+				'dst_end_mon'       => array('value' => 0, 'type'  => 'c1'),
+				'dst_end_ordinal'   => array('value' => 0, 'type'  => 'c1'),
+				'dst_end_week'      => array('value' => 0, 'type'  => 'c1'),
+				'dst_end_hour'      => array('value' => 0, 'type'  => 'c1'),
+				'dst_bias'          => array('value' => 0, 'type'  => 'c1'),
+				'TimeZone'          => array('value' => '', 'type' => 'a64'),
+				'TimeZoneIndex'     => array('value' => 1, 'type'  => 'i1'),
+				'SystemTime'        => array('value' => 0, 'type' => 'a'.$this->SystemTime->payloadLength),
+				'TimeFormat'        => array('value' => '', 'type' => 'c1'),
+				'HourFormat'        => array('value' => '', 'type' => 'c1'),
+				'Reserved'			=> array('value' => '0', 'type' => 'a31'),
+				);	
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type':			
+			case 'Language':			
+			case 'dst_enable':	
+			case 'dst_start_mon':	
+			case 'dst_start_ordinal':	
+			case 'dst_start_week':	
+			case 'dst_start_hour':	
+			case 'dst_end_mon':	
+			case 'dst_end_ordinal':	
+			case 'dst_end_week':	
+			case 'dst_end_hour':	
+			case 'dst_bias':
+			case 'TimeZone':
+			case 'TimeZoneIndex':
+			case 'TimeFormat': 
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			case 'HourFormat':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Type':			
+			case 'Language':			
+			case 'dst_enable':	
+			case 'dst_start_mon':	
+			case 'dst_start_ordinal':	
+			case 'dst_start_week':	
+			case 'dst_start_hour':	
+			case 'dst_end_mon':	
+			case 'dst_end_ordinal':	
+			case 'dst_end_week':	
+			case 'dst_end_hour':	
+			case 'dst_bias':
+			case 'TimeZone':
+			case 'TimeZoneIndex':
+			case 'TimeFormat': 
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			case 'HourFormat':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_DATETIME;
+		$this->payload = '';
+		$this->SystemTime->SetPayload();
+		$this->dataInfo['SystemTime']['value'] = $this->SystemTime->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{			
+			 if( strlen($_dataArray) == 89 ) $_dataArray[89] = "1" ;
+			 $_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SystemTime->UnpackDataInfo($_dataArray['SystemTime']);
+		//$this->SetPayload();
+	}		
+}
+class CFactoryDefault
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array('Type'=> array('value'=>0, 'type'=>'i1'));		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Type':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class CRelayOutputSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'Mode'      => array('value' => 0, 'type' => 'c1'),
+				'IdleState' => array('value' => 0, 'type' => 'c1'),
+				'DelayTime' => array('value' => 0, 'type' => 'i1')
+				);		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Mode':	
+			case 'IdleState':
+			case 'DelayTime':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Mode':	
+			case 'IdleState':
+			case 'DelayTime':					
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class CRelayOutputSettings
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Relay;
+	function __construct()
+	{
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->Relay[$index] 	= new CRelayOutputSetting();
+		}
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->payloadLength += $this->Relay[$index]->payloadLength;
+		}
+		$this->dataInfo = array('Size' 	=> array('value'=>0, 'type'=>'i1'));
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo).MakeUnpackFormat('Relay', $this->Relay[0]->payloadLength, MAX_RELAY);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->Relay[$index]->SetPayload();
+		}
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->payload .= $this->Relay[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_RELAY; ++$index)
+		{
+			$this->Relay[$index]->UnpackDataInfo($_dataArray['Relay'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+class CSensorSetting
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array('Mode'=> array('value'=>0, 'type'=>'c1'));		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Mode':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Mode':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class CSensorSettings
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $Sensor;
+	function __construct()
+	{
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->Sensor[$index] 	= new CSensorSetting();
+		}
+		$this->payloadLength = 0;
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->payloadLength += $this->Sensor[$index]->payloadLength;
+		}
+		$this->dataInfo = array('Size' 	=> array('value'=>0, 'type'=>'i1'));
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo).MakeUnpackFormat('Sensor', $this->Sensor[0]->payloadLength, MAX_SENSOR);
+	}
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Size':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->Sensor[$index]->SetPayload();
+		}
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->payload .= $this->Sensor[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<MAX_SENSOR; ++$index)
+		{
+			$this->Sensor[$index]->UnpackDataInfo($_dataArray['Sensor'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+class CTemperatureSettings
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'mode' 		=> array('value'=>0, 'type'=>'c1'),
+				'threshold' 	=> array('value'=>0, 'type'=>'i1')
+				);		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'mode':	
+			case 'threshold':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'mode':	
+			case 'threshold':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class CSerialPortsSettings
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'protocol' 		=> array('value'=>0, 'type'=>'c1'),
+				'address' 		=> array('value'=>0, 'type'=>'C1'),
+				'baudrate' 		=> array('value'=>0, 'type'=>'c1'),
+				'databit' 		=> array('value'=>0, 'type'=>'c1'),
+				'stopbit' 		=> array('value'=>0, 'type'=>'c1'),
+				'parity' 	    => array('value'=>0, 'type'=>'c1')
+				);		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'protocol':	
+			case 'address':
+			case 'baudrate':
+			case 'databit':
+			case 'stopbit':
+			case 'parity':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'protocol':	
+			case 'address':
+			case 'baudrate':
+			case 'databit':
+			case 'stopbit':
+			case 'parity':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+
+}
+
+
+class CDeviceIo
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	public  $RelaySettings;
+	public  $SensorSettings;
+	public  $TemperatureSettings;
+  public  $SerialPortsSetting;
+	function __construct()
+	{
+		$this->RelaySettings       = new CRelayOutputSettings();
+		$this->SensorSettings      = new CSensorSettings();
+		$this->TemperatureSettings = new CTemperatureSettings();
+    $this->SerialPortsSetting = new CSerialPortsSettings();
+		$this->payloadLength = 0;
+		$this->payloadLength += $this->RelaySettings->payloadLength;
+		$this->payloadLength += $this->SensorSettings->payloadLength;
+		$this->payloadLength += $this->TemperatureSettings->payloadLength;
+    $this->payloadLength += $this->SerialPortsSetting->payloadLength;
+		$this->dataInfo = array('reserved' 	=> array('value'=>'', 'type'=>'a21'));
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= 'a'.$this->RelaySettings->payloadLength.'RelaySettings'.'/'.
+							'a'.$this->SensorSettings->payloadLength.'SensorSettings'.'/'.
+							'a'.$this->TemperatureSettings->payloadLength.'TemperatureSettings'.'/'.
+							'a'.$this->SerialPortsSetting->payloadLength.'SerialPortsSetting'.'/'.
+							MakeDataFormat($this->dataInfo);
+	}
+	function __destruct()
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->RelaySettings->SetPayload();
+		$this->SensorSettings->SetPayload();
+		$this->TemperatureSettings->SetPayload();
+    	$this->SerialPortsSetting->SetPayload();
+		$this->payload = '';
+		$this->payload .= $this->RelaySettings->payload.$this->SensorSettings->payload.$this->TemperatureSettings->payload.$this->SerialPortsSetting->payload;
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->RelaySettings->UnpackDataInfo($_dataArray['RelaySettings']);
+		$this->SensorSettings->UnpackDataInfo($_dataArray['SensorSettings']);
+		$this->TemperatureSettings->UnpackDataInfo($_dataArray['TemperatureSettings']);
+    $this->SerialPortsSetting->UnpackDataInfo($_dataArray['SerialPortsSetting']);
+		//$this->SetPayload();
+	}	
+}
+class COsd
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'time_enabled' => array('value' => 0, 'type'  => 'c1'),
+				'time_x'       => array('value' => 0, 'type'  => 'c1'),
+				'time_y'       => array('value' => 0, 'type' => 'c1'),
+				'text_enabled' => array('value' => 0, 'type'  => 'c1'),
+				'text_x'       => array('value' => 0, 'type'  => 'c1'),
+				'text_y'       => array('value' => 0, 'type'  => 'c1'),
+				'text'         => array('value' => 0, 'type' => 'a32'),
+				'ptz_enabled' => array('value' => 0, 'type'  => 'c1'),
+				'ptz_x'       => array('value' => 0, 'type'  => 'c1'),
+				'ptz_y'       => array('value' => 0, 'type' => 'c1'),
+				'temperature_enabled' => array('value' => 0, 'type'  => 'c1'),
+				'temperature_x'       => array('value' => 0, 'type'  => 'c1'),
+				'temperature_y'       => array('value' => 0, 'type' => 'c1'),
+				'focus_enabled' => array('value' => 0, 'type'  => 'c1'),
+                'osd_stream'          => array('value' => 0, 'type'  => 'c1')
+				);
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);	
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+		
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'time_enabled':			
+			case 'time_x':	
+			case 'time_y':
+			case 'text_enabled':
+			case 'text_x':
+			case 'text_y':
+			case 'text':
+			case 'ptz_enabled':			
+			case 'ptz_x':	
+			case 'ptz_y':
+			case 'temperature_enabled':			
+			case 'temperature_x':	
+			case 'temperature_y':
+			case 'focus_enabled':			
+            case 'osd_stream':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'time_enabled':			
+			case 'time_x':	
+			case 'time_y':
+			case 'text_enabled':
+			case 'text_x':
+			case 'text_y':
+			case 'text':
+			case 'ptz_enabled':			
+			case 'ptz_x':	
+			case 'ptz_y':
+			case 'temperature_enabled':			
+			case 'temperature_x':	
+			case 'temperature_y':
+			case 'focus_enabled':			
+            case 'osd_stream':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_OSD;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+class COsds
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $Osd;
+	
+	function __construct() 
+	{
+		$this->payloadLength = 0;
+		$this->payload = '';
+		$this->packFormat = '';
+		for ($index = 0 ; $index< MAX_MEDIA_SOURCE ; ++$index ) 
+		{
+			$this->Osd[$index] = new COsd();
+			$this->payloadLength += $this->Osd[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('Osd', $this->Osd[0]->payloadLength, MAX_MEDIA_SOURCE);
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_OSD;
+		$this->payload = '';
+		for ($index = 0 ; $index < MAX_MEDIA_SOURCE ; ++$index ) 
+		{
+			$this->Osd[$index]->SetPayload();
+			$this->payload .= $this->Osd[$index]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for( $index=0 ; $index < MAX_MEDIA_SOURCE ; $index++)
+		{
+			$this->Osd[$index]->UnpackDataInfo($_dataArray['Osd'.$index]);
+		}
+	}		
+	function getOsdInfo()
+	{
+		for($idx= 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx )
+		{
+			$data[$idx]['time_enabled'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->time_enabled;
+			$data[$idx]['time_x']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->time_x;
+			$data[$idx]['time_y']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->time_y;
+			$data[$idx]['text_enabled'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->text_enabled;
+			$data[$idx]['text_x']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->text_x;
+			$data[$idx]['text_y']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->text_y;
+			$data[$idx]['text']         = trim($GLOBALS['system_conf']->Osds->Osd[$idx]->text);
+			$data[$idx]['ptz_enabled'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->ptz_enabled;
+			$data[$idx]['ptz_x']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->ptz_x;
+			$data[$idx]['ptz_y']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->ptz_y;			
+			$data[$idx]['temperature_enabled'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->temperature_enabled;
+			$data[$idx]['temperature_x']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->temperature_x;
+			$data[$idx]['temperature_y']       = $GLOBALS['system_conf']->Osds->Osd[$idx]->temperature_y;		
+			$data[$idx]['focus_enabled'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->focus_enabled;
+            $data[$idx]['osd_stream'] = $GLOBALS['system_conf']->Osds->Osd[$idx]->osd_stream;	
+		}
+		echo json_encode($data);
+	}
+}
+//ROI
+class CVideoQproiControl
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Qproi_x'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_y'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_w'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_h'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_t'   => array('value'=>0, 'type'=>'i1'),
+				'Qproi_s'   => array('value'=>0, 'type'=>'i1'),
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Qproi_x':
+			case 'Qproi_y':
+			case 'Qproi_w':
+			case 'Qproi_h':
+			case 'Qproi_t':
+			case 'Qproi_s':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Qproi_x':
+			case 'Qproi_y':
+			case 'Qproi_w':
+			case 'Qproi_h':
+			case 'Qproi_t':
+			case 'Qproi_s':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_VIDEO_QPROI;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CSmartLBR
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'streamid'     => array('value' => 0, 'type' => 'i1'),
+				'style'        => array('value' => 0, 'type' => 'i1'),
+				'bitrate'      => array('value' => 0, 'type' => 'i1'),
+				'motion_level' => array('value' => 0, 'type' => 'i1'),
+				'noise_level'  => array('value' => 0, 'type' => 'i1'),
+				'autorun'      => array('value' => 0, 'type' => 'i1'),
+				'onoff'        => array('value' => 0, 'type' => 'i1'),
+				'profile_0'    => array('value' => 0, 'type' => 'i1'),
+				'profile_1'    => array('value' => 0, 'type' => 'i1'),
+				'profile_2'    => array('value' => 0, 'type' => 'i1'),
+				'profile_3'    => array('value' => 0, 'type' => 'i1'),
+				'profile_4'    => array('value' => 0, 'type' => 'i1'),
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'streamid':
+			case 'style':
+			case 'bitrate':	
+			case 'motion_level':
+			case 'noise_level':
+			case 'autorun':
+			case 'onoff':
+			case 'profile_0':
+			case 'profile_1':
+			case 'profile_2':
+			case 'profile_3':
+			case 'profile_4':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'streamid':
+			case 'style':
+			case 'bitrate':
+			case 'motion_level':
+			case 'noise_level':
+			case 'autorun':
+			case 'onoff':
+			case 'profile_0':
+			case 'profile_1':
+			case 'profile_2':
+			case 'profile_3':
+			case 'profile_4':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = CMD_SET_SMART_LBR;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CFilteredIPv4Address
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Address'=>array('value'=>'', 'type'=>'a32'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case "Address":
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case "Address":
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}	
+}
+class CIEEE8021X
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $TargetCert;
+	public $TargetCA;
+	function __construct()
+	{
+		$this->TargetCert = new CCertificate();
+		$this->TargetCA   = new CCertificate();
+		$this->dataInfo = array(
+				"Enabled"=>array("value"=>0,"type"=>"c1"),
+				"Protocol"=>array("value"=>0,"type"=>"c1"),
+				"EAPOLVersion"=>array("value"=>0,"type"=>"c1"),
+				"UserName"=>array("value"=>0,"type"=>"a32"),
+				"Password"=>array("value"=>0,"type"=>"a32"),
+				"etc"=>array("value"=>0,"type"=>"a128")
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += $this->TargetCert->payloadLength;
+		$this->payloadLength += $this->TargetCA->payloadLength;
+		$this->packFormat = MakeDataFormat($this->dataInfo)
+			.'a'.$this->TargetCert->payloadLength."TargetCert". '/'
+			.'a'.$this->TargetCA->payloadLength."TargetCA". '/';
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case "Enabled" :
+			case "Protocol" :
+			case "EAPOLVersion" :
+			case "UserName" :
+			case "Password" :
+				{
+					return $this->dataInfo[$name]["value"];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case "Enabled" :
+			case "Protocol" :
+			case "EAPOLVersion" :
+			case "UserName" :
+			case "Password" :
+				{
+					$this->dataInfo[$name]["value"] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = "";
+		$this->payload .= MakePayload($this->dataInfo);
+		$this->TargetCert->SetPayload();
+		$this->payload .= $this->TargetCert->payload;
+		$this->TargetCA->SetPayload();
+		$this->payload .= $this->TargetCA->payload;
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->TargetCert->UnpackDataInfo($_dataArray['TargetCert']);
+		$this->TargetCA->UnpackDataInfo($_dataArray['TargetCA']);
+		SetDataInfo($this, $_dataArray);
+		$this->SetPayload();
+	}
+}
+class CIpFilterConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $IpV4Address;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Enabled'=>array('value'=>0,'type'=>'C1'),
+				'Type'=>array('value'=>0,'type'=>'C1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		for($index=0 ; $index<MAX_FILTERED_IPV4_ADDRESS ; ++$index)
+		{
+			$this->IpV4Address[$index] = new CFilteredIPv4Address();
+			$this->payloadLength += $this->IpV4Address[$index]->payloadLength;
+		}
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+		$this->packFormat .= MakeUnpackFormat('IpV4Address', $this->IpV4Address[0]->payloadLength, MAX_FILTERED_IPV4_ADDRESS);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled' :
+			case 'Type' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Enabled' :
+			case 'Type' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+		for($index=0 ; $index<MAX_FILTERED_IPV4_ADDRESS ; ++$index)
+		{
+			$this->IpV4Address[$index]->SetPayload();
+			$this->payload .= $this->IpV4Address[$index]->payload;
+		}
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for($index=0 ; $index<MAX_FILTERED_IPV4_ADDRESS ; ++$index)
+		{
+			$this->IpV4Address[$index]->UnpackDataInfo($_dataArray['IpV4Address'.$index]);
+		}
+		//$this->SetPayload();
+	}
+}
+class CSecurityConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $IpFilter;
+	public $IEEE8021X;
+	public $SystemService;
+	public $Certificates;
+	public $Https;
+	public $RtspAuthentication;
+    public $CAutoLock;
+	function __construct()
+	{
+		$this->IpFilter      = new CIpFilterConfiguration();
+		$this->IEEE8021X     = new CIEEE8021X();
+		$this->SystemService = new CSystemServiceConfiguration();
+		$this->Certificates  = new CCertificates();
+		$this->Https         = new CHttpsConf();
+		$this->RtspAuthentication = new CCRtspAuthentication();
+        $this->AutoLock      = new CAutoLock();
+		$this->payloadLength = $this->IpFilter->payloadLength;
+		$this->payloadLength += $this->IEEE8021X->payloadLength;
+		$this->payloadLength += $this->SystemService->payloadLength;
+		$this->payloadLength += $this->Certificates->payloadLength;
+		$this->payloadLength += $this->Https->payloadLength;
+		$this->payloadLength += $this->RtspAuthentication->payloadLength;
+        $this->payloadLength += $this->AutoLock->payloadLength;
+		$this->packFormat 	= "a".$this->IpFilter->payloadLength."IpFilter".'/'.
+			"a".$this->IEEE8021X->payloadLength."IEEE8021X"."/".
+			"a".$this->SystemService->payloadLength."SystemService".'/' .
+			"a".$this->Certificates->payloadLength."Certificates".'/' . 
+			"a".$this->Https->payloadLength."Https".'/' .
+			"a".$this->RtspAuthentication->payloadLength."RtspAuthentication".'/'.
+            "a".$this->AutoLock->payloadLength."AutoLock";		
+
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->IpFilter->SetPayload();
+		$this->IEEE8021X->SetPayload();
+		$this->SystemService->SetPayload();
+		$this->Certificates->SetPayload();
+		$this->Https->SetPayload();
+		$this->RtspAuthentication->SetPayload();
+        $this->AutoLock->SetPayload();
+		$this->payload = '';
+		$this->payload .= $this->IpFilter->payload;
+		$this->payload .= $this->IEEE8021X->payload;
+		$this->payload .= $this->SystemService->payload;
+		$this->payload .= $this->Certificates->payload;
+		$this->payload .= $this->Https->payload;
+		$this->payload .= $this->RtspAuthentication->payload;
+        $this->payload .= $this->AutoLock->payload;
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->IpFilter->UnpackDataInfo($_dataArray['IpFilter']);
+		$this->IEEE8021X->UnpackDataInfo($_dataArray["IEEE8021X"]);
+		$this->SystemService->UnpackDataInfo($_dataArray['SystemService']);
+		$this->Certificates->UnpackDataInfo($_dataArray['Certificates']);
+		$this->Https->UnpackDataInfo($_dataArray['Https']);
+		$this->RtspAuthentication->UnpackDataInfo($_dataArray['RtspAuthentication']);
+        $this->AutoLock->UnpackDataInfo($_dataArray['AutoLock']);
+		//$this->SetPayload();
+	}
+}
+class CCertificates
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+	public $Certificate;
+	public $CA;
+	function __construct()
+	{
+		for($idx=0 ; $idx < MAX_CERTIFICATE ; ++$idx)
+		{
+			$this->CA[$idx]  = new CCertificate();
+			$this->Certificate[$idx] = new CCertificate();
+		}
+		$this->packFormat = MakeUnpackFormat('Certificate', $this->Certificate[0]->payloadLength, MAX_CERTIFICATE);
+		$this->packFormat .= MakeUnpackFormat('CA', $this->CA[0]->payloadLength, MAX_CERTIFICATE);
+		$this->payloadLength = $this->CA[0]->payloadLength * MAX_CERTIFICATE * 2;
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		for($idx=0 ; $idx<MAX_CERTIFICATE; ++$idx)
+		{
+			$this->Certificate[$idx]->SetPayload();
+			$this->payload .= $this->Certificate[$idx]->payload;
+		}
+		for($idx=0 ; $idx<MAX_CERTIFICATE; ++$idx)
+		{
+			$this->CA[$idx]->SetPayload();
+			$this->payload .= $this->CA[$idx]->payload;
+		}
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		//SetDataInfo($this, $_dataArray);
+		for($idx=0 ; $idx<MAX_CERTIFICATE; ++$idx)
+		{
+			$this->Certificate[$idx]->UnpackDataInfo($_dataArray['Certificate'.$idx]);
+			$this->CA[$idx]->UnpackDataInfo($_dataArray['CA'.$idx]);
+		}
+	}
+}
+class CCertificate
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Id'=>array('value'=>0,'type'=>'i1'),
+				'Name'=>array('value'=>'','type'=>'a256'),
+				'ReferenceCount'=>array('value'=>0,'type'=>'i1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Id' :
+			case 'Name' :
+			case 'ReferenceCount' :
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Id' :
+			case 'Name' :
+			case 'ReferenceCount' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CConnectionPolicy
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array('value'=>array('value'=>0,'type'=>'c1'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'value' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'value' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+class CHttpsConf
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $TargetCert;
+	public $ConnectionPolicy;
+	function __construct()
+	{
+		$this->TargetCert = new CCertificate();
+		for( $idx = 0 ; $idx < KIND_OF_USER_AUTH ; ++$idx){
+			$this->ConnectionPolicy[$idx] = new CConnectionPolicy();
+		}
+		$this->packFormat = "a".$this->TargetCert->payloadLength."TargetCert"."/";
+		$this->packFormat .= MakeUnpackFormat('ConnectionPolicy', $this->ConnectionPolicy[0]->payloadLength,KIND_OF_USER_AUTH);
+		$this->payloadLength = $this->TargetCert->payloadLength;
+		$this->payloadLength += $this->ConnectionPolicy[0]->payloadLength * KIND_OF_USER_AUTH;
+	}
+	function __destruct()
+	{
+	}
+	function SetPayload()
+	{
+		$this->TargetCert->SetPayload();
+		for($idx=0; $idx < KIND_OF_USER_AUTH ; ++$idx){
+			$this->ConnectionPolicy[$idx]->SetPayload();
+		}
+		$this->payload = '';
+		$this->payload .= $this->TargetCert->payload;
+		for($idx=0; $idx < KIND_OF_USER_AUTH ; ++$idx){
+			$this->payload .= $this->ConnectionPolicy[$idx]->payload;
+		}
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->TargetCert->UnpackDataInfo($_dataArray['TargetCert']);
+		for($idx=0 ; $idx<KIND_OF_USER_AUTH; ++$idx)
+		{
+			$this->ConnectionPolicy[$idx]->UnpackDataInfo($_dataArray['ConnectionPolicy'.$idx]);
+		}
+	}
+}
+class CNewCertificateConf
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo      = array(
+				'Name'              => array('value'=>'', 'type'=>'a64'),
+				'Country'          => array('value'=>'', 'type'=>'a4'),
+				'Expires'		   => array('value'=>'', 'type'=>'a11'),
+				'State'            => array('value'=>'', 'type'=>'a128'),
+				'Locality'         => array('value'=>'', 'type'=>'a128'),
+				'Organization'     => array('value'=>'', 'type'=>'a64'),
+				'OrganizationUnit' => array('value'=>'', 'type'=>'a32'),
+				'CommonName'       => array('value'=>'', 'type'=>'a128'),
+				'RSAMode'          => array('value'=>'1', 'type'=>'c1'),
+				'SHAMode'          => array('value'=>'1', 'type'=>'c1'),
+				'dns1'             => array('value'=>'', 'type'=>'a64'),
+				'dns2'             => array('value'=>'', 'type'=>'a64'),
+				'ip'               => array('value'=>'', 'type'=>'a64')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Country':
+			case 'Expires':
+			case 'State':
+			case 'Locality':
+			case 'Organization':
+			case 'OrganizationUnit':
+			case 'CommonName':
+			case 'RSAMode':
+			case 'SHAMode' :
+            case 'dns1':
+            case 'dns2':
+            case 'ip':
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Country':
+			case 'Expires':
+			case 'State':
+			case 'Locality':
+			case 'Organization':
+			case 'OrganizationUnit':
+			case 'CommonName':
+			case 'RSAMode':
+			case 'SHAMode' :
+            case 'dns1':
+            case 'dns2':
+            case 'ip':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CCreateCSR
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Name'             => array('value' => '', 'type' => 'a64'),
+				'Country'          => array('value' => '', 'type' => 'a4'),
+				'State'            => array('value' => '', 'type' => 'a128'),
+				'Locality'         => array('value' => '', 'type' => 'a128'),
+				'Organization'     => array('value' => '', 'type' => 'a64'),
+				'OrganizationUnit' => array('value' => '', 'type' => 'a32'),
+				'CommonName'       => array('value' => '', 'type' => 'a128'),
+				'CSR'              => array('value' => '', 'type' => 'a4096'),
+				'RSAMode'          => array('value' => '1', 'type' => 'c1'),
+				'SHAMode'          => array('value' => '1', 'type' => 'c1'),
+				'dns1'             => array('value'=>'', 'type'=>'a64'),
+				'dns2'             => array('value'=>'', 'type'=>'a64'),
+				'ip'               => array('value'=>'', 'type'=>'a64')
+									);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Country':
+			case 'State':
+			case 'Locality':
+			case 'Organization':
+			case 'OrganizationUnit':
+			case 'CommonName':
+			case 'CSR':
+			case 'RSAMode' :
+			case 'SHAMode' :
+            case 'dns1':
+            case 'dns2':
+            case 'ip':
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Name':
+			case 'Country':
+			case 'State':
+			case 'Locality':
+			case 'Organization':
+			case 'OrganizationUnit':
+			case 'CommonName':
+			case 'CSR':
+			case 'RSAMode' :
+			case 'SHAMode' :
+            case 'dns1':
+            case 'dns2':
+            case 'ip':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CCertificateProperties
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Name'               => array('value'=>'', 'type'=>'a256'),
+				'Type'			     => array('value'=>'', 'type'=>'c1'),
+				'Id'                 => array('value'=>'', 'type'=>'i1'),
+				'PublicKey'          => array('value'=>'', 'type'=>'i1'),
+				'Version'            => array('value'=>'', 'type'=>'i1'),
+				'Exponent'           => array('value'=>'', 'type'=>'i1'),
+				'SerialNumber'       => array('value'=>'', 'type'=>'a64'),
+				'NotBefore'          => array('value'=>'', 'type'=>'a32'),
+				'NotAfter'           => array('value'=>'', 'type'=>'a32'),
+				'CertSignAlgorithm'  => array('value'=>'', 'type'=>'a64'),
+				'Issuer'             => array('value'=>'', 'type'=>'a64'),
+				'Subject'            => array('value'=>'', 'type'=>'a64'),
+				'PublicKeyAlgorithm' => array('value'=>'', 'type'=>'a64'),
+				'SignatureAlgorithm' => array('value'=>'', 'type'=>'a64'),
+				'Modulus'            => array('value'=>'', 'type'=>'a2048'),
+				'Signature'          => array('value'=>'', 'type'=>'a2048'),
+                "SAN"                => array('value'=>'', 'type'=>'a1024')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Id':
+			case 'PublicKey':
+			case 'Version':
+			case 'Exponent':
+			case 'Type':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+			case 'Name':
+			case 'SerialNumber':
+			case 'NotBefore':
+			case 'NotAfter':
+			case 'CertSignAlgorithm':
+			case 'Issuer':
+			case 'Subject':
+			case 'PublicKeyAlgorithm':
+			case 'SignatureAlgorithm':
+			case 'Modulus':
+			case 'Signature':
+            case 'SAN':
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Type':
+			case  'Id':
+			case 'PublicKey':
+			case 'Version':
+			case 'Exponent':
+			case 'Name':
+			case 'SerialNumber':
+			case 'NotBefore':
+			case 'NotAfter':
+			case 'CertSignAlgorithm':
+			case 'Issuer':
+			case 'Subject':
+			case 'PublicKeyAlgorithm':
+			case 'SignatureAlgorithm':
+			case 'Modulus':
+			case 'Signature':
+            case 'SAN':
+                {
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CInstallCertificateConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Type'=>array('value'=>0,'type'=>'c1'),
+				'KeyType'=>array('value'=>0,'type'=>'c1'),
+				'Password'=>array('value'=>0,'type'=>'a64'),
+				'Name'=>array('value'=>0,'type'=>'a256')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type' :
+			case 'Name' :
+			case 'Password' :
+			case 'KeyType' :
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Type' :
+			case 'Name' :
+			case 'KeyType' :
+			case 'Password' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CSystemServiceConfiguration
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+//				'SupportTelnet'=>array('value'=>0,'type'=>'c1'),
+				'SupportSSH'=>array('value'=>0,'type'=>'c1'),
+				'EncodeVersion'=>array('value'=>0,'type'=>'c1'),
+				'temp'=>array('value'=>0, 'type'=>'a14')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+//			case 'SupportTelnet' :
+			case 'SupportSSH' :
+			case 'EncodeVersion' :
+			case 'temp' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+//			case 'SupportTelnet' :
+			case 'SupportSSH' :
+			case 'EncodeVersion' :
+			case 'temp' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CCRtspAuthentication
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(	
+				'AuthEnabled'=>array('value'=>0,'type'=>'c1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'AuthEnabled' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'AuthEnabled' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CAutoLock
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'AutoLockEnabled'=>array('value'=>0,'type'=>'c1'),
+				'AutoLockAttempt'=>array('value'=>0,'type'=>'c1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'AutoLockEnabled' :
+			case 'AutoLockAttempt' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'AutoLockEnabled' :
+			case 'AutoLockAttempt' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+	function __destruct()
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CFocusCast
+{
+	public $command;
+
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'Port'=>array('value'=>0,'type'=>'i1'),
+				'Addr'=>array('value'=>'','type'=>'a32')
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat    = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Port' :
+			case 'Addr' :
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'Port' :
+			case 'Addr' :
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+}
+class CSystemConfiguration
+{
+	private $shm_id;
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $DeviceInfo;
+	public $Users;
+	public $SystemDatetime;
+	public $DeviceIo;
+	public $Osds;
+	public $FtpUpgrade;
+	public $VideoQproiControl;
+	public $SmartLBR;
+	public $Security;
+	public $Corridor;
+	function __construct($shmid=0)
+	{
+		$this->DeviceInfo        = new  CDeviceInfomation();
+		$this->Users             = new  CUsers();
+		$this->SystemDatetime    = new  CSystemDatetime();
+		$this->DeviceIo          = new  CDeviceIo();
+		$this->Osds              = new  COsds();
+		$this->FtpUpgrade        = new  CFtpSetting();
+		$this->VideoQproiControl = new CVideoQproiControl();
+		$this->SmartLBR          = new CSmartLBR();
+		$this->Security			 = new CSecurityConfiguration();
+		$this->Corridor			 = new CCorridor();
+		$this->dataInfo          = array( 'SystemOption'=>array('value'=>0, 'type'=>'I1'));
+		$this->payloadLength = 0;
+		$this->payloadLength += $this->DeviceInfo->payloadLength;
+		$this->payloadLength += $this->Users->payloadLength;	
+		$this->payloadLength += $this->SystemDatetime->payloadLength;
+		$this->payloadLength += $this->DeviceIo->payloadLength;	
+		$this->payloadLength += $this->Osds->payloadLength;	
+		$this->payloadLength += $this->FtpUpgrade->payloadLength;
+		$this->payloadLength += $this->VideoQproiControl->payloadLength;
+		$this->payloadLength += $this->SmartLBR->payloadLength;
+		$this->payloadLength += $this->Security->payloadLength;
+		$this->payloadLength += $this->Corridor->payloadLength;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= 'a'.$this->DeviceInfo->payloadLength.'DeviceInfo'.'/'.
+			'a'.$this->Users->payloadLength.'Users'.'/'.
+			'a'.$this->SystemDatetime->payloadLength.'SystemDatetime'.'/'.
+			'a'.$this->DeviceIo->payloadLength.'DeviceIo'.'/'.
+			'a'.$this->Osds->payloadLength.'Osds'.'/'.
+			'a'.$this->FtpUpgrade->payloadLength.'FtpUpgrade'.'/'.
+			'a'.$this->VideoQproiControl->payloadLength.'VideoQproiControl'.'/'.
+			'a'.$this->SmartLBR->payloadLength.'SmartLBR'.'/'.
+			'a'.$this->Security->payloadLength.'Security'.'/'.
+			'a'.$this->Corridor->payloadLength.'Corridor'.'/'.
+			MakeDataFormat($this->dataInfo);
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+				exit;	
+			$shmid = $this->shm_id;  
+		}
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_SYSTEM*SIZE_POS_INFO, SIZE_POS_INFO);		// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+		$offset= $positionInfo['offset'];
+		$total_size= $positionInfo['size'];
+		if($this->payloadLength != $total_size)
+		{
+			echo $this->payloadLength . '/' . $total_size . "\r\n";
+			echo 'CSystemConfiguration failed: reason: data size is different'."\r\n";
+			//shmop_close($this->shm_id);
+			exit;
+		}
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+	function __destruct() 
+	{
+		if($this->shm_id)
+			shmop_close($this->shm_id);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'SystemOption':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'SystemOption':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->DeviceInfo->SetPayload();
+		$this->Users->SetPayload();
+		$this->SystemDatetime->SetPayload();
+		$this->DeviceIo ->SetPayload();
+		$this->Osds->SetPayload();
+		$this->FtpUpgrade->SetPayload();
+		$this->VideoQproiControl->SetPayload();
+		$this->SmartLBR->SetPayload();
+		$this->Security->SetPayload();
+		$this->Corridor->SetPayload();
+		$this->payload = '';
+		$this->payload .= $this->DeviceInfo->payload;;
+		$this->payload .= $this->Users->payload;
+		$this->payload .= $this->SystemDatetime->payload;
+		$this->payload .= $this->DeviceIo->payload;
+		$this->payload .= $this->Osds->payload;
+		$this->payload .= $this->FtpUpgrade->payload;
+		$this->payload .= $this->VideoQproiControl->payload;
+		$this->payload .= $this->SmartLBR->payload;
+		$this->payload .= $this->Security->payload;
+		$this->payload .= $this->Corridor->payload;
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->DeviceInfo->UnpackDataInfo($_dataArray['DeviceInfo']);
+		$this->Users->UnpackDataInfo($_dataArray['Users']);
+		$this->SystemDatetime->UnpackDataInfo($_dataArray['SystemDatetime']);
+		$this->DeviceIo->UnpackDataInfo($_dataArray['DeviceIo']);
+		$this->Osds->UnpackDataInfo($_dataArray['Osds']);
+		$this->FtpUpgrade->UnpackDataInfo($_dataArray['FtpUpgrade']);
+		$this->VideoQproiControl->UnpackDataInfo($_dataArray['VideoQproiControl']);
+		$this->SmartLBR->UnpackDataInfo($_dataArray['SmartLBR']);
+		$this->Security->UnpackDataInfo($_dataArray['Security']);
+		$this->Corridor->UnpackDataInfo($_dataArray['Corridor']);
+		SetDataInfo($this, $_dataArray);
+	}		
+	function getDevInfo(){
+		$data['model_num']           = trim($this->DeviceInfo->ProductName);
+		$data['model_manufacturer']  = trim($this->DeviceInfo->Manufacturer);
+		$data['thermal_offset']  	 = trim($this->DeviceInfo->Thermal_offset);
+		$data['serialnumber']  		 = trim($this->DeviceInfo->SerialNumber);
+		$data['model_name']          = trim($this->DeviceInfo->Model);
+		$data['model_devicename']    = trim($this->DeviceInfo->DeviceName);
+		$data['color_system']        = $this->DeviceInfo->VideoType;
+		$data['tdn']                 = $this->DeviceInfo->TDN;
+		$data['cdsAdj']              = $this->DeviceInfo->CDS_ADJ;
+		$data['cdsAdjCor']           = $this->DeviceInfo->CDS_ADJ_Cor;
+		$data['fisheye_offset']['x'] = $this->DeviceInfo->FisheyeInputOffset->x;
+		$data['fisheye_offset']['y'] = $this->DeviceInfo->FisheyeInputOffset->y;
+
+		echo json_encode($data);
+	}
+	function getLanguageSetup() {
+		echo $this->SystemDatetime->Language;
+	}
+}
+class CUploadRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(	
+				'Cmd'   => array('value' => 0, 'type' => 'i1'),
+				'Param' => array('value' => 0, 'type' => 'i1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Cmd':			
+			case 'Param':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Cmd':			
+			case 'Param':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		
+		//$this->SetPayload();
+	}	
+}
+class CUploadStatus
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'Status' => array('value' => 0, 'type' => 'i1'),
+				'Value'  => array('value' => 0, 'type' => 'i1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Status':			
+			case 'Value':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Status':			
+			case 'Value':		
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		
+		//$this->SetPayload();
+	}	
+}
+
+class CSystemLED
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array('Type'=> array('value'=>0, 'type'=>'i1'));		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Type':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Type':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+
+class CHRImage
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	function __construct() 
+	{
+		$this->dataInfo = array('Mode'=> array('value'=>0, 'type'=>'i1'));		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Mode':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Mode':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+
+class CFisheyeInputOffset
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'x'=> array('value'=>'0', 'type'=>'i1'),
+				'y'=> array('value'=>'0', 'type'=>'i1'));
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'x':
+			case 'y':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'x':
+			case 'y':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+class CCorridor
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct()
+	{
+		$this->dataInfo = array('enabled'   => array('value'=>0, 'type'=>'i1'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat   = MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'enabled':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+
+	function __set($name,  $val)
+	{
+		switch($name)
+		{
+			case 'enabled':
+				{
+					$this->dataInfo[$name]['value'] = $val;
+				}
+				break;
+		}
+	}
+
+	function __destruct()
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray))
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}
+
+}
+
+function show_ieee8021x($obj, $isJson = false)
+{
+	$data = array();
+	$data["enabled"]       = trim($obj->Enabled);
+	$data["protocol"]      = trim($obj->Protocol);
+	$data["eapol_version"] = trim($obj->EAPOLVersion);
+	$data["id"]            = trim($obj->UserName);
+	$data["password"]      = trim($obj->Password);
+	$data["cert_id"]       = trim($obj->TargetCert->Id);
+	$data["ca_id"]         = trim($obj->TargetCA->Id);
+	if( $isJson == true )
+	{
+		echo json_encode($data);
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+}
+function show_ip_filter($obj, $isJson = false)
+{
+	$data = array();
+	$data["enabled"]=$obj->Enabled;
+	$data["type"]=$obj->Type;
+	for($index=0; $index < MAX_FILTERED_IPV4_ADDRESS ; ++$index )
+	{
+		$data["address"][$index]=trim($obj->IpV4Address[$index]->Address);
+	}
+	if( $isJson == true )
+	{
+		echo json_encode($data);
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+}
+function show_certificates($obj, $isJson = false)
+{
+	$data = array();
+	$used = 0;
+	for($idx=0; $idx < MAX_CERTIFICATE ; ++$idx)
+	{
+		if( $obj[$idx]->Id != 0 )
+		{
+			$data[$used]['id'] = $obj[$idx]->Id;
+			$data[$used]['name'] = $obj[$idx]->Name;
+			++$used;
+		}
+	}
+	if( $isJson )
+	{
+		echo json_encode($data);
+	} 
+	else 
+	{
+		printf("certificate[%02d/%02d]\r\n", $used, MAX_CERTIFICATE);
+		if( $used )
+			echo view_array(NULL, $data);
+	}
+}
+function show_certificate_properties($obj, $isJson = false)
+{
+	$data = array();
+	$data['Name']                = $obj->Name;
+	$data['PublicKey']           = $obj->PublicKey;
+	$data['Version']             = $obj->Version;
+	$data['Exponent']            = $obj->Exponent;
+	$data['SerialNumber']        = $obj->SerialNumber;
+	$data['NotBefore']           = $obj->NotBefore;
+	$data['NotAfter']            = $obj->NotAfter;
+	$data['CertSignAlgorithm'] = $obj->CertSignAlgorithm;
+	$data['Issuer']              = $obj->Issuer;
+	$data['Subject']             = $obj->Subject;
+	$data['PublicKeyAlgorithm']  = $obj->PublicKeyAlgorithm;
+	$data['SignatureAlgorithm']  = $obj->SignatureAlgorithm;
+	$data['Modulus']             = $obj->Modulus;
+	$data['Signature']           = $obj->Signature;
+	$data['SAN']           = $obj->SAN;
+	
+	if( $isJson == true )
+	{
+		echo json_encode($data);
+	}
+	else
+	{
+		echo view_encode($data);
+	}
+}
+function show_https($obj, $isJson = true)
+{
+	$data = array();
+	$used = 0;
+	$data["cert_id"]         = $obj->TargetCert->Id;
+	$data["cert_name"]       = $obj->TargetCert->Name;
+	$data["admin_policy"]    = $obj->ConnectionPolicy[0]->value;
+	$data["operator_policy"] = $obj->ConnectionPolicy[1]->value;
+	$data["viewer_policy"]   = $obj->ConnectionPolicy[2]->value;
+	$data["onvif_policy"]   = $obj->ConnectionPolicy[3]->value;
+	$data["rtsp_policy"]   = $obj->ConnectionPolicy[4]->value;
+	if( $isJson )
+	{
+		echo json_encode($data);
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+}
+function show_ftp($obj, $isJson = true)
+{
+	$data['address']  = trim($obj->Server);
+	$data['location'] = trim($obj->Directory);
+	$data['port']     = trim($obj->Port);
+	$data['id']       = trim($obj->Username);
+	$data['password'] = trim($obj->Password);
+	$data['autoupdate'] = trim($obj->AutoUpdate);
+	$data['interval'] = trim($obj->Interval);
+	if( $isJson )
+	{
+		echo json_encode($data);
+	} 
+	else 
+	{
+		echo view_encode($data);
+	}
+}
+?>

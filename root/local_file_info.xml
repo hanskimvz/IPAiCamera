@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<file_list date="2022.01.12_11:21:20" version="xxx" comment="xxx" >
+
+	<files>
+		<file index="0" checksum="4865d12642fb6779ad4e5d5960bf3f55"> /etc/passwd </file>
+		<file index="1" checksum="c14aac8875b66f1e128344fae4e9a0c6"> /root/diag.sh </file>
+		<file index="2" checksum="2999e803ebe809ab6de2cc10e1bd5045"> /root/ipnc </file>
+		<file index="3" checksum="4628c0bd30e95393f3c632d6fecd83bf"> /root/ModelInfo.ini </file>
+	</files>
+
+</file_list>

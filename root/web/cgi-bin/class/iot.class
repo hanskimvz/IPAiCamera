@@ -1,0 +1,171 @@
+<?php
+
+class CWIFI
+{
+	private $shm_id;
+	
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	private $isProxyCamera = false;
+
+	function __construct($shmid = 0) 
+	{
+		$this->dataInfo = array('Config_cnt'         	=> array('value'=>0,  'type'=>'c1'),
+								'PIREnabled'         	=> array('value'=>0,  'type'=>'c1'),
+								'pir_autoclear'         => array('value'=>0,  'type'=>'c1'),
+								'pir_count'         	=> array('value'=>0,  'type'=>'c1'),
+								'pir_tmp'         		=> array('value'=>0,  'type'=>'c1'),
+								'WIFIEnabled'         	=> array('value'=>0,  'type'=>'c1'),
+								'WIFIType'         		=> array('value'=>0,  'type'=>'c1'),
+								'ssid'          		=> array('value'=>'', 'type'=>'a32'),
+								'psk'         			=> array('value'=>'', 'type'=>'a32'),
+								'key_mgmt'            	=> array('value'=>'', 'type'=>'a32'),
+								'proto'           		=> array('value'=>'', 'type'=>'a32'),
+								'pairwise'              => array('value'=>'', 'type'=>'a32'),
+								'DynamicIpAddr'         => array('value'=>'', 'type'=>'a32'),
+								'StaticIpAddr'          => array('value'=>'', 'type'=>'a32'),
+								'Gateway'               => array('value'=>'', 'type'=>'a32'),
+								'SubnetMask'            => array('value'=>'', 'type'=>'a32'));
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);	
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);	
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+			  exit;	
+
+			$shmid = $this->shm_id;  
+		}			
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_IOT*SIZE_POS_INFO, SIZE_POS_INFO);	
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 		= $positionInfo['offset'];	
+		$total_size      = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+		  echo 'CWIFI failed: reason: data size is different'."\r\n";
+			exit;
+		}
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);	
+
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Config_cnt':
+			case 'PIREnabled':
+			case 'pir_autoclear':
+			case 'pir_count':
+			case 'pir_tmp':
+			case 'WIFIEnabled':
+			case 'WIFIType':
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+			case 'ssid':
+			case 'psk' :
+			case 'key_mgmt'  :
+			case 'proto' :
+			case 'pairwise'    :
+			case 'DynamicIpAddr'    :
+			case 'StaticIpAddr'    :
+			case 'Gateway'    :
+			case 'SubnetMask'    :
+				{
+					return trim($this->dataInfo[$name]['value']);
+				}
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Config_cnt':			
+			case 'PIREnabled':	
+			case 'pir_autoclear':	
+			case 'pir_count':	
+			case 'pir_tmp':	
+			case 'WIFIEnabled':
+			case 'WIFIType':
+			case 'ssid':
+			case 'psk':
+			case 'key_mgmt':
+			case 'proto':
+			case 'pairwise':
+			case 'DynamicIpAddr':
+			case 'StaticIpAddr':
+			case 'GateWay':
+			case 'SubnetMask':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+	
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+	function getIOTInfoConf($isJson=true)
+	{
+
+		$data = array();
+		$data["Config_cnt"]  		   = $this->Config_cnt;
+		$data["PIREnabled"] 		   = $this->PIREnabled;
+		$data["pir_autoclear"] 		   = $this->pir_autoclear;
+		$data["pir_count"] 		   	   = $this->pir_count;
+		$data["pir_tmp"] 		   	   = $this->pir_tmp;
+		$data["WIFIEnabled"]           = $this->WIFIEnabled;
+		$data["WIFIType"]              = $this->WIFIType;
+		$data["ssid"]        		   = trim($this->ssid);
+		$data["psk"]         		   = trim($this->psk);
+		$data["key_mgmt"]         	   = trim($this->key_mgmt);
+		$data["proto"]            	   = trim($this->proto);
+		$data["pairwise"]              = trim($this->pairwise);
+		$data["DynamicIpAddr"]         = trim($this->DynamicIpAddr);
+		$data["Gateway"]         	   = trim($this->Gateway);
+		$data["StaticIpAddr"]          = trim($this->StaticIpAddr);
+		$data["SubnetMask"]            = trim($this->SubnetMask);
+		if( $isJson ) {
+			echo json_encode($data);
+		}
+		else {
+			echo view_encode($data);
+		}
+	}
+}
+
+
+?> 

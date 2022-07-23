@@ -1,0 +1,1018 @@
+<?php
+class PrivacyInfo 
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array('StartX'=> array('value'=>0, 'type'=>'i1'),
+								'StartY'=> array('value'=>0, 'type'=>'i1'),
+								'Width' => array('value'=>0, 'type'=>'i1'),
+								'Height'=> array('value'=>0, 'type'=>'i1'),
+								'x_pos'=> array('value'=>0, 'type'=>'i1'),
+								'y_pos'=> array('value'=>0, 'type'=>'i1'),
+								'z_pos'=> array('value'=>0, 'type'=>'i1')
+								);		
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'StartX':
+			case 'StartY':
+			case 'Width':
+			case 'Height':
+			case 'x_pos':
+			case 'y_pos':
+			case 'z_pos':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'StartX':
+			case 'StartY':
+			case 'Width':
+			case 'Height':
+			case 'x_pos':
+			case 'y_pos':
+			case 'z_pos':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}			
+}
+
+class CPrivacySetRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+  public  $Privacy;
+	function __construct() 
+	{
+	  $this->Privacy = new PrivacyInfo();
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1'),
+				'Privacy' => array('value' => '', 'type' => 'a'.$this->Privacy->payloadLength)
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_SET_PRIVACY_MASK;
+		$this->Privacy->SetPayload();
+		$this->payload = '';
+		$this->dataInfo['Privacy']['value'] = $this->Privacy->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->Privacy->UnpackDataInfo($_dataArray['Privacy']);
+		//$this->SetPayload();
+	}			
+}
+
+
+class CPrivacyRemoveRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'id'   => array('value' => 0, 'type'  => 'i1'),
+				'index'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id':	
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = CMD_REMOVE_PRIVACY_MASK;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class SupportPrivacyInfo
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $privacy_info;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('Enabled'=> array('value'=>0, 'type'=>'c1'));
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+
+		for ($index=0; $index<MAX_PRIVACY_MASK ; ++$index)
+		{
+			$this->privacy_info[$index] = new PrivacyInfo();
+			$this->payloadLength += $this->privacy_info[$index]->payloadLength;
+		}
+		$this->packFormat = MakeDataFormat($this->dataInfo).
+			MakeUnpackFormat('privacy_info', $this->privacy_info[0]->payloadLength, MAX_PRIVACY_MASK);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Enabled':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		for( $index=0; $index<MAX_PRIVACY_MASK ; ++$index){
+			$this->privacy_info[$index]->SetPayload();
+			$this->payload .= $this->privacy_info[$index]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for( $index=0; $index<MAX_PRIVACY_MASK ; ++$index){
+			$this->privacy_info[$index]->UnpackDataInfo($_dataArray['privacy_info'.$index]);
+		}
+		SetDataInfo($this, $_dataArray);
+	}			
+}
+
+class Code
+{
+	public 	$command;
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array('data'=> array('value'=>0, 'type'=>'i1'));		
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'data':			
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'data':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CameraCode
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $code;
+
+	function __construct($shmid = 0)
+	{
+		$this->payloadLength = 0;
+		$this->packFormat = '';
+
+		$this->dataInfo = array('id' => array('value'=>0, 'type'=>'i1'));
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		for ($index=0; $index<48; ++$index)
+		{
+			$this->code[$index] = new Code();
+			$this->payloadLength += $this->code[$index]->payloadLength;
+		}
+
+		$this->packFormat = MakeDataFormat($this->dataInfo).
+			MakeUnpackFormat('code', $this->code[0]->payloadLength, 48);
+	}
+
+	function __destruct() 
+	{
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id': //read-only
+				{
+					return $this->dataInfo[$name]['value'];
+				}
+				break;
+		}
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);
+		for ($index=0; $index<48; ++$index)
+		{
+			$this->code[$index]->SetPayload();
+			$this->payload .= $this->code[$index]->payload;
+		}
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($index=0; $index<48; ++$index)
+		{		
+			$this->code[$index]->UnpackDataInfo($_dataArray['code'.$index]);
+		}		
+		//$this->SetPayload();
+	}			
+}
+
+class CCameraParam
+{
+	public 	$command;
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array('index' => array('value'=>0, 'type'=>'i1'),
+								'value' => array('value'=>0, 'type'=>'i1'));
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'index':	
+			case 'value':	
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'index':	
+			case 'value':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}	
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}		
+}
+
+
+class CCameraConfiguration
+{
+	private $shm_id;
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	public $code;
+	public $privacy_mask;
+	public $profile_info;
+	function __construct()
+	{
+		$this->payloadLength = 0;
+		$this->packFormat = '';
+		// datainfo
+		$this->dataInfo = array('supportMotion_cellX' => array('value' => 0, 'type' => 'c1'),
+						        'supportMotion_cellY' => array('value' => 0, 'type' => 'c1'),
+						        'supportMotion_mode'  => array('value' => 0, 'type' => 'c1'));
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);	
+
+		//code
+		for ($index=0; $index<MAX_CAMERA_CODE; ++$index)
+		{
+			$this->code[$index] = new Code();
+			$this->payloadLength += $this->code[$index]->payloadLength;
+		}
+		// privacy mask
+		$this->privacy_mask = new SupportPrivacyInfo();
+		$this->payloadLength += $this->privacy_mask->payloadLength;
+	
+		$this->profile_info = new CameraProfileHeaders();
+		$this->payloadLength += $this->profile_info->payloadLength;
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo).
+			MakeUnpackFormat('code', $this->code[0]->payloadLength, MAX_CAMERA_CODE).
+			'a'. $this->privacy_mask->payloadLength . 'privacy_mask'."/".
+			'a'. $this->profile_info->payloadLength . 'profile_info';
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'supportMotion_cellX':			
+			case 'supportMotion_cellY':	
+			case 'supportMotion_mode':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'supportMotion_cellX':			
+			case 'supportMotion_cellY':	
+			case 'supportMotion_mode':	
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+	
+	function SetPayload()
+	{
+		$this->command = 0;
+
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+		for ($idx=0 ; $idx<MAX_CAMERA_CODE; ++$idx)
+		{
+			$this->code[$idx]->SetPayload();
+			$this->payload .= $this->code[$idx]->payload;
+		}
+		$this->privacy_mask->SetPayload();
+		$this->payload .= $this->privacy_mask->payload;
+
+		$this->profile_info->SetPayload();
+		$this->payload .= $this->profile_info->payload;
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for ($idx=0; $idx<MAX_CAMERA_CODE; ++$idx)
+		{
+			$this->code[$idx]->UnpackDataInfo($_dataArray['code'.$idx]);
+		}
+		$this->privacy_mask->UnpackDataInfo($_dataArray['privacy_mask']);
+		$this->profile_info->UnpackDataInfo($_dataArray['profile_info']);
+		//$this->SetPayload();
+	}
+}
+
+class CCameraConfigurations
+{
+	private $shm_id;
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $board_chipset;
+	public $config;
+    public $camera_module;
+
+	function __construct($shmid=0, $chipset="ambarella", $camera_module="s2l_internal_isp")
+	{
+		$this->dataInfo = '';
+		$this->payloadLength = 0;
+		for($idx = 0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx )
+		{
+			$this->config[$idx] = new CCameraConfiguration();
+			$this->payloadLength += $this->config[$idx]->payloadLength;
+		}
+
+		$this->packFormat = MakeUnpackFormat('config', $this->config[0]->payloadLength, MAX_MEDIA_SOURCE);
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id = shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+			if(!$this->shm_id) 
+				exit;
+
+			$shmid = $this->shm_id;
+		}
+
+		$data_head = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_CAMERA*SIZE_POS_INFO, SIZE_POS_INFO);// SIZE_POS_INFO = 4*3
+		$positionInfo = unpack("i1index/i1offset/i1size", $data_head);
+
+		$offset 	= $positionInfo['offset'];	
+		$total_size = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo "CCameraConfigurations failed: reason: data size is different<br>";
+			printf("payloadLength : %d, total_size : %d\r\n", $this->payloadLength, $total_size);
+			exit;
+		}
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+		$this->board_chipset = $chipset;
+        $this->camera_module = $camera_module;
+	}
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for ($idx=0 ; $idx<MAX_MEDIA_SOURCE ; ++$idx) {
+			$this->config[$idx]->SetPayload();
+			$this->payload .= $this->config[$idx]->payload;
+		}
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for($idx=0 ; $idx < MAX_MEDIA_SOURCE ; ++$idx) {
+			$this->config[$idx]->UnpackDataInfo($_dataArray['config'.$idx]);
+		}
+	}
+	function getCameraInfo()
+	{
+
+		$thermal_type = '/(thermal)/';
+		$seekthermal_type = '/(seekware)/';
+		$camera_type = trim($GLOBALS['system_caps']->camera_type );
+
+		if( preg_match($thermal_type, $camera_type) ) 
+		{
+			require('../sensor/thermal.inc');
+		}
+		else if( preg_match($seekthermal_type, $camera_type) ) 
+		{
+			require('../sensor/seekthermal.inc');
+		} 
+        else if( preg_match('/sony_isp/', $this->camera_module) ){
+            require('../sensor/sony_define.inc');
+        }
+        else if( preg_match('/wonwoo_isp/', $this->camera_module) ){
+            require('../sensor/wonwoo_define.inc');
+        }       
+        else if( preg_match('/esca_isp/', $this->camera_module) ){
+            require('../sensor/esca_define.inc');
+        }
+        else if( preg_match('/ytot_isp/', $this->camera_module) ){
+            require('../sensor/ytot_define.inc');
+        }
+        else if( preg_match('/ov_isp/', $this->camera_module) ){
+            require('../sensor/ov_define.inc');
+        }
+        else{
+            if( preg_match("/amba_s2l/i", $this->board_chipset) )
+                require('../sensor/_s2l_define.inc');
+            else if( preg_match("/amba_s3l/i", $this->board_chipset) )
+                require('../sensor/_s3l_define.inc');
+            else if( preg_match("/amba_s2/i", $this->board_chipset) )
+                require('../sensor/_s2_define.inc');
+            else if( preg_match("/amba_s5l/i", $this->board_chipset) )
+                require('../sensor/_s5l_define.inc');
+            else if( preg_match("/amba_cv22/i", $this->board_chipset) )
+                require('../sensor/_cv22_define.inc');
+            else if( preg_match("/amba_s6lm/i", $this->board_chipset) )
+                require('../sensor/_s6lm_define.inc');
+        }
+
+		// set the camera variable
+		$data = array();
+		for( $src = 0 ; $src < MAX_MEDIA_SOURCE ; $src++)
+		{
+			for( $i = (CAMERA_CODE_START + 1) ; $i < CAMERA_CODE_END ; $i ++)
+			{
+				$data[$src][$list[$i]] = $this->config[$src]->code[$i]->data;
+			}
+		}
+		echo json_encode($data);
+	}
+	function getProfileInfo()
+	{
+		$used = 0;
+		$data = array();
+		//for( $src = 0 ; $src < MAX_MEDIA_SOURCE ; $src++)
+		{
+			for( $i=0; $i<MAX_CAMERA_PROFILE ; ++$i) 
+			{
+				if( $this->config[0]->profile_info->Profile[$i]->Id == 0 ) continue;
+				$data[$used]['id'] = trim($this->config[0]->profile_info->Profile[$i]->Id);
+				$data[$used]['name'] = trim($this->config[0]->profile_info->Profile[$i]->ProfileName);
+				$data[$used]['Fixed'] = trim($this->config[0]->profile_info->Profile[$i]->Fixed);
+				++$used;
+			}
+		}
+		if( $used > 0 )
+			echo json_encode($data);
+		else
+			echo "[]";
+	}
+	function getPrivacyMaskInfo()
+	{
+		$used = 0;
+		$data = array();
+		for( $src = 0 ; $src < MAX_MEDIA_SOURCE ; $src++)
+		{
+			$data[$src]["enabled"] = $this->config[$src]->privacy_mask->Enabled;
+
+			for( $i=0; $i<MAX_PRIVACY_MASK ; ++$i) 
+			{
+				$data[$src]["rectangle"][$i]["start_x"] = 
+					$this->config[$src]->privacy_mask->privacy_info[$i]->StartX;
+				$data[$src]["rectangle"][$i]["start_y"] = 
+					$this->config[$src]->privacy_mask->privacy_info[$i]->StartY;
+				$data[$src]["rectangle"][$i]["width"] = 
+					$this->config[$src]->privacy_mask->privacy_info[$i]->Width;
+				$data[$src]["rectangle"][$i]["height"] = 
+					$this->config[$src]->privacy_mask->privacy_info[$i]->Height;
+			}
+		}
+		echo json_encode($data);
+	}
+}
+class CameraProfileHeaders
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	public $Profile;
+
+	function __construct()
+	{
+		$this->payloadLength = 0;
+		for($index=0; $index < MAX_CAMERA_PROFILE ; $index++) 
+		{
+			$this->Profile[$index] = new CameraProfileHeader();
+			$this->payloadLength += $this->Profile[$index]->payloadLength;
+		}
+		$this->packFormat = MakeUnpackFormat('profile', $this->Profile[0]->payloadLength, MAX_CAMERA_PROFILE);
+	}
+
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+	}
+
+	function __set($name,  $val) 
+	{
+	}
+	
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		for($index=0; $index < MAX_CAMERA_PROFILE ; ++$index)
+		{
+			$this->Profile[$index]->SetPayload();
+			$this->payload .= $this->Profile[$index]->payload;
+		}
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		for( $index=0; $index<MAX_CAMERA_PROFILE ; ++$index){
+			$this->Profile[$index]->UnpackDataInfo($_dataArray['profile'.$index]);
+		}
+	}
+}
+class CameraProfileHeader
+{
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$dumpDataSize = MAX_CAMERA_CODE * (MAX_CAMERA_NAME+MAX_CAMERA_VALUE);
+
+		$this->dataInfo = array('Id'			=> array('value'=>'', 'type'=>'i1'),
+								'Fixed'			=> array('value'=>'', 'type'=>'c1'),
+								'ProfileName'	=> array('value'=>'', 'type'=>'a64'));
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		
+		$this->packFormat = MakeDataFormat($this->dataInfo);
+	}
+
+	function __destruct()
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Id':
+			case 'Fixed':			
+			case 'ProfileName' :
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Id':
+			case 'Fixed':			
+			case 'ProfileName' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}		
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+	}
+}
+class CameraParamRequest
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'code'   => array('value' => 0, 'type'  => 'i1'),
+				'value'   => array('value' => 0, 'type'  => 'i1')
+				);		
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'code':	
+			case 'value':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'code':	
+			case 'value':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+
+class CSensorAlignment
+{
+	public 	$command;
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'Direction' => array('value'=>0, 'type'=>'c1'),
+				'Type'  => array('value'=>0, 'type'=>'i1')
+				);
+
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'Direction':
+			case 'Type'     :
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'Direction':
+			case 'Type' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function SetPayload()
+	{
+		$this->command = 0;
+		
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}			
+}
+?> 

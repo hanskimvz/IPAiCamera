@@ -1,0 +1,730 @@
+<?
+class CWeek_trigger
+{
+	public 	$command;
+
+	public 	$payload;
+	public      $payloadLength;
+	public	$dataInfo;
+	public      $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'sun' => array('value' => 0, 'type' => 'c1'),
+				'mon' => array('value' => 0, 'type' => 'c1'),
+				'tue' => array('value' => 0, 'type' => 'c1'),
+				'wed' => array('value' => 0, 'type' => 'c1'),
+				'thu' => array('value' => 0, 'type' => 'c1'),
+				'fri' => array('value' => 0, 'type' => 'c1'),
+				'sat' => array('value' => 0, 'type' => 'c1')
+				);	
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'sun':	
+			case 'mon':
+			case 'tue':
+			case 'wed':
+			case 'thu':
+			case 'fri':
+			case 'sat':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'sun':	
+			case 'mon':
+			case 'tue':
+			case 'wed':
+			case 'thu':
+			case 'fri':
+			case 'sat':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+	function __destruct() 
+	{
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CTimeRange_trigger
+{
+	public 	$command;
+
+	public 	$payload;
+	public  $payloadLength;
+	public	$dataInfo;
+	public  $packFormat;
+	
+	function __construct() 
+	{
+		$this->dataInfo = array(
+				'start_hour' => array('value' => 0, 'type' => 'i1'),
+				'start_min'  => array('value' => 0, 'type' => 'i1'),
+				'end_hour'   => array('value' => 0, 'type' => 'i1'),
+				'end_min'    => array('value' => 0, 'type' => 'i1')
+				);	
+
+								
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'start_hour':	
+			case 'start_min':
+			case 'end_hour':
+			case 'end_min':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'start_hour':	
+			case 'start_min':
+			case 'end_hour':
+			case 'end_min':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}		
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CScheduleConf
+{
+	public 	$payload;
+	public	$payloadLength;
+	public 	$dataInfo;
+	public 	$packFormat;
+	
+	public  $week;
+	public  $time_range;
+	
+	function __construct() 
+	{
+		$this->week = new CWeek_trigger();
+		$this->time_range = new CTimeRange_trigger();
+		
+		$this->dataInfo = array(
+				'always'     => array('value'=>0,  'type'=>'c1'),
+				'week'       => array('value'=>'', 'type'=>'a'.$this->week->payloadLength),
+				'time_range' => array('value'=>'', 'type'=>'a'.$this->time_range->payloadLength)
+				);
+								
+		$this->payloadLength = 0;
+		$this->payloadLength += GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'always':		
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}	
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'always':			
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}	
+	}	
+	function __destruct() 
+	{
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->week->SetPayload();
+		$this->time_range->SetPayload();
+		
+		$this->payload = '';
+		$this->dataInfo['week']['value'] = $this->week->payload;
+		$this->dataInfo['time_range']['value'] = $this->time_range->payload;
+		$this->payload .= MakePayload($this->dataInfo);	
+	}
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		$this->week->UnpackDataInfo($_dataArray['week']);
+		$this->time_range->UnpackDataInfo($_dataArray['time_range']);
+		//$this->SetPayload();
+	}				
+}
+
+class CEventType
+{
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'enabled' => array('value' => 0, 'type' => 'C1'),
+				'type'    => array('value' => 0, 'type' => 'I1'),
+				'code'    => array('value' => 0, 'type' => 'I1'),
+				'index'   => array('value' => 0, 'type' => 'I1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'enabled':
+			case 'type' :
+			case 'code' :
+			case 'index':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'enabled':
+			case 'type' :
+			case 'code' :
+			case 'index':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+
+class CActionJob
+{
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+	function __construct()
+	{
+		$this->dataInfo = array(
+				'type' 	=> array('value'=>0, 'type'=>'I1'),
+				'index'	=> array('value'=>0, 'type'=>'I1')
+				);
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'type' :
+			case 'index' :
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'type' :
+			case 'index' :
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+		$this->payload .= MakePayload($this->dataInfo);		
+
+	}
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		//$this->SetPayload();
+	}	
+}
+class CActionRule
+{
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+	public $dataInfo;
+
+	public $action_job;
+
+	function __construct()
+	{
+		$this->dataInfo = array(
+				"id"		=> array('value'=>0, 'type'=>'I1'),
+				"name"		=> array('value'=>0, 'type'=>'a32'),
+				"duration"	=> array('value'=>0, 'type'=>'I1')
+				);
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+
+		for($index = 0 ; $index < MAX_NUM_ACTION_JOB ; $index++)
+		{
+			$this->action_job[$index] = new CActionJob();
+			$this->payloadLength += $this->action_job[$index]->payloadLength;	
+		}
+		$this->packFormat 	= '';
+		$tmp 	= MakeUnpackFormat('action_job', $this->action_job[0]->payloadLength, MAX_NUM_ACTION_JOB);
+		$this->packFormat 	= MakeDataFormat($this->dataInfo) . $tmp;
+	}
+	
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'name':
+			case 'duration':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'name':
+			case 'duration':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = MakePayload($this->dataInfo);		
+
+		for($index = 0 ; $index < MAX_NUM_ACTION_JOB ; $index++)
+		{
+			$this->action_job[$index]->SetPayload();
+			$this->payload .= $this->action_job[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for($index = 0 ; $index < MAX_NUM_ACTION_JOB; $index++)
+		{
+			$this->action_job[$index]->SetPayload();
+			$this->payload .= $this->action_job[$index]->UnpackDataInfo($_dataArray['action_job'.$index]);
+		}
+		//$this->SetPayload();
+	}	
+}
+class CActionRules
+{
+	public $payload;
+	public $payloadLength;
+	public $dataInfo;
+	public $packFormat;
+
+	public $action;
+	function __construct()
+	{
+		$this->payloadLength = 0;
+		for($index = 0 ; $index < MAX_NUM_TRIGGER; $index++)
+		{	
+			$this->action[$index] = new CActionRule();
+			$this->payloadLength += $this->action[$index]->payloadLength;	
+		}
+		$this->packFormat 	=MakeUnpackFormat('action', $this->action[0]->payloadLength, MAX_NUM_TRIGGER);
+	}
+	
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+
+		for($index = 0 ; $indexx < MAX_NUM_TRIGGER ; $index++)
+		{
+			$this->action[$index]->SetPayload();
+			$this->payload .= $this->action[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+
+		for($index = 0 ; $index < MAX_NUM_TRIGGER ; $index++)
+		{
+			$this->action[$index]->SetPayload();
+			$this->payload .= $this->action[$index]->UnpackDataInfo($_dataArray['action'.$index]);
+		}
+	}	
+}
+class CEventRule
+{
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+
+	public $dataInfo;
+
+	public $schedule;
+	public $event_type;
+
+	function __construct()
+	{
+		$this->dataInfo = array(
+				"id"		=> array('value'=>0, 'type'=>'I1'),
+				"enabled" 	=> array('value'=>0, 'type'=>'c1'),
+				"name"		=> array('value'=>0, 'type'=>'a32'),
+				"action_id"	=> array('value'=>0, 'type'=>'I1')
+				);
+		$this->schedule 		= new CScheduleConf();
+
+		$this->payloadLength = GetDataInfoLength($this->dataInfo);
+		$this->payloadLength += $this->schedule->payloadLength;	
+		for($index = 0 ; $index < MAX_NUM_EVENT_TYPE ; $index++)
+		{
+			$this->event_type[$index] = new CEventType();
+			$this->payloadLength += $this->event_type[$index]->payloadLength;	
+		}
+		$this->packFormat = "";
+		$this->packFormat 	= MakeDataFormat($this->dataInfo);
+		$this->packFormat 	.= 'a'.$this->schedule->payloadLength .'schedule'. '/';
+
+		$this->packFormat 	.= MakeUnpackFormat('event_type', $this->event_type[0]->payloadLength, MAX_NUM_EVENT_TYPE);
+	}
+	
+	function __destruct() 
+	{
+	}
+	function __get($name)
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'enabled' :
+			case 'name' :
+			case 'action_id':
+			{
+				return $this->dataInfo[$name]['value'];
+			}
+			break;
+		}
+	}
+
+	function __set($name,  $val) 
+	{
+		switch($name)
+		{
+			case 'id' :
+			case 'enabled' :
+			case 'name' :
+			case 'action_id':
+			{
+				$this->dataInfo[$name]['value'] = $val;
+			}
+			break;
+		}
+	}
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = MakePayload($this->dataInfo);		
+
+		$this->schedule->SetPayload();
+		$this->payload .= $this->schedule->payload;
+
+		for($index = 0 ; $index < MAX_NUM_EVENT_TYPE ; $index++)
+		{
+			$this->event_type[$index]->SetPayload();
+			$this->payload .= $this->event_type[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		SetDataInfo($this, $_dataArray);
+		for($index = 0 ; $index < MAX_NUM_EVENT_TYPE ; $index++)
+		{
+			$this->event_type[$index]->SetPayload();
+			$this->payload .= $this->event_type[$index]->UnpackDataInfo($_dataArray['event_type'.$index]);
+		}
+		$this->schedule->setPayload();
+		$this->schedule->UnpackDataInfo($_dataArray['schedule']);
+	}	
+}
+
+class CEventRules
+{
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+
+	public $event;
+	function __construct()
+	{
+		$payloadLength = 0;
+		for($index = 0 ; $index < MAX_NUM_TRIGGER; $index++)
+		{	
+			$this->event[$index] = new CEventRule();
+			$this->payloadLength += $this->event[$index]->payloadLength;	
+		}
+		$this->packFormat 	=MakeUnpackFormat('event', $this->event[0]->payloadLength, MAX_NUM_TRIGGER);
+	}
+	
+	function __destruct() 
+	{
+	}
+
+	// arrayed data info binary string
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+
+		for($index = 0 ; $index < MAX_NUM_TRIGGER ; $index++)
+		{
+			$this->event[$index]->SetPayload();
+			$this->payload .= $this->event[$index]->payload;
+		}
+	}		
+	// Binary string into arrayed data
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+
+		for($index = 0 ; $index < MAX_NUM_TRIGGER ; $index++)
+		{
+			$this->event[$index]->SetPayload();
+			$this->payload .= $this->event[$index]->UnpackDataInfo($_dataArray['event'.$index]);
+		}
+	}	
+}
+class CTriggersConfiguration
+{
+	private $shm_id;
+	public $command;
+	public $payload;
+	public $payloadLength;
+	public $packFormat;
+	public $action_rules;
+	public $event_rules;
+	
+	function __construct($shmid = 0) 
+	{
+
+		$this->action_rules = new CActionRules();
+		$this->event_rules = new CEventRules();
+		$this->payloadLength = $this->action_rules->payloadLength;
+		$this->payloadLength += $this->event_rules->payloadLength;
+		
+		$this->packFormat 	= "a".$this->action_rules->payloadLength ."action_rules". 
+			"/a". $this->event_rules->payloadLength."event_rules";
+
+		$this->shm_id = 0;
+		if($shmid == 0)
+		{
+			$this->shm_id 		= shmop_open(KEY_SM_SHARED_CONFIG, "a", 0, 0);
+
+			if(!$this->shm_id) 
+				exit;	
+			$shmid = $this->shm_id;  
+		}		
+
+		// SIZE_POS_INFO = 4 * 3
+		$data_head       = shmop_read($shmid, OFFSET_BASE + SETUP_PARAM_TRIGGERS_CONFIGURATION*SIZE_POS_INFO, SIZE_POS_INFO);
+		$positionInfo    = unpack("i1index/i1offset/i1size", $data_head);
+		$offset          = $positionInfo['offset'];
+		$total_size      = $positionInfo['size'];
+
+		if($this->payloadLength != $total_size)
+		{
+			echo 'payloadLength='	. $this->payloadLength."<br>";
+			echo 'total_size='		. $total_size."<br>";
+			exit;
+		}
+		
+		$data   = shmop_read($shmid, $offset, $total_size);
+		$this->UnpackDataInfo($data);
+	}
+	
+	function __destruct() 
+	{
+	  if($this->shm_id)
+		  shmop_close($this->shm_id);
+	}
+
+	function SetPayload()
+	{
+		$this->command = 0;
+		$this->payload = '';
+
+		$this->action_rules->SetPayload();
+		$this->payload .= $this->action_rules->payload;
+
+		$this->event_rules->SetPayload();
+		$this->payload .= $this->event_rules->payload;
+	}	
+
+	function UnpackDataInfo($_dataArray)
+	{
+		if (is_string($_dataArray)) 
+		{
+			$_dataArray = unpack($this->packFormat, $_dataArray);
+		}
+		$this->action_rules->UnpackDataInfo($_dataArray['action_rules']);
+		$this->event_rules->UnpackDataInfo($_dataArray['event_rules']);
+		//$this->SetPayload();
+	}
+}
+
+?>

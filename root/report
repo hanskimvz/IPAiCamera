@@ -1,0 +1,14 @@
+[34m
+---------------------------------------------------------
+-               Rootfilesystem Check Report             -
+---------------------------------------------------------
+[0m
+
+
+/* file information */
+
+[Message] /etc/passwd Checksum[32m OK. [0m
+[Message] /root/diag.sh Checksum[32m OK. [0m
+[Message] /root/ipnc Checksum[32m OK. [0m
+[Message] /root/ModelInfo.ini Checksum[32m OK. [0m
+
